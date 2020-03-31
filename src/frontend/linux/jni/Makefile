@@ -30,11 +30,16 @@ LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)simusplayer.$(LIBEXT)
 
 CFLAGS += \
  -O2 -Wall -I . -g -I$(JAVA_HOME)/include/ 
+
+CFLAGS += $(shell pkg-config --cflags alsa)
+LDFLAGS += $(shell pkg-config --libs alsa)
  
 CFLAGS_ONLY = -std=gnu99
   
 OBJS = $(addprefix $(OBJDIR)/, \
 	main.o \
+	alsalib.o \
+	misc.o \
 	)
 		
 $(OBJDIR)/%.o: %.c 
