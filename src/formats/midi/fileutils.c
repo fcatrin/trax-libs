@@ -1,27 +1,49 @@
+#include <stdlib.h>
+#include <string.h>
 #include "common.h"
 #include "fileutils.h"
 
-static uint32 file_offset;
+stream *open(const char *filename) {
+	FILE *f = fopen(filename, "rb");
+	if (!f) return NULL;
 
-int read_byte(FILE *file) {
-	++file_offset;
-	return getc(file);
+	stream *stream = malloc(sizeof(stream));
+	stream->file = f;
+	stream->offset = 0;
+	stream->filename = strdup(filename);
+	return stream;
 }
 
-int32 read_32_le(FILE *file) {
+void close(stream *stream) {
+	fclose(stream->file);
+	free(stream->filename);
+	free(stream);
+}
+
+int read_byte(stream *stream) {
+	stream->offset++;
+	return getc(stream->file);
+}
+
+void unread_byte(stream *stream, int c) {
+	stream->offset--;
+	ungetc(c, stream->file);
+}
+
+int32 read_32_le(stream *stream) {
 	int32 value;
-	value = read_byte(file);
-	value |= read_byte(file) << 8;
-	value |= read_byte(file) << 16;
-	value |= read_byte(file) << 24;
-	return !feof(file) ? value : EOF;
+	value = read_byte(stream);
+	value |= read_byte(stream) << 8;
+	value |= read_byte(stream) << 16;
+	value |= read_byte(stream) << 24;
+	return !feof(stream->file) ? value : EOF;
 }
 
-int32 read_int(FILE *file, uint32 bytes) {
+int32 read_int(stream *stream, uint32 bytes) {
 	int32 c, value = 0;
 
 	do {
-		c = read_byte(file);
+		c = read_byte(stream);
 		if (c == EOF)
 			return EOF;
 		value = (value << 8) | c;
@@ -29,31 +51,22 @@ int32 read_int(FILE *file, uint32 bytes) {
 	return value;
 }
 
-int32 read_var(FILE *file) {
+int32 read_var(stream *stream) {
 	int32 value, c;
 
-	c = read_byte(file);
-	value = c & 0x7f;
-	if (c & 0x80) {
-		c = read_byte(file);
+	uint8 i = 0;
+	value = 0;
+	do {
+		c = read_byte(stream);
 		value = (value << 7) | (c & 0x7f);
-		if (c & 0x80) {
-			c = read_byte(file);
-			value = (value << 7) | (c & 0x7f);
-			if (c & 0x80) {
-				c = read_byte(file);
-				value = (value << 7) | c;
-				if (c & 0x80)
-					return EOF;
-			}
-		}
-	}
-	return !feof(file) ? value : EOF;
+	} while ( (c & 0x80) && i++ < 4 && !feof(stream->file));
+
+	return !feof(stream->file) ? value : EOF;
 }
 
-void skip(FILE *file, uint32 bytes) {
+void skip(stream *stream, uint32 bytes) {
 	while (bytes > 0) {
-		read_byte(file);
+		read_byte(stream);
 		--bytes;
 	}
 }
