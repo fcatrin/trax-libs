@@ -285,11 +285,11 @@ invalid_format:
 	return  NULL;
 
 abort_song:
-	unload(song);
+	song_unload(song);
 	return NULL;
 }
 
-void unload(song *song) {
+void song_unload(song *song) {
 
 	for (int i = 0; i < song->num_tracks; ++i) {
 		event *event = song->tracks[i].first_event;
@@ -346,7 +346,7 @@ data_not_found:
 	return NULL;
 }
 
-song *load(const char *filename) {
+song *song_load(const char *filename) {
 
 	stream *stream = stream_open(filename);
 

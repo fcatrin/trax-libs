@@ -9,19 +9,51 @@ extern "C" {
 #endif
 /*
  * Class:     xtvapps_simusplayer_NativeInterface
- * Method:    init
+ * Method:    alsaInit
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_init
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaInit
   (JNIEnv *, jclass);
 
 /*
  * Class:     xtvapps_simusplayer_NativeInterface
- * Method:    dump_ports
+ * Method:    alsaDumpPorts
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_dump_1ports
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaDumpPorts
   (JNIEnv *, jclass);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    midiLoad
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiLoad
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    midiUnload
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiUnload
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    midiGetTracksCount
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTracksCount
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    modoGetTrackName
+ * Signature: (II)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_modoGetTrackName
+  (JNIEnv *, jclass, jint, jint);
 
 #ifdef __cplusplus
 }

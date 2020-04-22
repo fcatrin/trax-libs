@@ -1,6 +1,8 @@
 #ifndef _SONG_H_
 #define _SONG_H_
 
+#include "common.h"
+
 typedef struct event {
 	struct event *next; /* linked list */
 
