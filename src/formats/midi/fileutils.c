@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "common.h"
@@ -71,4 +72,12 @@ void skip(stream *stream, uint32 bytes) {
 	}
 }
 
+char *read_string(stream *stream, int bytes) {
+	char *buffer = malloc(bytes+1);
+	for(int i=0; i<bytes; i++) {
+		buffer[i] = (char)read_byte(stream);
+	}
+	buffer[bytes] = 0;
+	return buffer;
+}
 

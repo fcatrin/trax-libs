@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -131,7 +132,13 @@ static int read_track(stream *stream, song *song, uint16 track_index, int track_
 					goto _error;
 
 				switch (c) {
-				case 0x21: /* port number */
+				case 0x01: { // text event
+					char *text = read_string(stream, len);
+					printf("text: %s\n", text);
+					free(text);
+					}
+					break;
+				case 0x21:	 /* port number */
 					if (len < 1)
 						goto _error;
 					port = read_byte(stream); // Port Count is only available in the target system % port_count;
