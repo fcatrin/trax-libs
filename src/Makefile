@@ -1,7 +1,10 @@
 CC = gcc
 CFLAGS = -g -Wall -fPIC
-LDFLAGS = -shared
+AR = ar
+ARFLAGS =
 LIBS =
+
+LIBPREFIX = lib
 
 include formats/midi/Makefile
 
@@ -9,7 +12,7 @@ OBJDIR = ../obj
 
 ALL_OBJS = $(addprefix $(OBJDIR)/, $(OBJS))
 
-TARGET = simusplayer-core.so
+TARGET = $(LIBPREFIX)simusplayer-core.a
 
 all: $(TARGET)
 
@@ -19,7 +22,7 @@ $(OBJDIR)/%.o: %.c
 	
 	
 $(TARGET): $(ALL_OBJS)
-	$(CC) -o $@ $(LDFLAGS) $(ALL_OBJS) $(LIBS)
+	$(AR) rcs -o $@ $(ARFLAGS) $(ALL_OBJS) $(LIBS)
 
 clean:
 	rm -f $(ALL_OBJS)
