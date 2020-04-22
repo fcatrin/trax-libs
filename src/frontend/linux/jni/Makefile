@@ -48,15 +48,20 @@ $(OBJDIR)/%.o: %.c
 $(OBJDIR)/%.o: %.cpp
 	$(CC) -c $(CFLAGS) -o $@ $< 
 
-all : prepare $(LINK_TARGET)
+all : prepare core $(LINK_TARGET)
 
 $(LINK_TARGET) : $(OBJS)
 	$(LD) -o $@ $^ $(LDFLAGS)
 
 prepare :
-	mkdir -p $(LIBSDIR)/$(LIBARCH)
-	mkdir -p $(OBJDIR)
+	@mkdir -p $(LIBSDIR)/$(LIBARCH)
+	@mkdir -p $(OBJDIR)
+
+core:
+	cd ../../../ && $(MAKE)
+	cp ../../../simusplayer-core.so $(LIBSDIR)/$(LIBARCH)/libsimusplayer-core.so 
 
 clean :
 	find $(OBJDIR) -name "*.o" -exec rm {} \;
 	find $(LIBSDIR) -name "*.$(LIBEXT)" -exec rm {} \;
+	cd ../../../ && $(MAKE) clean

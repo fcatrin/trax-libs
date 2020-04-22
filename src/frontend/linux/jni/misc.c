@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <misc.h>
 
 #define EXIT_FAILURE 1
 
-void fatal(const char *msg, ...) {
+void log_fatal(const char *msg, ...) {
 	va_list ap;
 
 	va_start(ap, msg);

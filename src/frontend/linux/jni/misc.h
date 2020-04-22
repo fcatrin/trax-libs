@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-void fatal(const char *msg, ...);
+void log_fatal(const char *msg, ...);
 
 #ifdef __cplusplus
 }

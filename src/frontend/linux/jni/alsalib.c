@@ -1,4 +1,5 @@
 #include <alsa/asoundlib.h>
+#include "misc.h"
 
 static snd_seq_t *seq;
 static int client;
@@ -6,7 +7,7 @@ static int client;
 /* error handling for ALSA functions */
 static void check_snd(const char *operation, int err) {
 	if (err < 0)
-		fatal("Cannot %s - %s", operation, snd_strerror(err));
+		log_fatal("Cannot %s - %s", operation, snd_strerror(err));
 }
 
 static void init_seq(void) {
