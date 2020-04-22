@@ -10,6 +10,7 @@ void log_error(const char *msg, ...) {
 	vfprintf(stderr, msg, ap);
 	va_end(ap);
 	fputc('\n', stderr);
+	fflush(stderr);
 }
 
 void log_fatal(const char *msg, ...) {
@@ -19,6 +20,7 @@ void log_fatal(const char *msg, ...) {
 	vfprintf(stderr, msg, ap);
 	va_end(ap);
 	fputc('\n', stderr);
+	fflush(stderr);
 	exit(EXIT_FAILURE);
 }
 
