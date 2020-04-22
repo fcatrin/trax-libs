@@ -1,8 +1,8 @@
 #ifndef _SONG_H_
 #define _SONG_H_
 
-struct event_t {
-	struct event_t *next; /* linked list */
+typedef struct event {
+	struct event *next; /* linked list */
 
 	uint8  type;		/* SND_SEQ_EVENT_xxx */
 	uint8  port;		/* port index */
@@ -13,29 +13,23 @@ struct event_t {
 		uint32 length;	/* length of sysex data */
 	} data;
 	uint8 sysex[0];
-};
+} event;
 
-typedef struct event_t event;
-
-struct track_t {
+typedef struct track {
 	event *first_event;	/* list of all events in this track */
 	uint32 end_tick;			/* length of this track */
 
 	event *current_event;	/* used while loading and playing */
-};
+} track;
 
-typedef struct track_t track;
-
-struct song_t {
+typedef struct song {
 	uint16 num_tracks;
 	track  *tracks;
 	int32  smpte_timing;
 
 	uint32 tempo;
 	uint32 ppq;
-};
-
-typedef struct song_t song;
+} song;
 
 enum Event {
 	EVENT_NOTEOFF = 1,

@@ -287,7 +287,7 @@ void unload(song *song) {
 	for (int i = 0; i < song->num_tracks; ++i) {
 		event *event = song->tracks[i].first_event;
 		while (event) {
-			struct event_t *next = event->next;
+			struct event *next = event->next;
 			free(event);
 			event = next;
 		}
