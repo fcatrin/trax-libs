@@ -1,10 +1,9 @@
 CC = gcc
 LD = gcc
 
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -I../../..
 
-LDFLAGS = -lm -shared 
-LIBPREFIX =
+LDFLAGS = -lm -shared -L../../../ -lsimusplayer-core
 LIBARCH =
 
 LIBPREFIX = lib
@@ -39,7 +38,6 @@ CFLAGS_ONLY = -std=gnu99
 OBJS = $(addprefix $(OBJDIR)/, \
 	main.o \
 	alsalib.o \
-	misc.o \
 	)
 		
 $(OBJDIR)/%.o: %.c 
@@ -51,7 +49,7 @@ $(OBJDIR)/%.o: %.cpp
 all : prepare core $(LINK_TARGET)
 
 $(LINK_TARGET) : $(OBJS)
-	$(LD) -o $@ $^ $(LDFLAGS)
+	$(LD) -o $@ $^ $(LDFLAGS) 
 
 prepare :
 	@mkdir -p $(LIBSDIR)/$(LIBARCH)
@@ -59,7 +57,6 @@ prepare :
 
 core:
 	cd ../../../ && $(MAKE)
-	cp ../../../simusplayer-core.so $(LIBSDIR)/$(LIBARCH)/libsimusplayer-core.so 
 
 clean :
 	find $(OBJDIR) -name "*.o" -exec rm {} \;

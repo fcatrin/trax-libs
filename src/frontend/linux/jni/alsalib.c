@@ -1,5 +1,5 @@
 #include <alsa/asoundlib.h>
-#include "misc.h"
+#include <formats/midi/common.h>
 
 static snd_seq_t *seq;
 static int client;
