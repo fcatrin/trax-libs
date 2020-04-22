@@ -2,7 +2,7 @@
 #define _SONG_H_
 
 struct event_t {
-	struct event_t *next;		/* linked list */
+	struct event_t *next; /* linked list */
 
 	uint8  type;		/* SND_SEQ_EVENT_xxx */
 	uint8  port;		/* port index */

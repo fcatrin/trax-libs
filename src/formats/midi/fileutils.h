@@ -11,8 +11,8 @@ struct stream_t {
 
 typedef struct stream_t stream;
 
-stream *open(const char *filename);
-void close(stream *stream);
+stream *stream_open(const char *filename);
+void    stream_close(stream *stream);
 
 int   read_byte(stream *stream);
 int32 read_32_le(stream *stream);

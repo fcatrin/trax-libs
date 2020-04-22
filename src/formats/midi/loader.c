@@ -1,7 +1,10 @@
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 #include "common.h"
 #include "fileutils.h"
 #include "song.h"
+#include "loader.h"
 
 #define MAKE_ID(c1, c2, c3, c4) ((c1) | ((c2) << 8) | ((c3) << 16) | ((c4) << 24))
 
@@ -275,9 +278,23 @@ invalid_format:
 	return  NULL;
 
 abort_song:
+	unload(song);
+	return NULL;
+}
+
+void unload(song *song) {
+
+	for (int i = 0; i < song->num_tracks; ++i) {
+		event *event = song->tracks[i].first_event;
+		while (event) {
+			struct event_t *next = event->next;
+			free(event);
+			event = next;
+		}
+	}
+
 	free(song->tracks);
 	free(song);
-	return NULL;
 }
 
 song *read_riff(stream *stream) {
@@ -322,3 +339,29 @@ data_not_found:
 	return NULL;
 }
 
+song *load(const char *filename) {
+
+	stream *stream = stream_open(filename);
+
+	if (!stream) {
+		log_error("Cannot open %s - %s", filename, strerror(errno));
+		return NULL;
+	}
+
+	song *song = NULL;
+
+	switch (read_id(stream)) {
+	case MAKE_ID('M', 'T', 'h', 'd'):
+		song = read_smf(stream);
+		break;
+	case MAKE_ID('R', 'I', 'F', 'F'):
+		song = read_riff(stream);
+		break;
+	default:
+		log_error("%s is not a Standard MIDI File", filename);
+		break;
+	}
+
+	stream_close(stream);
+	return song;
+}

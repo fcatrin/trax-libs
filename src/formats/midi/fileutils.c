@@ -3,7 +3,7 @@
 #include "common.h"
 #include "fileutils.h"
 
-stream *open(const char *filename) {
+stream *stream_open(const char *filename) {
 	FILE *f = fopen(filename, "rb");
 	if (!f) return NULL;
 
@@ -14,7 +14,7 @@ stream *open(const char *filename) {
 	return stream;
 }
 
-void close(stream *stream) {
+void stream_close(stream *stream) {
 	fclose(stream->file);
 	free(stream->filename);
 	free(stream);
