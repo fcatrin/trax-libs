@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -fPIC
+CFLAGS = -g -Wall
 AR = ar
 ARFLAGS =
 LIBS =
@@ -25,4 +25,5 @@ $(TARGET): $(ALL_OBJS)
 	$(AR) rcs -o $@ $(ARFLAGS) $(ALL_OBJS) $(LIBS)
 
 clean:
-	rm -f $(ALL_OBJS)
+	rm -f $(ALL_OBJS) 2>/dev/null
+	rm -f $(TARGET) 2>/dev/null

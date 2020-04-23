@@ -8,7 +8,7 @@ stream *stream_open(const char *filename) {
 	FILE *f = fopen(filename, "rb");
 	if (!f) return NULL;
 
-	stream *stream = malloc(sizeof(stream));
+	stream *stream = malloc(sizeof(struct stream));
 	stream->file = f;
 	stream->offset = 0;
 	stream->filename = strdup(filename);

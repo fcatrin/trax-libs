@@ -16,7 +16,7 @@ static int32 read_id(stream *stream) {
 static event *event_new(track *track, int32 sysex_length) {
 	event *event;
 
-	event = malloc(sizeof(event) + sysex_length);
+	event = malloc(sizeof(struct event) + sysex_length);
 	check_mem(event);
 
 	event->next = NULL;
@@ -37,6 +37,9 @@ static int read_track(stream *stream, song *song, uint16 track_index, int track_
 	unsigned char port = 0;
 
 	track *track = &song->tracks[track_index];
+	track->first_event = NULL;
+	track->current_event = NULL;
+	track->end_tick = 0;
 
 	while (stream->offset < track_end) {
 		unsigned char cmd;
@@ -44,13 +47,15 @@ static int read_track(stream *stream, song *song, uint16 track_index, int track_
 		int delta_ticks, len, c;
 
 		delta_ticks = read_var(stream);
-		if (delta_ticks < 0)
+		if (delta_ticks < 0) {
 			break;
-		tick += delta_ticks;
+		}
 
+		tick += delta_ticks;
 		c = read_byte(stream);
-		if (c < 0)
+		if (c < 0) {
 			break;
+		}
 
 		if (c & 0x80) {
 			/* have command */
@@ -106,8 +111,9 @@ static int read_track(stream *stream, song *song, uint16 track_index, int track_
 			case 0xf0: /* sysex */
 			case 0xf7: /* continued sysex, or escaped commands */
 				len = read_var(stream);
-				if (len < 0)
+				if (len < 0) {
 					goto _error;
+				}
 				if (cmd == 0xf0)
 					++len;
 				event = event_new(track, len);
@@ -132,7 +138,7 @@ static int read_track(stream *stream, song *song, uint16 track_index, int track_
 					goto _error;
 
 				switch (c) {
-				case 0x01: { // text event
+				case 0x03: { // text event
 					char *text = read_string(stream, len);
 					printf("text: %s\n", text);
 					free(text);
@@ -205,7 +211,7 @@ static song *read_smf(stream *stream) {
 		return NULL;
 	}
 
-	song *song = malloc(sizeof(song));
+	song *song = malloc(sizeof(struct song));
 
 	song->num_tracks = read_int(stream, 2);
 	if (song->num_tracks < 1 || song->num_tracks > 1000) {
@@ -213,16 +219,16 @@ static song *read_smf(stream *stream) {
 		goto abort_song;
 	}
 
-	track *tracks = calloc(song->num_tracks, sizeof(track));
-	check_mem(tracks);
+	song->tracks = calloc(song->num_tracks, sizeof(struct track));
+	check_mem(song->tracks);
 
 	int32 time_division = read_int(stream, 2);
 	if (time_division < 0)
 		goto abort_song;
 
 	/* interpret and set tempo */
-	uint32 smpte_timing = time_division & 0x8000;
-	if (!smpte_timing) {
+	song->smpte_timing = time_division & 0x8000;
+	if (!song->smpte_timing) {
 		/* time_division is ticks per quarter */
 		song->tempo = 500000; /* default: 120 bpm */
 		song->ppq   = time_division;
@@ -271,13 +277,17 @@ static song *read_smf(stream *stream) {
 				log_error("%s: invalid chunk length %d", stream->filename, len);
 				goto abort_song;
 			}
-			if (id == MAKE_ID('M', 'T', 'r', 'k'))
+
+			if (id == MAKE_ID('M', 'T', 'r', 'k')) {
 				break;
+			}
 			skip(stream, len);
 		}
-		if (!read_track(stream, song, i, stream->offset + len))
+		if (!read_track(stream, song, i, stream->offset + len)) {
 			goto abort_song;
+		}
 	}
+
 	return song;
 
 invalid_format:

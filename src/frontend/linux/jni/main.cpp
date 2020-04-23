@@ -7,9 +7,12 @@ extern "C" {
 #include "alsalib.h"
 #include "xtvapps_simusplayer_NativeInterface.h"
 
-
 #define MAX_OPENED_SONGS 10
 song *songs[MAX_OPENED_SONGS];
+
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
+	return JNI_VERSION_1_6;
+}
 
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaInit
   (JNIEnv *env, jclass thiz) {
