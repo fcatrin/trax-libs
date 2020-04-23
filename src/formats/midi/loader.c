@@ -9,12 +9,12 @@
 
 #define MAKE_ID(c1, c2, c3, c4) ((c1) | ((c2) << 8) | ((c3) << 16) | ((c4) << 24))
 
-static int32 read_id(stream *stream) {
+static int32 read_id(struct stream *stream) {
 	return read_32_le(stream);
 }
 
-static event *event_new(track *track, int32 sysex_length) {
-	event *event;
+static struct event *event_new(struct track *track, int32 sysex_length) {
+	struct event *event;
 
 	event = malloc(sizeof(struct event) + sysex_length);
 	check_mem(event);
@@ -31,19 +31,19 @@ static event *event_new(track *track, int32 sysex_length) {
 	return event;
 }
 
-static int read_track(stream *stream, song *song, uint16 track_index, int track_end) {
+static int read_track(struct stream *stream, struct song *song, uint16 track_index, int track_end) {
 	int tick = 0;
 	unsigned char last_cmd = 0;
 	unsigned char port = 0;
 
-	track *track = &song->tracks[track_index];
+	struct track *track = &song->tracks[track_index];
 	track->first_event = NULL;
 	track->current_event = NULL;
 	track->end_tick = 0;
 
 	while (stream->offset < track_end) {
 		unsigned char cmd;
-		event *event;
+		struct event *event;
 		int delta_ticks, len, c;
 
 		delta_ticks = read_var(stream);
@@ -195,7 +195,7 @@ _error:
 }
 
 /* reads an entire MIDI file */
-static song *read_smf(stream *stream) {
+static struct song *read_smf(struct stream *stream) {
 
 	int header_len, type, i;
 
@@ -211,7 +211,7 @@ static song *read_smf(stream *stream) {
 		return NULL;
 	}
 
-	song *song = malloc(sizeof(struct song));
+	struct song *song = malloc(sizeof(struct song));
 
 	song->num_tracks = read_int(stream, 2);
 	if (song->num_tracks < 1 || song->num_tracks > 1000) {
@@ -299,10 +299,10 @@ abort_song:
 	return NULL;
 }
 
-void song_unload(song *song) {
+void song_unload(struct song *song) {
 
 	for (int i = 0; i < song->num_tracks; ++i) {
-		event *event = song->tracks[i].first_event;
+		struct event *event = song->tracks[i].first_event;
 		while (event) {
 			struct event *next = event->next;
 			free(event);
@@ -314,7 +314,7 @@ void song_unload(song *song) {
 	free(song);
 }
 
-song *read_riff(stream *stream) {
+struct song *read_riff(struct stream *stream) {
 	/* skip file length */
 	read_byte(stream);
 	read_byte(stream);
@@ -356,16 +356,16 @@ data_not_found:
 	return NULL;
 }
 
-song *song_load(const char *filename) {
+struct song *song_load(const char *filename) {
 
-	stream *stream = stream_open(filename);
+	struct stream *stream = stream_open(filename);
 
 	if (!stream) {
 		log_error("Cannot open %s - %s", filename, strerror(errno));
 		return NULL;
 	}
 
-	song *song = NULL;
+	struct song *song = NULL;
 
 	switch (read_id(stream)) {
 	case MAKE_ID('M', 'T', 'h', 'd'):

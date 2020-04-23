@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-typedef struct event {
+struct event {
 	struct event *next; /* linked list */
 
 	uint8  type;		/* SND_SEQ_EVENT_xxx */
@@ -15,23 +15,23 @@ typedef struct event {
 		uint32 length;	/* length of sysex data */
 	} data;
 	uint8 sysex[0];
-} event;
+};
 
-typedef struct track {
-	event *first_event;	/* list of all events in this track */
+struct track {
+	struct event *first_event;	/* list of all events in this track */
 	uint32 end_tick;			/* length of this track */
 
-	event *current_event;	/* used while loading and playing */
-} track;
+	struct event *current_event;	/* used while loading and playing */
+};
 
-typedef struct song {
+struct song {
 	uint16 num_tracks;
-	track  *tracks;
+	struct track  *tracks;
 	int32  smpte_timing;
 
 	uint32 tempo;
 	uint32 ppq;
-} song;
+};
 
 enum Event {
 	EVENT_NOTEOFF = 1,

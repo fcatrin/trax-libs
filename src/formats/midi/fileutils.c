@@ -4,34 +4,34 @@
 #include "common.h"
 #include "fileutils.h"
 
-stream *stream_open(const char *filename) {
+struct stream *stream_open(const char *filename) {
 	FILE *f = fopen(filename, "rb");
 	if (!f) return NULL;
 
-	stream *stream = malloc(sizeof(struct stream));
+	struct stream *stream = malloc(sizeof(struct stream));
 	stream->file = f;
 	stream->offset = 0;
 	stream->filename = strdup(filename);
 	return stream;
 }
 
-void stream_close(stream *stream) {
+void stream_close(struct stream *stream) {
 	fclose(stream->file);
 	free(stream->filename);
 	free(stream);
 }
 
-int read_byte(stream *stream) {
+int read_byte(struct stream *stream) {
 	stream->offset++;
 	return getc(stream->file);
 }
 
-void unread_byte(stream *stream, int c) {
+void unread_byte(struct stream *stream, int c) {
 	stream->offset--;
 	ungetc(c, stream->file);
 }
 
-int32 read_32_le(stream *stream) {
+int32 read_32_le(struct stream *stream) {
 	int32 value;
 	value = read_byte(stream);
 	value |= read_byte(stream) << 8;
@@ -40,7 +40,7 @@ int32 read_32_le(stream *stream) {
 	return !feof(stream->file) ? value : EOF;
 }
 
-int32 read_int(stream *stream, uint32 bytes) {
+int32 read_int(struct stream *stream, uint32 bytes) {
 	int32 c, value = 0;
 
 	do {
@@ -52,7 +52,7 @@ int32 read_int(stream *stream, uint32 bytes) {
 	return value;
 }
 
-int32 read_var(stream *stream) {
+int32 read_var(struct stream *stream) {
 	int32 value, c;
 
 	uint8 i = 0;
@@ -65,14 +65,14 @@ int32 read_var(stream *stream) {
 	return !feof(stream->file) ? value : EOF;
 }
 
-void skip(stream *stream, uint32 bytes) {
+void skip(struct stream *stream, uint32 bytes) {
 	while (bytes > 0) {
 		read_byte(stream);
 		--bytes;
 	}
 }
 
-char *read_string(stream *stream, int bytes) {
+char *read_string(struct stream *stream, int bytes) {
 	char *buffer = malloc(bytes+1);
 	for(int i=0; i<bytes; i++) {
 		buffer[i] = (char)read_byte(stream);

@@ -3,7 +3,7 @@
 
 #include <formats/midi/song.h>
 
-song *song_load(const char *filename);
-void song_unload(song *song);
+struct song *song_load(const char *filename);
+void song_unload(struct song *song);
 
 #endif
