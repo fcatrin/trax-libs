@@ -1,15 +1,18 @@
 #ifndef _ALSALIB_H_
 #define _ALSALIB_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+struct port_info {
+	int client;
+	int port;
+	char *client_name;
+	char *port_name;
+};
 
 void alsa_init();
-void alsa_list_ports();
+void alsa_done();
 
-#ifdef __cplusplus
-}
-#endif
+int alsa_get_ports_count();
+struct port_info *alsa_get_port_info(int index);
+
 
 #endif

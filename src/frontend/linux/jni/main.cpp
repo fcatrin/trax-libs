@@ -19,10 +19,53 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaInit
 	alsa_init();
 }
 
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaDone
+  (JNIEnv *env, jclass thiz) {
+	alsa_done();
+}
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaDumpPorts
-	(JNIEnv *env, jclass thiz) {
-	alsa_list_ports();
+
+JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetPortsCount
+  (JNIEnv *env, jclass thiz) {
+	return alsa_get_ports_count();
+}
+
+JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetPortIds
+  (JNIEnv *env, jclass thiz, jint port_index) {
+
+	struct port_info *port_info = alsa_get_port_info(port_index);
+	if (port_info == NULL) return NULL;
+
+	int ids[2] = {
+			port_info->client,
+			port_info->port
+	};
+
+	jintArray result = env->NewIntArray(2);
+	env->SetIntArrayRegion(result, 0, 2, ids);
+
+	return result;
+}
+
+JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetPortNames
+  (JNIEnv *env, jclass thiz, jint port_index) {
+	struct port_info *port_info = alsa_get_port_info(port_index);
+	if (port_info == NULL) return NULL;
+
+	const char *names[2] = {
+			port_info->client_name,
+			port_info->port_name
+	};
+
+	jobjectArray result = env->NewObjectArray(2,
+			env->FindClass("java/lang/String"),
+	        env->NewStringUTF(""));
+
+	for(int i=0;i<2;i++) {
+		env->SetObjectArrayElement(result, i, env->NewStringUTF(names[i]));
+	}
+
+	return result;
 }
 
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiLoad

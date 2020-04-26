@@ -17,11 +17,35 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaInit
 
 /*
  * Class:     xtvapps_simusplayer_NativeInterface
- * Method:    alsaDumpPorts
+ * Method:    alsaDone
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaDumpPorts
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaDone
   (JNIEnv *, jclass);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    alsaGetPortsCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetPortsCount
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    alsaGetPortIds
+ * Signature: (I)[I
+ */
+JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetPortIds
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    alsaGetPortNames
+ * Signature: (I)[Ljava/lang/String;
+ */
+JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetPortNames
+  (JNIEnv *, jclass, jint);
 
 /*
  * Class:     xtvapps_simusplayer_NativeInterface
