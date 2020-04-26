@@ -3,6 +3,16 @@
 #include <stdarg.h>
 #include "common.h"
 
+void log_debug(const char *msg, ...) {
+	va_list ap;
+
+	va_start(ap, msg);
+	vfprintf(stdout, msg, ap);
+	va_end(ap);
+	fputc('\n', stdout);
+	fflush(stdout);
+}
+
 void log_error(const char *msg, ...) {
 	va_list ap;
 
