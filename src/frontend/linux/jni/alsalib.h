@@ -13,6 +13,7 @@ void alsa_done();
 
 int alsa_get_ports_count();
 struct port_info *alsa_get_port_info(int index);
+bool alsa_connect_port(int index);
 
 
 #endif

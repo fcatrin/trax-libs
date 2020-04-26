@@ -12,6 +12,8 @@ public class NativeInterface {
 	public static native int[]    alsaGetPortIds(int port);
 	public static native String[] alsaGetPortNames(int port);
 	
+	public static native boolean alsaConnectPort(int port);
+	
 	public static native int  midiLoad(String filename);
 	public static native void midiUnload(int handle);
 	public static native int  midiGetTracksCount(int handle);

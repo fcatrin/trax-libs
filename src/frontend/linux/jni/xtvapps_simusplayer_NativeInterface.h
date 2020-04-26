@@ -49,6 +49,14 @@ JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetP
 
 /*
  * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    alsaConnectPort
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaConnectPort
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
  * Method:    midiLoad
  * Signature: (Ljava/lang/String;)I
  */

@@ -68,6 +68,12 @@ JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetP
 	return result;
 }
 
+JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaConnectPort
+  (JNIEnv *env, jclass thiz, jint port) {
+	return alsa_connect_port(port);
+}
+
+
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiLoad
   (JNIEnv *env, jclass thiz, jstring sFilename) {
 

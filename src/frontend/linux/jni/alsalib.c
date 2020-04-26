@@ -65,14 +65,6 @@ static void load_ports() {
 			port_info->port        = snd_seq_port_info_get_port(pinfo);
 			port_info->client_name = strdup(snd_seq_client_info_get_name(cinfo));
 			port_info->port_name   = strdup(snd_seq_port_info_get_name(pinfo));
-
-			/*
-			printf("%3d:%-3d  %-32.32s %s\n",
-			       snd_seq_port_info_get_client(pinfo),
-			       snd_seq_port_info_get_port(pinfo),
-			       snd_seq_client_info_get_name(cinfo),
-			       snd_seq_port_info_get_name(pinfo));
-			*/
 		}
 	}
 
@@ -83,8 +75,28 @@ int alsa_get_ports_count() {
 	return ports_total;
 }
 
+bool alsa_connect_port(int index) {
+	struct port_info *port_info = alsa_get_port_info(index);
+	if (port_info == NULL) return false;
+
+	int err = snd_seq_connect_to(seq, 0, port_info->client, port_info->port);
+
+	if (err < 0) {
+		log_error("Cannot connect to port index %d %d:%d %s:%s - %s",
+				index,
+				port_info->client, port_info->port,
+				port_info->client_name, port_info->port_name,
+				snd_strerror(err));
+		return false;
+	}
+	return true;
+}
+
 struct port_info *alsa_get_port_info(int index) {
-	if (index < 0 || index >= ports_total) return NULL;
+	if (index < 0 || index >= ports_total) {
+		log_error("Invalid port index %d", index);
+		return NULL;
+	}
 	return &ports[index];
 }
 
