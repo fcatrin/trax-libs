@@ -34,9 +34,9 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiLoad
 /*
  * Class:     xtvapps_simusplayer_NativeInterface
  * Method:    midiUnload
- * Signature: (I)I
+ * Signature: (I)V
  */
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiUnload
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiUnload
   (JNIEnv *, jclass, jint);
 
 /*
@@ -49,10 +49,10 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTracksCou
 
 /*
  * Class:     xtvapps_simusplayer_NativeInterface
- * Method:    modoGetTrackName
+ * Method:    midiGetTrackName
  * Signature: (II)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_modoGetTrackName
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTrackName
   (JNIEnv *, jclass, jint, jint);
 
 #ifdef __cplusplus

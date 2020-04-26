@@ -7,6 +7,8 @@
 #include "song.h"
 #include "loader.h"
 
+#define SYSEX_META_TRACK_NAME 0x03
+
 #define MAKE_ID(c1, c2, c3, c4) ((c1) | ((c2) << 8) | ((c3) << 16) | ((c4) << 24))
 
 static int32 read_id(struct stream *stream) {
@@ -40,6 +42,7 @@ static int read_track(struct stream *stream, struct song *song, uint16 track_ind
 	track->first_event = NULL;
 	track->current_event = NULL;
 	track->end_tick = 0;
+	track->name = NULL;
 
 	while (stream->offset < track_end) {
 		unsigned char cmd;
@@ -138,11 +141,8 @@ static int read_track(struct stream *stream, struct song *song, uint16 track_ind
 					goto _error;
 
 				switch (c) {
-				case 0x03: { // text event
-					char *text = read_string(stream, len);
-					printf("text: %s\n", text);
-					free(text);
-					}
+				case SYSEX_META_TRACK_NAME:
+					track -> name = read_string(stream, len);
 					break;
 				case 0x21:	 /* port number */
 					if (len < 1)
@@ -170,6 +170,9 @@ static int read_track(struct stream *stream, struct song *song, uint16 track_ind
 						event->data.tempo = read_byte(stream) << 16;
 						event->data.tempo |= read_byte(stream) << 8;
 						event->data.tempo |= read_byte(stream);
+
+						log_debug("tempo change %d", event->data.tempo);
+
 						skip(stream, len - 3);
 					}
 					break;
@@ -232,6 +235,7 @@ static struct song *read_smf(struct stream *stream) {
 		/* time_division is ticks per quarter */
 		song->tempo = 500000; /* default: 120 bpm */
 		song->ppq   = time_division;
+		log_debug("smpt_timing off ppq %d", song->ppq);
 	} else {
 		/* upper byte is negative frames per second */
 		i = 0x80 - ((time_division >> 8) & 0x7f);
@@ -259,6 +263,7 @@ static struct song *read_smf(struct stream *stream) {
 			log_error("%s: invalid number of SMPTE frames per second (%d)", stream->filename, i);
 			goto abort_song;
 		}
+		log_debug("smpt_timing on ppq %d tempo %d division %d", song->ppq, song->tempo, i);
 	}
 
 	/* read tracks */
@@ -302,12 +307,16 @@ abort_song:
 void song_unload(struct song *song) {
 
 	for (int i = 0; i < song->num_tracks; ++i) {
-		struct event *event = song->tracks[i].first_event;
+		struct track *track = &song->tracks[i];
+
+		struct event *event = track->first_event;
 		while (event) {
 			struct event *next = event->next;
 			free(event);
 			event = next;
 		}
+
+		free(track->name);
 	}
 
 	free(song->tracks);

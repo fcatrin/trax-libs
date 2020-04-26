@@ -22,6 +22,7 @@ struct track {
 	uint32 end_tick;			/* length of this track */
 
 	struct event *current_event;	/* used while loading and playing */
+	char *name;
 };
 
 struct song {

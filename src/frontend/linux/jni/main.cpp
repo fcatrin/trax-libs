@@ -46,22 +46,45 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiLoad
 	return index;
 }
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiUnload
+static song *get_song_by_handle(int handle) {
+	if (handle < 0 || handle >= MAX_OPENED_SONGS || songs[handle] == NULL) {
+		log_error("invalid song handle %d", handle);
+		return NULL;
+	}
+	return songs[handle];
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiUnload
   (JNIEnv *env, jclass thiz, jint handle) {
-	return 0;
+
+	struct song *song = get_song_by_handle(handle);
+	if (song != NULL) {
+		song_unload(song);
+		songs[handle] = NULL;
+	}
 }
 
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTracksCount
   (JNIEnv *env, jclass thiz, jint handle) {
-	return 0;
+	struct song *song = get_song_by_handle(handle);
+	if (song == NULL) return 0;
+
+	return song->num_tracks;
 }
 
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_modoGetTrackName
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTrackName
   (JNIEnv *env, jclass clazz, jint handle, jint track) {
-	return NULL;
+	struct song *song = get_song_by_handle(handle);
+	if (song == NULL) return NULL;
+
+	if (track < 0 || track >= song->num_tracks) {
+		log_error("invalid number of tracks %d for song %d with %d tracks",
+				track, handle, song->num_tracks);
+		return NULL;
+	}
+
+	return env->NewStringUTF(song->tracks[track].name);
 }
-
-
 
 #ifdef __cplusplus
 }
