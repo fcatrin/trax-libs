@@ -38,6 +38,7 @@ CFLAGS_ONLY = -std=gnu99
 OBJS = $(addprefix $(OBJDIR)/, \
 	main.o \
 	alsalib.o \
+	midiplayer.o \
 	)
 		
 $(OBJDIR)/%.o: %.c 
