@@ -8,9 +8,11 @@ public class SimusPlayer {
 			return;
 		}
 		
+		NativeInterface.windowOpen(640, 480);
+		
 		NativeInterface.alsaInit();
 
-		int handle = NativeInterface.midiLoad(args[0]);
+		final int handle = NativeInterface.midiLoad(args[0]);
 		System.out.println(handle);
 		
 		int nTracks = NativeInterface.midiGetTracksCount(handle);
@@ -31,9 +33,19 @@ public class SimusPlayer {
 
 		System.out.flush();
 		
-		NativeInterface.alsaConnectPort(2);
-		NativeInterface.midiPlay(handle);
-		NativeInterface.alsaDone();
+		Thread t = new Thread() {
+			@Override
+			public void run() {
+				NativeInterface.alsaConnectPort(2);
+				NativeInterface.midiPlay(handle);
+				NativeInterface.alsaDone();
+				NativeInterface.windowClose();
+			}
+		};
+		
+		t.start();
+		NativeInterface.windowRun();
+		
 	}
 
 }

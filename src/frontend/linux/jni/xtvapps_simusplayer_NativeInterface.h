@@ -95,6 +95,30 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTrackN
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiPlay
   (JNIEnv *, jclass, jint);
 
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    windowOpen
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_windowOpen
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    windowRun
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_windowRun
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    windowClose
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_windowClose
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

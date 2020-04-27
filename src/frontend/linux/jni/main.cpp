@@ -7,6 +7,7 @@ extern "C" {
 
 #include "xtvapps_simusplayer_NativeInterface.h"
 
+#include "window.h"
 #include "alsalib.h"
 #include "midiplayer.h"
 
@@ -156,6 +157,22 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiPlay
 	if (port_info == NULL) return;
 
 	midi_play(seq, song, port_info);
+}
+
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_windowOpen
+  (JNIEnv *env, jclass thiz, jint width, jint height) {
+	window_open(width, height);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_windowRun
+  (JNIEnv *env, jclass thiz) {
+	window_run();
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_windowClose
+  (JNIEnv *env, jclass thiz) {
+	window_close();
 }
 
 

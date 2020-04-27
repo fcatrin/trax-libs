@@ -3,7 +3,7 @@ LD = gcc
 
 CFLAGS = -g -Wall -I../../..
 
-LDFLAGS = -lm -shared -L../../../ -lsimusplayer-core
+LDFLAGS = -lm -shared -L../../../ -lsimusplayer-core -lSDL2 -lGL
 LIBARCH =
 
 LIBPREFIX = lib
@@ -39,6 +39,7 @@ OBJS = $(addprefix $(OBJDIR)/, \
 	main.o \
 	alsalib.o \
 	midiplayer.o \
+	window.o \
 	)
 		
 $(OBJDIR)/%.o: %.c 
