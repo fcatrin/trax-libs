@@ -2,7 +2,8 @@
 #include <SDL2/SDL_opengl.h>
 #include <GL/gl.h>
 
-#include "../../../common.h"
+#include <common.h>
+#include <ui.h>
 
 static bool running;
 
@@ -17,6 +18,8 @@ void window_open(int req_width, int req_height) {
 	uint32 window_flags = SDL_WINDOW_OPENGL;
 	window = SDL_CreateWindow("OpenGL Test", 0, 0, width, height, window_flags);
 	SDL_GLContext context = SDL_GL_CreateContext(window);
+
+	ui_init();
 }
 
 void window_run() {
@@ -25,6 +28,8 @@ void window_run() {
 	   glViewport(0, 0, width, height);
 	   glClearColor(0.18f, 0.55f, 0.82f, 0.f);
 	   glClear(GL_COLOR_BUFFER_BIT);
+
+	   ui_render(width, height);
 
 	   SDL_GL_SwapWindow(window);
 	}

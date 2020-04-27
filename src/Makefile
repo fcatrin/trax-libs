@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -fPIC -I.
+CFLAGS = -g -Wall -fPIC -I. -DNANOVG_GL2_IMPLEMENTATION -DGL_GLEXT_PROTOTYPES -Wno-misleading-indentation
 AR = ar
 ARFLAGS =
 LIBS =
@@ -8,7 +8,9 @@ LIBPREFIX = lib
 
 include formats/midi/Makefile
 
-OBJS += common.o
+OBJS += common.o \
+	ui.o \
+	libs/nanovg/nanovg.o
 
 OBJDIR = ../obj
 
