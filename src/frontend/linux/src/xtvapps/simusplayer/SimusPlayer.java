@@ -3,10 +3,14 @@ package xtvapps.simusplayer;
 public class SimusPlayer {
 
 	public static void main(String[] args) {
+		if (args.length < 1) {
+			System.out.println("missing midi file name");
+			return;
+		}
+		
 		NativeInterface.alsaInit();
 
-		int handle = NativeInterface.midiLoad("/home/fcatrin/test.mid");
-		/*
+		int handle = NativeInterface.midiLoad(args[0]);
 		System.out.println(handle);
 		
 		int nTracks = NativeInterface.midiGetTracksCount(handle);
@@ -24,7 +28,9 @@ public class SimusPlayer {
 			System.out.println(String.format("%3d:%-3d  %-32.32s %s", ids[0], ids[1], names[0], names[1]));
 			
 		}
-		*/
+
+		System.out.flush();
+		
 		NativeInterface.alsaConnectPort(2);
 		NativeInterface.midiPlay(handle);
 		NativeInterface.alsaDone();

@@ -171,7 +171,7 @@ static int read_track(struct stream *stream, struct song *song, uint16 track_ind
 						event->data.tempo |= read_byte(stream) << 8;
 						event->data.tempo |= read_byte(stream);
 
-						log_debug("tempo change %d", event->data.tempo);
+						// log_debug("tempo change %d", event->data.tempo);
 
 						skip(stream, len - 3);
 					}
