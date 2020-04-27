@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "common.h"
+#include <common.h>
 
 void log_debug(const char *msg, ...) {
 	va_list ap;

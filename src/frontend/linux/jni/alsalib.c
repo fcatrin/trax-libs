@@ -1,5 +1,5 @@
 #include <alsa/asoundlib.h>
-#include <formats/midi/common.h>
+#include <common.h>
 #include "alsalib.h"
 
 static snd_seq_t *seq;

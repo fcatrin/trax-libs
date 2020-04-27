@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include "common.h"
+#include <common.h>
 #include "fileutils.h"
 #include "song.h"
 #include "loader.h"

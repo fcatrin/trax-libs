@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -fPIC
+CFLAGS = -g -Wall -fPIC -I.
 AR = ar
 ARFLAGS =
 LIBS =
@@ -7,6 +7,8 @@ LIBS =
 LIBPREFIX = lib
 
 include formats/midi/Makefile
+
+OBJS += common.o
 
 OBJDIR = ../obj
 

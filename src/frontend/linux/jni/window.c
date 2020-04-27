@@ -1,7 +1,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <GL/gl.h>
-#include <formats/midi/common.h>
+
+#include "../../../common.h"
 
 static bool running;
 

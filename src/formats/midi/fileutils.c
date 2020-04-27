@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "common.h"
+#include <common.h>
 #include "fileutils.h"
 
 struct stream *stream_open(const char *filename) {

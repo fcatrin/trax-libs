@@ -1,7 +1,7 @@
 #ifndef _SONG_H_
 #define _SONG_H_
 
-#include "common.h"
+#include "../../common.h"
 
 struct event {
 	struct event *next; /* linked list */

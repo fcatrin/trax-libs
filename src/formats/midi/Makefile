@@ -1,4 +1,4 @@
-MIDI_OBJS = common.o fileutils.o loader.o
+MIDI_OBJS = fileutils.o loader.o
 
 MIDI_PATH = formats/midi
 
