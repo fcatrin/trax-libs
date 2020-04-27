@@ -107,7 +107,6 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 		int elapsed_usec    = tv.tv_usec - start_usec;
 
 		int miliseconds = (elapsed_seconds * 1000) + (elapsed_usec / 1000);
-		// log_debug("s:%d usec:%d", elapsed_seconds, elapsed_usec);
 
 		int ticks_per_minute = (60000000 / tempo) * song->ppq;
 		int ticks = (miliseconds * ticks_per_minute) / 60000;
@@ -180,24 +179,14 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 			handle_big_sysex(seq, &ev);
 			break;
 		case SND_SEQ_EVENT_TEMPO:
-			/*
-			snd_seq_ev_set_fixed(&ev);
-			ev.dest.client = SND_SEQ_CLIENT_SYSTEM;
-			ev.dest.port = SND_SEQ_PORT_SYSTEM_TIMER;
-			ev.data.queue.queue = queue;
-			ev.data.queue.param.value = event->data.tempo;
-			*/
 			tempo = event->data.tempo;
-			log_debug("tempo:%d", event->data.tempo);
 			continue;
 		default:
 			log_error("Invalid event type %d!", ev.type);
 		}
 
-		/* this blocks when the output pool has been filled */
 		err = snd_seq_event_output_direct(seq, &ev);
 		check_snd("output event", err);
-		if (err < 0) break;
 	}
 
 	/* schedule queue stop at end of song */
