@@ -10,7 +10,7 @@ static struct NVGcontext* vg;
 void ui_init() {
 	vg = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
 	if (!vg) {
-		printf("Could not init nanovg.\n");
+		log_error("Could not init nanovg ");
 	}
 
 	int font = nvgCreateFont(vg, "sans", "/home/fcatrin/git/simusplayer/src/frontend/linux/fonts/Roboto-Regular.ttf");
@@ -28,7 +28,7 @@ void ui_render(int width, int height) {
 
 	nvgSave(vg);
 
-	nvgFontSize(vg, 20.0f);
+	nvgFontSize(vg, 18.0f);
 	nvgFontFace(vg, "sans");
 	// nvgTextAlign(vg,NVG_ALIGN_CENTER|NVG_ALIGN_MIDDLE);
 
