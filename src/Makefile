@@ -1,8 +1,10 @@
 CC = gcc
-CFLAGS = -g -Wall -fPIC -I. -DNANOVG_GLES2_IMPLEMENTATION -DGL_GLEXT_PROTOTYPES -Wno-misleading-indentation
+CFLAGS = -g -Wall -fPIC -I. -DNANOVG_GLES2_IMPLEMENTATION -DGL_GLEXT_PROTOTYPES -Wno-misleading-indentation -DFONS_USE_FREETYPE
 AR = ar
 ARFLAGS =
 LIBS =
+
+CFLAGS  += $(shell pkg-config --cflags freetype2)
 
 LIBPREFIX = lib
 

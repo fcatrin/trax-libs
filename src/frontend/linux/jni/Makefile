@@ -8,6 +8,7 @@ LIBARCH =
 
 LIBPREFIX = lib
 LDFLAGS += -lstdc++
+LDFLAGS += $(shell pkg-config --libs freetype2)
 
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
