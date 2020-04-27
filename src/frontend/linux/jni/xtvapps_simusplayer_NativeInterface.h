@@ -87,6 +87,14 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTracksCou
 JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTrackName
   (JNIEnv *, jclass, jint, jint);
 
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    midiPlay
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiPlay
+  (JNIEnv *, jclass, jint);
+
 #ifdef __cplusplus
 }
 #endif

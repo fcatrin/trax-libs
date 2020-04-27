@@ -15,5 +15,6 @@ int alsa_get_ports_count();
 struct port_info *alsa_get_port_info(int index);
 bool alsa_connect_port(int index);
 
+snd_seq_t *alsa_get_seq();
 
 #endif

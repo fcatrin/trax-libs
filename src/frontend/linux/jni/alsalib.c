@@ -92,6 +92,27 @@ bool alsa_connect_port(int index) {
 	return true;
 }
 
+void create_source_port() {
+	snd_seq_port_info_t *pinfo;
+	int err;
+
+	snd_seq_port_info_alloca(&pinfo);
+
+	/* the first created port is 0 anyway, but let's make sure ... */
+	snd_seq_port_info_set_port(pinfo, 0);
+	snd_seq_port_info_set_port_specified(pinfo, 1);
+
+	snd_seq_port_info_set_name(pinfo, "simusplayer");
+
+	snd_seq_port_info_set_capability(pinfo, 0); /* sic */
+	snd_seq_port_info_set_type(pinfo,
+				   SND_SEQ_PORT_TYPE_MIDI_GENERIC |
+				   SND_SEQ_PORT_TYPE_APPLICATION);
+
+	err = snd_seq_create_port(seq, pinfo);
+	check_snd("create port", err);
+}
+
 struct port_info *alsa_get_port_info(int index) {
 	if (index < 0 || index >= ports_total) {
 		log_error("Invalid port index %d", index);
@@ -100,9 +121,14 @@ struct port_info *alsa_get_port_info(int index) {
 	return &ports[index];
 }
 
+snd_seq_t *alsa_get_seq() {
+	return seq;
+}
+
 void alsa_init() {
 	init_seq();
 	load_ports();
+	create_source_port();
 }
 
 void alsa_done() {

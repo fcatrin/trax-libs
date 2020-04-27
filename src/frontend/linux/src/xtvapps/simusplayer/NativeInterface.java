@@ -19,4 +19,6 @@ public class NativeInterface {
 	public static native int  midiGetTracksCount(int handle);
 	public static native String midiGetTrackName(int handle, int track);
 	
+	public static native void midiPlay(int handle);
+	
 }

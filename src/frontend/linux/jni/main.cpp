@@ -2,13 +2,18 @@
 extern "C" {
 #endif
 
-#include "formats/midi/loader.h"
+#include <alsa/asoundlib.h>
+#include <formats/midi/loader.h>
+
+#include "xtvapps_simusplayer_NativeInterface.h"
 
 #include "alsalib.h"
-#include "xtvapps_simusplayer_NativeInterface.h"
+#include "midiplayer.h"
 
 #define MAX_OPENED_SONGS 10
 song *songs[MAX_OPENED_SONGS];
+
+int current_port = -1;
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
 	return JNI_VERSION_1_6;
@@ -70,7 +75,11 @@ JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaGetP
 
 JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_NativeInterface_alsaConnectPort
   (JNIEnv *env, jclass thiz, jint port) {
-	return alsa_connect_port(port);
+	current_port = -1;
+	if (alsa_connect_port(port)) {
+		current_port = port;
+	}
+	return current_port >= 0;
 }
 
 
@@ -134,6 +143,21 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetTrackN
 
 	return env->NewStringUTF(song->tracks[track].name);
 }
+
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiPlay
+  (JNIEnv *env, jclass thiz, jint handle) {
+	struct song *song = get_song_by_handle(handle);
+	if (song == NULL) return;
+
+	snd_seq_t * seq = alsa_get_seq();
+
+	struct port_info *port_info = alsa_get_port_info(current_port);
+	if (port_info == NULL) return;
+
+	midi_play(seq, song, port_info);
+}
+
 
 #ifdef __cplusplus
 }

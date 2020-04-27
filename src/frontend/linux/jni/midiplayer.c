@@ -1,5 +1,6 @@
 #include <alsa/asoundlib.h>
 #include <formats/midi/song.h>
+#include "sys/time.h"
 #include "alsalib.h"
 
 /*
@@ -68,13 +69,15 @@ static void handle_big_sysex(snd_seq_t *seq, snd_seq_event_t *ev) {
 
 void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 	snd_seq_event_t ev;
+	struct timeval tv;
 	int i, max_tick, err;
 
 	/* calculate length of the entire file */
-	max_tick = -1;
+	max_tick = 0;
 	for (i = 0; i < song->num_tracks; ++i) {
-		if (song->tracks[i].end_tick > max_tick)
+		if (song->tracks[i].end_tick > max_tick) {
 			max_tick = song->tracks[i].end_tick;
+		}
 	}
 
 	/* initialize current position in each track */
@@ -85,24 +88,56 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 	snd_seq_ev_clear(&ev);
 	snd_seq_ev_set_direct(&ev);
 	ev.source.port = 0;
+	snd_seq_ev_set_dest(&ev, port_info->client, port_info->port);
+
+	gettimeofday(&tv, NULL);
+	uint32 start_seconds = tv.tv_sec;
+	uint32 start_usec    = tv.tv_usec;
+
+	int bpm = 146;
 
 	for (;;) {
 		struct event* event = NULL;
 		struct track* event_track = NULL;
 		int i, min_tick = max_tick + 1;
 
+		gettimeofday(&tv, NULL);
+		int elapsed_seconds = tv.tv_sec  - start_seconds;
+		int elapsed_usec    = tv.tv_usec - start_usec;
+
+		int miliseconds = (elapsed_seconds * 1000) + (elapsed_usec / 1000);
+		// log_debug("s:%d usec:%d", elapsed_seconds, elapsed_usec);
+
+		int ticks_per_minute = bpm * song->ppq;
+		int ticks_elapsed = (miliseconds * ticks_per_minute) / 60000;
+
 		/* search next event */
+		bool has_more_events = false;
+		int event_track_index = -1;
 		for (i = 0; i < song->num_tracks; ++i) {
 			struct track *track = &song->tracks[i];
 			struct event *e2 = track->current_event;
-			if (e2 && e2->tick < min_tick) {
+			has_more_events = has_more_events || e2 != NULL;
+
+			if (e2 && e2->tick <= ticks_elapsed && e2->tick < min_tick) {
 				min_tick = e2->tick;
 				event = e2;
 				event_track = track;
+				event_track_index = i;
 			}
+
 		}
-		if (!event)
+
+		if (!has_more_events)
 			break; /* end of song reached */
+
+		// log_debug("ticks/minute:%d ms:%d ticks:%d min_tick:%d bpm:%d ppq:%d", ticks_per_minute, miliseconds, ticks_elapsed, min_tick, bpm, song->ppq);
+
+		if (!event) {
+			usleep(100);
+			continue;
+		}
+
 
 		/* advance pointer to next event */
 		event_track->current_event = event->next;
@@ -152,14 +187,16 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 			ev.data.queue.queue = queue;
 			ev.data.queue.param.value = event->data.tempo;
 			*/
+			bpm = 60000000 / event->data.tempo;
 			continue;
 		default:
 			log_error("Invalid event type %d!", ev.type);
 		}
 
 		/* this blocks when the output pool has been filled */
-		err = snd_seq_event_output(seq, &ev);
+		err = snd_seq_event_output_direct(seq, &ev);
 		check_snd("output event", err);
+		if (err < 0) break;
 	}
 
 	/* schedule queue stop at end of song */

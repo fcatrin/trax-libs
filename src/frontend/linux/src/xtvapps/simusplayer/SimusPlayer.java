@@ -6,6 +6,7 @@ public class SimusPlayer {
 		NativeInterface.alsaInit();
 
 		int handle = NativeInterface.midiLoad("/home/fcatrin/test.mid");
+		/*
 		System.out.println(handle);
 		
 		int nTracks = NativeInterface.midiGetTracksCount(handle);
@@ -23,7 +24,9 @@ public class SimusPlayer {
 			System.out.println(String.format("%3d:%-3d  %-32.32s %s", ids[0], ids[1], names[0], names[1]));
 			
 		}
-		
+		*/
+		NativeInterface.alsaConnectPort(2);
+		NativeInterface.midiPlay(handle);
 		NativeInterface.alsaDone();
 	}
 
