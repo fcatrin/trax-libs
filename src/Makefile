@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -fPIC -I. -DNANOVG_GL2_IMPLEMENTATION -DGL_GLEXT_PROTOTYPES -Wno-misleading-indentation
+CFLAGS = -g -Wall -fPIC -I. -DNANOVG_GLES2_IMPLEMENTATION -DGL_GLEXT_PROTOTYPES -Wno-misleading-indentation
 AR = ar
 ARFLAGS =
 LIBS =
