@@ -10,6 +10,8 @@ LIBPREFIX = lib
 LDFLAGS += -lstdc++
 LDFLAGS += $(shell pkg-config --libs freetype2)
 
+CORE = ../../../libsimusplayer-core.a
+
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
 ifeq ($(UNAME_S),Linux)
@@ -49,16 +51,16 @@ $(OBJDIR)/%.o: %.c
 $(OBJDIR)/%.o: %.cpp
 	$(CC) -c $(CFLAGS) -o $@ $< 
 
-all : prepare core $(LINK_TARGET)
+all : prepare corebuild $(LINK_TARGET)
 
-$(LINK_TARGET) : $(OBJS)
+$(LINK_TARGET) : $(CORE) $(OBJS)
 	$(LD) -o $@ $^ $(LDFLAGS) 
 
 prepare :
 	@mkdir -p $(LIBSDIR)/$(LIBARCH)
 	@mkdir -p $(OBJDIR)
 
-core:
+corebuild:
 	cd ../../../ && $(MAKE)
 
 clean :
