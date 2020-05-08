@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
 
-	song *song = song_load("/home/fcatrin/test.mid");
+	struct song *song = song_load("/home/fcatrin/test.mid");
 	if (song == NULL) {
 		log_error("load failed");
 	} else {
