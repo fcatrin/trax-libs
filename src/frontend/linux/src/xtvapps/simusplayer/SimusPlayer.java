@@ -1,5 +1,12 @@
 package xtvapps.simusplayer;
 
+import fts.core.Application;
+import fts.core.Context;
+import fts.core.DesktopResourceLocator;
+import fts.core.Widget;
+import fts.core.Window;
+import fts.linux.ComponentFactory;
+
 public class SimusPlayer {
 
 	public static void main(String[] args) {
@@ -8,7 +15,12 @@ public class SimusPlayer {
 			return;
 		}
 		
-		NativeInterface.windowOpen(640, 480);
+		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new Context());
+		Window window = Application.createWindow();
+		window.setTitle("Simus Player");
+		
+		Widget rootView = app.inflate(window, "main");
+		window.setContentView(rootView);
 		
 		NativeInterface.alsaInit();
 
@@ -39,13 +51,14 @@ public class SimusPlayer {
 				NativeInterface.alsaConnectPort(2);
 				NativeInterface.midiPlay(handle);
 				NativeInterface.alsaDone();
-				NativeInterface.windowClose();
 			}
 		};
 		
 		t.start();
-		NativeInterface.windowRun();
-		
+
+		window.open();
+		window.mainLoop();
+
 	}
 
 }

@@ -21,8 +21,4 @@ public class NativeInterface {
 	
 	public static native void midiPlay(int handle);
 	
-	public static native void windowOpen(int width, int height);
-	public static native void windowRun();
-	public static native void windowClose();
-	
 }

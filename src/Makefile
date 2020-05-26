@@ -1,18 +1,14 @@
 CC = gcc
-CFLAGS = -g -Wall -fPIC -I. -DNANOVG_GLES2_IMPLEMENTATION -DGL_GLEXT_PROTOTYPES -Wno-misleading-indentation -DFONS_USE_FREETYPE
+CFLAGS = -g -Wall -fPIC -I. 
 AR = ar
 ARFLAGS =
 LIBS =
-
-CFLAGS  += $(shell pkg-config --cflags freetype2)
 
 LIBPREFIX = lib
 
 include formats/midi/Makefile
 
-OBJS += common.o \
-	ui.o \
-	libs/nanovg/nanovg.o
+OBJS += common.o 
 
 OBJDIR = ../obj
 
