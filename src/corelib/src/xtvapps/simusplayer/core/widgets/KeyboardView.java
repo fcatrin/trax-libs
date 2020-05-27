@@ -12,6 +12,7 @@ public class KeyboardView extends Widget {
 	private final static int OCTAVES = 8;
 	private final static int MIN_HEIGHT = 10;
 	private final static int WHITE_NOTES = OCTAVES * NOTES_PER_OCTAVE + 1;
+	private final static int FIRST_NOTE = 24;
 
 	Color backgroundColor;
 	Color whiteKeysColor;
@@ -26,8 +27,8 @@ public class KeyboardView extends Widget {
 		backgroundColor = new Color("#000000");
 		whiteKeysColor  = new Color("#F0F0F0");
 		blackKeysColor  = new Color("#202020");
-		whiteNoteColor = new Color("#C0A0A0");
-		blackNoteColor = new Color("#404040");
+		whiteNoteColor = new Color("#6E9DCD");
+		blackNoteColor = new Color("#65BD1F");
 	}
 	
 	public void setNotes(int notes[]) {
@@ -54,7 +55,8 @@ public class KeyboardView extends Widget {
 		
 		for(int i=0; i<OCTAVES*12+1; i++) {
 			if (!isBlackNote(i)) {
-				boolean isNoteOn = notes!=null && i < notes.length && notes[i] > 0;
+				int noteIndex = i + FIRST_NOTE;
+				boolean isNoteOn = notes!=null && noteIndex < notes.length && notes[noteIndex] > 0;
 				c.setForeground(isNoteOn ? whiteNoteColor : whiteKeysColor);
 				c.drawFilledRect(left, bounds.y, widthPerNote-1, bounds.height);
 				left += widthPerNote;
@@ -66,7 +68,8 @@ public class KeyboardView extends Widget {
 		int blackKeyHeight = (int)(bounds.height * 0.6);
 		for(int i=0; i<OCTAVES*12; i++) {
 			if (isBlackNote(i)) {
-				boolean isNoteOn = notes!=null && i < notes.length && notes[i] > 0;
+				int noteIndex = i + FIRST_NOTE;
+				boolean isNoteOn = notes!=null && noteIndex < notes.length && notes[noteIndex] > 0;
 				c.setForeground(isNoteOn ? blackNoteColor : blackKeysColor);
 				c.drawFilledRect(left, bounds.y, blackKeyWidth, blackKeyHeight);
 
