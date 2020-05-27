@@ -67,6 +67,11 @@ static void handle_big_sysex(snd_seq_t *seq, snd_seq_event_t *ev) {
 	ev->data.ext.len = length;
 }
 
+uint8 *midi_get_notes(struct song *song, int track) {
+	if (track >= song->num_tracks) return NULL;
+	return song->tracks[track].notes;
+}
+
 void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 	snd_seq_event_t ev;
 	struct timeval tv;
@@ -83,6 +88,13 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 	/* initialize current position in each track */
 	for (i = 0; i < song->num_tracks; ++i)
 		song->tracks[i].current_event = song->tracks[i].first_event;
+
+	/* reset all notes on tracks */
+	for (i = 0; i < song->num_tracks; ++i) {
+		for(int note = 0; note < LAST_NOTE; note++) {
+			song->tracks[i].notes[note] = 0;
+		}
+	}
 
 	/* common settings for all our events */
 	snd_seq_ev_clear(&ev);
@@ -153,6 +165,8 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 			ev.data.note.channel = event->data.d[0];
 			ev.data.note.note = event->data.d[1];
 			ev.data.note.velocity = event->data.d[2];
+
+			event_track->notes[ev.data.note.note] = SND_SEQ_EVENT_NOTEON ? ev.data.note.velocity : 0;
 			break;
 		case SND_SEQ_EVENT_CONTROLLER:
 			snd_seq_ev_set_fixed(&ev);

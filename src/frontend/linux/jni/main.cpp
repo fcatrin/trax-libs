@@ -175,6 +175,25 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_windowClose
 	window_close();
 }
 
+JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetNotes
+  (JNIEnv *env, jclass thiz, jint handle, jint track) {
+
+	struct song *song = get_song_by_handle(handle);
+	if (song == NULL) return NULL;
+
+	uint8 *notes = midi_get_notes(song, track);
+	if (notes == NULL) return NULL;
+
+	static int notesResult[LAST_NOTE];
+	for(int i=0;i<LAST_NOTE;i++) {
+		notesResult[i] = notes[i];
+	}
+
+	jintArray result = env->NewIntArray(LAST_NOTE);
+	env->SetIntArrayRegion(result, 0, LAST_NOTE, notesResult);
+
+	return result;
+}
 
 #ifdef __cplusplus
 }

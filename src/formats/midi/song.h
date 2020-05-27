@@ -3,6 +3,8 @@
 
 #include "../../common.h"
 
+#define LAST_NOTE 128
+
 struct event {
 	struct event *next; /* linked list */
 
@@ -23,6 +25,8 @@ struct track {
 
 	struct event *current_event;	/* used while loading and playing */
 	char *name;
+
+	uint8 notes[LAST_NOTE];
 };
 
 struct song {

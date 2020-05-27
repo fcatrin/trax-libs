@@ -3,11 +3,14 @@ package xtvapps.simusplayer;
 import fts.core.Application;
 import fts.core.Context;
 import fts.core.DesktopResourceLocator;
+import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.linux.ComponentFactory;
 
 public class SimusPlayer {
+
+	private static int songHandle;
 
 	public static void main(String[] args) {
 		if (args.length < 1) {
@@ -17,18 +20,19 @@ public class SimusPlayer {
 		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new Context());
 		Window window = Application.createWindow("Simus Player", (7*8 + 1)*14, 40);
+		window.setOnFrameCallback(getOnFrameCallback());
 		
 		Widget rootView = app.inflate(window, "main");
 		window.setContentView(rootView);
 		
 		NativeInterface.alsaInit();
 
-		final int handle = NativeInterface.midiLoad(args[0]);
-		System.out.println(handle);
+		songHandle = NativeInterface.midiLoad(args[0]);
+		System.out.println(songHandle);
 		
-		int nTracks = NativeInterface.midiGetTracksCount(handle);
+		int nTracks = NativeInterface.midiGetTracksCount(songHandle);
 		for(int i=0; i<nTracks; i++) {
-			String trackName = NativeInterface.midiGetTrackName(handle, i);
+			String trackName = NativeInterface.midiGetTrackName(songHandle, i);
 			System.out.println(String.format("Track %d: %s", i, trackName));
 		}
 
@@ -48,7 +52,7 @@ public class SimusPlayer {
 			@Override
 			public void run() {
 				NativeInterface.alsaConnectPort(2);
-				NativeInterface.midiPlay(handle);
+				NativeInterface.midiPlay(songHandle);
 				NativeInterface.alsaDone();
 			}
 		};
@@ -58,6 +62,21 @@ public class SimusPlayer {
 		window.open();
 		window.mainLoop();
 
+	}
+	
+	private static void onFrame() {
+		int[] notes = NativeInterface.midiGetNotes(songHandle, 1);
+		///
+	}
+	
+	private static SimpleCallback getOnFrameCallback() {
+		return new SimpleCallback() {
+
+			@Override
+			public void onResult() {
+				onFrame();
+			}
+		};
 	}
 
 }

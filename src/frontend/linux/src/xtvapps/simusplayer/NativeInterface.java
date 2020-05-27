@@ -14,10 +14,11 @@ public class NativeInterface {
 	
 	public static native boolean alsaConnectPort(int port);
 	
-	public static native int  midiLoad(String filename);
-	public static native void midiUnload(int handle);
-	public static native int  midiGetTracksCount(int handle);
+	public static native int    midiLoad(String filename);
+	public static native void   midiUnload(int handle);
+	public static native int    midiGetTracksCount(int handle);
 	public static native String midiGetTrackName(int handle, int track);
+	public static native int[]  midiGetNotes(int handle, int track);
 	
 	public static native void midiPlay(int handle);
 	
