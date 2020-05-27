@@ -1,8 +1,13 @@
 <LinearContainer
-    background="@color/window_background"
+    background="#303030"
     orientation="vertical"
     width="match_parent"
     height="match_parent">
+    <TextWidget
+        width="match_parent"
+        height="wrap_content"
+        text="Track 1: PIANO"
+	/>
     <xtvapps.simusplayer.core.widgets.KeyboardView
         id="keyboard"
         width="wrap_content"
