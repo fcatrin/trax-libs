@@ -4,6 +4,7 @@
     width="match_parent"
     height="match_parent">
     <xtvapps.simusplayer.core.widgets.KeyboardView
+        id="keyboard"
         width="wrap_content"
         height="wrap_content"
          />

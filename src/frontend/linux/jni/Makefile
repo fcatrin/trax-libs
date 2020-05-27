@@ -42,7 +42,6 @@ OBJS = $(addprefix $(OBJDIR)/, \
 	main.o \
 	alsalib.o \
 	midiplayer.o \
-	window.o \
 	)
 		
 $(OBJDIR)/%.o: %.c 

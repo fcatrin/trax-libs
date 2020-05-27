@@ -68,8 +68,8 @@ static void handle_big_sysex(snd_seq_t *seq, snd_seq_event_t *ev) {
 }
 
 uint8 *midi_get_notes(struct song *song, int track) {
-	if (track >= song->num_tracks) return NULL;
-	return song->tracks[track].notes;
+	if (track < song->num_tracks) return &song->tracks[track].notes[0];
+	return NULL;
 }
 
 void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
@@ -166,7 +166,9 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 			ev.data.note.note = event->data.d[1];
 			ev.data.note.velocity = event->data.d[2];
 
-			event_track->notes[ev.data.note.note] = SND_SEQ_EVENT_NOTEON ? ev.data.note.velocity : 0;
+			if (ev.data.note.note >=0 && ev.data.note.note < LAST_NOTE) {
+				event_track->notes[ev.data.note.note] = ev.type == SND_SEQ_EVENT_NOTEON ? ev.data.note.velocity : 0;
+			}
 			break;
 		case SND_SEQ_EVENT_CONTROLLER:
 			snd_seq_ev_set_fixed(&ev);

@@ -7,11 +7,14 @@ import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.linux.ComponentFactory;
+import xtvapps.simusplayer.core.widgets.KeyboardView;
 
 public class SimusPlayer {
 
 	private static int songHandle;
 
+	private static Window window;
+	
 	public static void main(String[] args) {
 		if (args.length < 1) {
 			System.out.println("missing midi file name");
@@ -19,7 +22,7 @@ public class SimusPlayer {
 		}
 		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new Context());
-		Window window = Application.createWindow("Simus Player", (7*8 + 1)*14, 40);
+		window = Application.createWindow("Simus Player", (7*8 + 1)*14, 40);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		Widget rootView = app.inflate(window, "main");
@@ -66,7 +69,8 @@ public class SimusPlayer {
 	
 	private static void onFrame() {
 		int[] notes = NativeInterface.midiGetNotes(songHandle, 1);
-		///
+		KeyboardView keyboard = (KeyboardView)window.findWidget("keyboard");
+		keyboard.setNotes(notes);
 	}
 	
 	private static SimpleCallback getOnFrameCallback() {
