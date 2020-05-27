@@ -158,6 +158,10 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiPlay
 	midi_play(seq, song, port_info);
 }
 
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiStop
+	(JNIEnv *env, jclass thiz) {
+	midi_play_stop();
+}
 
 JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetNotes
   (JNIEnv *env, jclass thiz, jint handle, jint track) {

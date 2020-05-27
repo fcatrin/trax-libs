@@ -23,7 +23,9 @@ int event_map[] = {
 	0
 };
 
-int end_delay = 2;
+int end_delay = 1;
+bool playing = false;
+
 
 static void check_snd(const char *operation, int err) {
 	if (err < 0)
@@ -109,7 +111,8 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 	int tempo = song->tempo;
 	int ticks_elapsed = 0;
 
-	for (;;) {
+	playing = true;
+	while (playing) {
 		struct event* event = NULL;
 		struct track* event_track = NULL;
 		int i, min_tick = max_tick + 1;
@@ -219,4 +222,8 @@ void midi_play(snd_seq_t *seq, struct song *song, struct port_info *port_info) {
 	if (end_delay > 0)
 		sleep(end_delay);
 
+}
+
+void midi_play_stop() {
+	playing = false;
 }

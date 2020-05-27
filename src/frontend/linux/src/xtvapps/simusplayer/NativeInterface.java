@@ -21,5 +21,6 @@ public class NativeInterface {
 	public static native int[]  midiGetNotes(int handle, int track);
 	
 	public static native void midiPlay(int handle);
+	public static native void midiStop();
 	
 }

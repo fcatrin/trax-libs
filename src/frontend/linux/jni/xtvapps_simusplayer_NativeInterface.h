@@ -103,6 +103,14 @@ JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetNote
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiPlay
   (JNIEnv *, jclass, jint);
 
+/*
+ * Class:     xtvapps_simusplayer_NativeInterface
+ * Method:    midiStop
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_NativeInterface_midiStop
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif
