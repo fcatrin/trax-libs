@@ -1,2 +1,2 @@
 # simusplayer
-Simple Music player
+Simple Music player for Linux
