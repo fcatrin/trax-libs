@@ -16,7 +16,7 @@ public class SimusPlayer {
 		}
 		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new Context());
-		Window window = Application.createWindow("Simus Player", (7*8 + 1)*12, 40);
+		Window window = Application.createWindow("Simus Player", (7*8 + 1)*14, 40);
 		
 		Widget rootView = app.inflate(window, "main");
 		window.setContentView(rootView);
