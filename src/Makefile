@@ -7,6 +7,7 @@ LIBS =
 LIBPREFIX = lib
 
 include formats/midi/Makefile
+include libs/timidity/src/Makefile
 
 OBJS += common.o 
 
