@@ -2,6 +2,7 @@ package xtvapps.simusplayer;
 
 import fts.core.Application;
 import fts.core.Context;
+import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.core.SimpleCallback;
 import fts.core.Widget;
@@ -21,7 +22,7 @@ public class SimusPlayer {
 			return;
 		}
 		
-		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new Context());
+		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 		window = Application.createWindow("Simus Player", (7*8 + 1)*14, 80);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
