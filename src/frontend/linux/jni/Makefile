@@ -3,6 +3,8 @@ LD = gcc
 
 CFLAGS = -g -Wall -I../../..
 
+CORELIBDIR=../../../corelib/jni
+
 LDFLAGS = -lm -shared -L../../../ -lsimusplayer-core -lSDL2 -lGL
 LIBARCH =
 
@@ -50,7 +52,7 @@ $(OBJDIR)/%.o: %.c
 $(OBJDIR)/%.o: %.cpp
 	$(CC) -c $(CFLAGS) -o $@ $< 
 
-all : prepare corebuild $(LINK_TARGET)
+all : prepare corebuild corelib $(LINK_TARGET)
 
 $(LINK_TARGET) : $(CORE) $(OBJS)
 	$(LD) -o $@ $^ $(LDFLAGS) 
@@ -61,8 +63,13 @@ prepare :
 
 corebuild:
 	cd ../../../ && $(MAKE)
+	
+corelib:
+	cd $(CORELIBDIR) && $(MAKE)
+	cp $(CORELIBDIR)/$(LIBSDIR)/$(LIBARCH)/lib*.so $(LIBSDIR)/$(LIBARCH)
 
 clean :
 	find $(OBJDIR) -name "*.o" -exec rm {} \;
 	find $(LIBSDIR) -name "*.$(LIBEXT)" -exec rm {} \;
 	cd ../../../ && $(MAKE) clean
+	cd $(CORELIBDIR) && $(MAKE) clean
