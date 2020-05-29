@@ -6,8 +6,15 @@ LIBS =
 
 LIBPREFIX = lib
 
+LIBXMPDIR=libs/libxmp
+
 include formats/midi/Makefile
 include libs/timidity/src/Makefile
+include $(LIBXMPDIR)/src/Makefile
+include $(LIBXMPDIR)/src/loaders/Makefile
+
+CFLAGS += -DHAVE_MKSTEMP -DHAVE_FNMATCH -DLIBXMP_CORE_PLAYER -DHAVE_ROUND \
+		  -I$(LIBXMPDIR)/include/libxmp-lite -I$(LIBXMPDIR)/src -I$(LIBXMPDIR)/include
 
 OBJS += common.o 
 
