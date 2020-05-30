@@ -94,6 +94,10 @@ public class SimusPlayerMod {
 		audioThread.start();
 	}
 	
+	public void stop() {
+		isPlaying = false;
+	}
+	
 	private int wave[] = new int[64];
 	
 	protected int[] getWave(int channel) {
@@ -120,7 +124,7 @@ public class SimusPlayerMod {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					player.play("/home/fcatrin/git/retrobox/RetroBoxDroid/assets/music/chi.mod");
+					player.play("/home/fcatrin/git/retrobox/RetroBoxDroid/assets/music/dirt.mod");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -132,7 +136,7 @@ public class SimusPlayerMod {
 		
 		window.open();
 		window.mainLoop();
-
+		player.stop();
 	}
 
 	protected static void onFrameCallback() {
