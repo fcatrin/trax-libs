@@ -89,20 +89,24 @@
     frac += step; \
     pos += frac >> SMIX_SHIFT; \
     frac &= SMIX_MASK; \
+    vi->wave_pos = (vi->wave_pos & (WAVE_SIZE-1)); \
 } while (0)
 
 #define MIX_MONO() do { \
     *(buffer++) += smp_in * vl; \
+    vi->wave[vi->wave_pos++] = smp_in; \
 } while (0)
 
 #define MIX_MONO_AC() do { \
     *(buffer++) += smp_in * (old_vl >> 8); old_vl += delta_l; \
+    vi->wave[vi->wave_pos++] = smp_in; \
 } while (0)
 
 #define MIX_MONO_FILTER() do { \
     sl = (a0 * smp_in * vl + b0 * fl1 + b1 * fl2) >> FILTER_SHIFT; \
     fl2 = fl1; fl1 = sl; \
     *(buffer++) += sl; \
+    vi->wave[vi->wave_pos++] = smp_in; \
 } while (0)
 
 #define MIX_MONO_FILTER_AC() do { \
@@ -114,11 +118,13 @@
 #define MIX_STEREO() do { \
     *(buffer++) += smp_in * vr; \
     *(buffer++) += smp_in * vl; \
+    vi->wave[vi->wave_pos++] = smp_in; \
 } while (0)
 
 #define MIX_STEREO_AC() do { \
     *(buffer++) += smp_in * (old_vr >> 8); old_vr += delta_r; \
     *(buffer++) += smp_in * (old_vl >> 8); old_vl += delta_l; \
+    vi->wave[vi->wave_pos++] = smp_in; \
 } while (0)
 
 #define MIX_STEREO_FILTER() do { \
@@ -128,6 +134,7 @@
     fl2 = fl1; fl1 = sl; \
     *(buffer++) += sr; \
     *(buffer++) += sl; \
+    vi->wave[vi->wave_pos++] = smp_in; \
 } while (0)
 
 #define MIX_STEREO_FILTER_AC() do { \

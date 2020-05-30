@@ -10,6 +10,8 @@
 #define FILTER_SHIFT	16
 #define ANTICLICK_SHIFT	3
 
+#define WAVE_SIZE 64
+
 #ifdef LIBXMP_PAULA_SIMULATOR
 #include "paula.h"
 #endif
@@ -41,6 +43,8 @@ struct mixer_voice {
 #define SAMPLE_LOOP	(1 << 2)
 	int flags;		/* flags */
 	void *sptr;		/* sample pointer */
+	int wave[WAVE_SIZE];
+	int wave_pos;
 #ifdef LIBXMP_PAULA_SIMULATOR
 	struct paula_state *paula; /* paula simulation state */
 #endif

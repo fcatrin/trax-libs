@@ -1884,6 +1884,7 @@ void xmp_get_frame_info(xmp_context opaque, struct xmp_frame_info *info)
 			ci->volume = c->info_finalvol >> 4;
 			ci->pan = c->info_finalpan;
 			ci->reserved = 0;
+			ci->wave = p->virt.voice_array[i].wave;
 			memset(&ci->event, 0, sizeof(*event));
 	
 			if (info->pattern < mod->pat && info->row < info->num_rows) {
