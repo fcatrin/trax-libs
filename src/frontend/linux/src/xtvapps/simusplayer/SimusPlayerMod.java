@@ -98,11 +98,12 @@ public class SimusPlayerMod {
 		isPlaying = false;
 	}
 	
-	private int wave[] = new int[64];
+	private int wave[][] = new int[24][64];
 	
 	protected int[] getWave(int channel) {
-		modPlayer.xmpFillWave(wave, channel);
-		return wave;
+		int[] w = wave[channel];
+		modPlayer.xmpFillWave(w, channel);
+		return w;
 	}
 	
 	protected void sleep() {
@@ -113,7 +114,7 @@ public class SimusPlayerMod {
 	public static void main(String[] args) throws IOException {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 		
-		window = Application.createWindow("Simus Mod Player", 128, 128);
+		window = Application.createWindow("Simus Mod Player", 68*4, 68);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		Widget rootView = app.inflate(window, "modplayer");
@@ -124,7 +125,7 @@ public class SimusPlayerMod {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					player.play("/home/fcatrin/git/retrobox/RetroBoxDroid/assets/music/dirt.mod");
+					player.play("/home/fcatrin/git/retrobox/RetroBoxDroid/assets/music/bananasplit.mod");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -140,8 +141,10 @@ public class SimusPlayerMod {
 	}
 
 	protected static void onFrameCallback() {
-		WaveWidget waveWidget = (WaveWidget)window.findWidget("waveBox");
-		waveWidget.setWave(player.getWave(0));
+		for(int i=0; i<4; i++) {
+			WaveWidget waveWidget = (WaveWidget)window.findWidget("waveBox" + i);
+			waveWidget.setWave(player.getWave(i));
+		}
 	}
 	
 	private static SimpleCallback getOnFrameCallback() {
