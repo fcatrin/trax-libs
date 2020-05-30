@@ -1,0 +1,11 @@
+<LinearContainer
+    background="#303030"
+    orientation="vertical"
+    width="match_parent"
+    height="match_parent">
+    <xtvapps.simusplayer.core.widgets.WaveWidget
+        id="waveBox"
+        width="wrap_content"
+        height="wrap_content"
+         />
+</LinearContainer>

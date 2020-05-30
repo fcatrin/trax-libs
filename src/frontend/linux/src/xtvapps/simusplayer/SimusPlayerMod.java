@@ -9,12 +9,18 @@ import fts.core.Context;
 import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.core.Log;
+import fts.core.SimpleCallback;
+import fts.core.Widget;
+import fts.core.Window;
 import fts.linux.ComponentFactory;
 import xtvapps.simusplayer.core.ModPlayer;
+import xtvapps.simusplayer.core.widgets.WaveWidget;
 
 public class SimusPlayerMod {
 	private static final String LOGTAG = SimusPlayer.class.getSimpleName();
 	private static final int SLEEP_TIME = 10;
+	private static Window window;
+	private static SimusPlayerMod player;
 	
 	private Thread audioThread;
 	private int bufferSize;
@@ -22,6 +28,7 @@ public class SimusPlayerMod {
 	private int channels;
 	private boolean isPaused;
 	private boolean isPlaying;
+	private ModPlayer modPlayer;
 
 	public SimusPlayerMod(int freq, int channels, int bufferSize) {
 		this.bufferSize = bufferSize;
@@ -30,14 +37,14 @@ public class SimusPlayerMod {
 	}
 
 	public void play(String path) throws IOException {
-		final ModPlayer modPlayer = new ModPlayer();
+		modPlayer = new ModPlayer();
 		modPlayer.xmpInit(path, freq);
 		
 		audioThread = new Thread() {
 			@Override
 			public void run() {
 				
-				int minbuffsize = 8192;
+				int minbuffsize = 1024;
 
 				Log.d(LOGTAG, "buffersize: " + bufferSize + ", minbuffersize: "  + minbuffsize);
 				if (minbuffsize > bufferSize) {
@@ -87,6 +94,13 @@ public class SimusPlayerMod {
 		audioThread.start();
 	}
 	
+	private int wave[] = new int[64];
+	
+	protected int[] getWave(int channel) {
+		modPlayer.xmpFillWave(wave, channel);
+		return wave;
+	}
+	
 	protected void sleep() {
 		try {Thread.sleep(SLEEP_TIME);} catch (Exception e) {};
 	}
@@ -95,9 +109,45 @@ public class SimusPlayerMod {
 	public static void main(String[] args) throws IOException {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 		
-		SimusPlayerMod player = new SimusPlayerMod(44100, 2, 8192);
-		player.play("/home/fcatrin/git/retrobox/RetroBoxDroid/assets/music/chi.mod");
+		window = Application.createWindow("Simus Mod Player", 128, 128);
+		window.setOnFrameCallback(getOnFrameCallback());
+		
+		Widget rootView = app.inflate(window, "modplayer");
+		window.setContentView(rootView);
 
+		
+		player = new SimusPlayerMod(44100, 2, 1024);
+		Thread t = new Thread() {
+			public void run() {
+				try {
+					player.play("/home/fcatrin/git/retrobox/RetroBoxDroid/assets/music/chi.mod");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+
+		t.start();
+		
+		window.open();
+		window.mainLoop();
+
+	}
+
+	protected static void onFrameCallback() {
+		WaveWidget waveWidget = (WaveWidget)window.findWidget("waveBox");
+		waveWidget.setWave(player.getWave(0));
+	}
+	
+	private static SimpleCallback getOnFrameCallback() {
+		return new SimpleCallback() {
+			
+			@Override
+			public void onResult() {
+				onFrameCallback();
+			}
+		};
 	}
 
 }

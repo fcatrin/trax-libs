@@ -7,12 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#undef xtvapps_simusplayer_core_ModPlayer_MIN_PRIORITY
-#define xtvapps_simusplayer_core_ModPlayer_MIN_PRIORITY 1L
-#undef xtvapps_simusplayer_core_ModPlayer_NORM_PRIORITY
-#define xtvapps_simusplayer_core_ModPlayer_NORM_PRIORITY 5L
-#undef xtvapps_simusplayer_core_ModPlayer_MAX_PRIORITY
-#define xtvapps_simusplayer_core_ModPlayer_MAX_PRIORITY 10L
 /*
  * Class:     xtvapps_simusplayer_core_ModPlayer
  * Method:    xmpInit
@@ -52,6 +46,14 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleNa
  */
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSetVolume
   (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpFillWave
+ * Signature: ([SI)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
+  (JNIEnv *, jobject, jintArray, jint);
 
 #ifdef __cplusplus
 }

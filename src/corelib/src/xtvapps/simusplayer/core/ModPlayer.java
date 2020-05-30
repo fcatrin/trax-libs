@@ -11,4 +11,6 @@ public class ModPlayer {
 	public native int     xmpFillBuffer(byte[] buffer, int loop);
 	public native static String xmpGetModuleName(String path);
 	public native void    xmpSetVolume(int volume);
+	
+	public native void    xmpFillWave(int[] wave, int channel);
 }

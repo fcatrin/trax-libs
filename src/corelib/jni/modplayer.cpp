@@ -5,6 +5,8 @@ extern "C" {
 #include "xmp.h"
 #include "xtvapps_simusplayer_core_ModPlayer.h"
 
+#define WAVE_SIZE 64
+
 xmp_context ctx;
 struct xmp_frame_info frameInfo;
 struct xmp_module_info modInfo;
@@ -76,7 +78,6 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleNa
 	return name;
 }
 
-
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSetVolume
   (JNIEnv *env, jobject thiz, jint vol) {
 	if (ctx == NULL) return;
@@ -84,6 +85,21 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSetVolume
 	xmp_set_player(ctx, XMP_PLAYER_VOLUME, vol);
 }
 
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
+  (JNIEnv *env, jobject thiz, jintArray wave, jint channel) {
+	if (ctx == NULL) return;
+
+	static struct xmp_frame_info frame_info;
+	xmp_get_frame_info(ctx, &frame_info);
+
+	if (channel >= frame_info.virt_used) return;
+
+	struct xmp_frame_info::xmp_channel_info *channel_info = &frame_info.channel_info[channel];
+
+	jsize resultSize = env->GetArrayLength(wave);
+	jsize arraySize = resultSize < WAVE_SIZE ? resultSize : WAVE_SIZE;
+	env->SetIntArrayRegion(wave, 0, arraySize, channel_info->wave);
+}
 
 #ifdef __cplusplus
 }
