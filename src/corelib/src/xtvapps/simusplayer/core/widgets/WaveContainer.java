@@ -3,6 +3,7 @@ package xtvapps.simusplayer.core.widgets;
 import java.util.List;
 
 import fts.core.Container;
+import fts.core.LayoutInfo;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.graphics.Color;
@@ -29,6 +30,8 @@ public class WaveContainer extends Container {
 	};
 
 	int waves = 0;
+	int spacing = 0;
+	
 	public WaveContainer(Window w) {
 		super(w);
 	}
@@ -38,6 +41,10 @@ public class WaveContainer extends Container {
 		
 		this.waves = waves;
 		requestLayout();
+	}
+	
+	public void setSpacing(int spacing) {
+		this.spacing = spacing;
 	}
 	
 	@Override
@@ -55,28 +62,28 @@ public class WaveContainer extends Container {
 		int cols = layouts[layoutBase+1];
 		int rows = layouts[layoutBase+2];
 		
-		int availableWidth = getInternalWidth();
-		int availableHeight = getInternalHeight();
+		int availableWidth  = getInternalWidth()  - spacing * (cols-1);
+		int availableHeight = getInternalHeight() - spacing * (rows-1);
 		
 		int waveWidth = availableWidth / cols;
 		int waveHeight = availableHeight / rows;
 		
-		int y = padding.top;
+		int y = bounds.y + padding.top;
 		
 		Shape waveBackground = new Shape();
 		waveBackground.setFillColor(new Color("#D1690D"));
 		
 		for(int row = 0; row < rows; row++) {
-			int x = padding.left;
+			int x = bounds.x + padding.left;
 			for(int col = 0; col < cols; col++) {
 				WaveWidget w = new WaveWidget(getWindow());
 				w.setBounds(x, y, waveWidth, waveHeight);
 				w.setBackground(waveBackground);
 				add(w);
-				x+= waveWidth + 10;
+				x+= waveWidth + spacing;
 				
 			}
-			y += waveHeight + 10;
+			y += waveHeight + spacing;
 		}
 	}
 	
@@ -95,7 +102,16 @@ public class WaveContainer extends Container {
 
 	@Override
 	public Point getContentSize(int width, int height) {
-		return new Point(width, height);
+		LayoutInfo layoutInfo = getLayoutInfo();
+		return new Point(layoutInfo.width, layoutInfo.height);
 	}
+
+	@Override
+	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("spacing")) return resolvePropertyValueDimen(propertyName, value);
+		return super.resolvePropertyValue(propertyName, value);
+	}
+	
+	
 
 }

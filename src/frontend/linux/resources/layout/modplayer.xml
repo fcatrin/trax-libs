@@ -10,9 +10,21 @@
         padding="0pt"
         onColor="#371C01"
         offColor="#D1690D"/>
-    <xtvapps.simusplayer.core.widgets.WaveContainer
-        id="waves"
-        width="200pt"
-        height="120pt" />
-
+    <LinearContainer
+        width="match_parent"
+        height="0pt"
+        orientation="horizontal"
+        >
+        <TextWidget
+            width="0pt"
+            height="1pt"
+            text="."
+             />
+	    <xtvapps.simusplayer.core.widgets.WaveContainer
+	        id="waves"
+	        spacing="4pt"
+	        padding="2pt"
+	        width="360pt"
+	        height="120pt" />
+	</LinearContainer>
 </LinearContainer>
