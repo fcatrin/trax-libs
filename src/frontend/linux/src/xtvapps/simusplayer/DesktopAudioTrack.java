@@ -7,7 +7,7 @@ import javax.sound.sampled.DataLine.Info;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
-public class AudioTrack {
+public class DesktopAudioTrack {
 
 	private int bufferSize;
 	private Info info;
@@ -15,7 +15,7 @@ public class AudioTrack {
 	private SourceDataLine audioLine;
 	private byte byteSamples[] = null;
 
-	public AudioTrack(int freq, int channels, int bufferSize) {
+	public DesktopAudioTrack(int freq, int channels, int bufferSize) {
 		this.bufferSize = bufferSize;
 		format = new AudioFormat(freq, 16, channels, true, false); // 16bits, signed, little endian
 		info = new DataLine.Info(SourceDataLine.class, format);

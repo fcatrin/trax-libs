@@ -1,4 +1,4 @@
-package xtvapps.simusplayer;
+package xtvapps.simusplayer.core;
 
 public class AudioBuffer {
 	private static final String LOGTAG = AudioBuffer.class.getSimpleName();
