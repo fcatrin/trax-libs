@@ -1,27 +1,35 @@
 <LinearContainer
     background="#303030"
-    orientation="horizontal"
+    orientation="vertical"
     width="match_parent"
     height="match_parent">
-    <xtvapps.simusplayer.core.widgets.WaveWidget
-        id="waveBox0"
-        background="@drawable/wave_background"
-        width="wrap_content"
-        height="wrap_content" />
-    <xtvapps.simusplayer.core.widgets.WaveWidget
-        id="waveBox1"
-        background="@drawable/wave_background"
-        width="wrap_content"
-        height="wrap_content" />
-    <xtvapps.simusplayer.core.widgets.WaveWidget
-        id="waveBox2"
-        background="@drawable/wave_background"
-        width="wrap_content"
-        height="wrap_content" />
-        <xtvapps.simusplayer.core.widgets.WaveWidget
-        id="waveBox3"
-        background="@drawable/wave_background"
-        width="wrap_content"
-        height="wrap_content" />
-    
+    <TextWidget
+        width="match_parent"
+        height="wrap_content"
+        text="Test Title" />
+    <LinearContainer
+        orientation="horizontal"
+        width="match_parent"
+        height="wrap_content">
+	    <xtvapps.simusplayer.core.widgets.WaveWidget
+	        id="waveBox0"
+	        background="@drawable/wave_background"
+	        width="wrap_content"
+	        height="wrap_content" />
+	    <xtvapps.simusplayer.core.widgets.WaveWidget
+	        id="waveBox1"
+	        background="@drawable/wave_background"
+	        width="wrap_content"
+	        height="wrap_content" />
+	    <xtvapps.simusplayer.core.widgets.WaveWidget
+	        id="waveBox2"
+	        background="@drawable/wave_background"
+	        width="wrap_content"
+	        height="wrap_content" />
+	    <xtvapps.simusplayer.core.widgets.WaveWidget
+	        id="waveBox3"
+	        background="@drawable/wave_background"
+	        width="wrap_content"
+	        height="wrap_content" />
+    </LinearContainer>
 </LinearContainer>

@@ -26,6 +26,8 @@ JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpInit
 		return false;
 	}
 
+	xmp_get_module_info(ctx, &modInfo);
+
 	xmp_start_player(ctx, freq, 0);
 	xmp_set_player(ctx, XMP_PLAYER_MIX, 75);
 	xmp_set_player(ctx, XMP_PLAYER_INTERP, XMP_INTERP_SPLINE);
@@ -54,8 +56,10 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillBuffer
 	return result;
 }
 
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleName
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleNameFromPath
   (JNIEnv *env, jclass thiz, jstring sPath) {
+	static struct xmp_module_info modInfo;
+
 	jstring name = NULL;
 	int ret = 0;
 
@@ -100,6 +104,64 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
 	jsize arraySize = resultSize < WAVE_SIZE ? resultSize : WAVE_SIZE;
 	env->SetIntArrayRegion(wave, 0, arraySize, channel_info->wave);
 }
+
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleName
+  (JNIEnv *env, jobject thiz) {
+	return env->NewStringUTF(modInfo.mod->name);
+}
+
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleFormat
+  (JNIEnv *env, jobject thiz) {
+	return env->NewStringUTF(modInfo.mod->type);
+}
+
+JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleInfo
+  (JNIEnv *env, jobject thiz) {
+
+	xmp_module *mod = modInfo.mod;
+	int modInfoData[] = {
+			mod->trk,
+			mod->len,
+			mod->smp,
+			mod->spd,
+			mod->bpm
+	};
+
+	jintArray result = env->NewIntArray(5);
+	env->SetIntArrayRegion(result, 0, 5, modInfoData);
+	return result;
+}
+
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetSampleName
+  (JNIEnv *env, jobject thiz, jint sampleIndex) {
+	xmp_get_module_info(ctx, &modInfo);
+
+	if (sampleIndex < 0 || sampleIndex >= modInfo.mod->smp) return NULL;
+
+	char *sampleName = modInfo.mod->xxs[sampleIndex].name;
+	return env->NewStringUTF(sampleName);
+}
+
+JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetPlayingInfo
+  (JNIEnv *env, jobject thiz) {
+	static struct xmp_frame_info frame_info;
+	xmp_get_frame_info(ctx, &frame_info);
+
+	int playingInfoData[] = {
+			frame_info.pos,
+			frame_info.speed,
+			frame_info.bpm,
+			frame_info.time,
+			frame_info.total_time,
+			frame_info.virt_channels,
+			frame_info.virt_used
+	};
+
+	jintArray result = env->NewIntArray(7);
+	env->SetIntArrayRegion(result, 0, 7, playingInfoData);
+	return result;
+}
+
 
 #ifdef __cplusplus
 }

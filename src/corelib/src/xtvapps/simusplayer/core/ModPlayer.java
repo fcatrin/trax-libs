@@ -25,6 +25,10 @@ public class ModPlayer {
 	public void play(String path) throws IOException {
 		xmpInit(path, waveDevice.getFreq());
 		
+		System.out.println("mod name: " + xmpGetModuleName());
+		System.out.println("mod format: " + xmpGetModuleFormat());
+		
+		
 		audioThread = new Thread() {
 			@Override
 			public void run() {
@@ -93,8 +97,13 @@ public class ModPlayer {
 	public native boolean xmpInit(String path, int freq);
 	public native void    xmpRelease();
 	public native int     xmpFillBuffer(byte[] buffer, int loop);
-	public native static String xmpGetModuleName(String path);
+	public native static String xmpGetModuleNameFromPath(String path);
 	public native void    xmpSetVolume(int volume);
 	public native void    xmpFillWave(int[] wave, int channel);
+	public native String  xmpGetModuleName();
+	public native String  xmpGetModuleFormat();
+	public native int[]   xmpGetModuleInfo();
+	public native String  xmpGetSampleName(int sample);
+	public native int[]   xmpGetPlayingInfo();
 	
 }

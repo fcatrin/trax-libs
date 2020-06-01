@@ -7,6 +7,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#undef xtvapps_simusplayer_core_ModPlayer_SLEEP_TIME
+#define xtvapps_simusplayer_core_ModPlayer_SLEEP_TIME 10L
 /*
  * Class:     xtvapps_simusplayer_core_ModPlayer
  * Method:    xmpInit
@@ -33,10 +35,10 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillBuffer
 
 /*
  * Class:     xtvapps_simusplayer_core_ModPlayer
- * Method:    xmpGetModuleName
+ * Method:    xmpGetModuleNameFromPath
  * Signature: (Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleName
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleNameFromPath
   (JNIEnv *, jclass, jstring);
 
 /*
@@ -50,10 +52,50 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSetVolume
 /*
  * Class:     xtvapps_simusplayer_core_ModPlayer
  * Method:    xmpFillWave
- * Signature: ([SI)V
+ * Signature: ([II)V
  */
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
   (JNIEnv *, jobject, jintArray, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpGetModuleName
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleName
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpGetModuleFormat
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleFormat
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpGetModuleInfo
+ * Signature: ()[I
+ */
+JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleInfo
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpGetSampleName
+ * Signature: (I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetSampleName
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpGetPlayingInfo
+ * Signature: ()[I
+ */
+JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetPlayingInfo
+  (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

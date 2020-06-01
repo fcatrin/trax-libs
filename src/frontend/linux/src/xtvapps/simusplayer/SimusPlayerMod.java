@@ -27,7 +27,7 @@ public class SimusPlayerMod {
 	public static void main(String[] args) throws IOException {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 		
-		window = Application.createWindow("Simus Mod Player", 68*4, 68);
+		window = Application.createWindow("Simus Mod Player", 640, 360);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		Widget rootView = app.inflate(window, "modplayer");
