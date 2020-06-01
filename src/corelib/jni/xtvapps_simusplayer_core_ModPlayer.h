@@ -97,6 +97,14 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetSampleNa
 JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetPlayingInfo
   (JNIEnv *, jobject);
 
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpMuteChannel
+ * Signature: (IZ)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpMuteChannel
+  (JNIEnv *, jobject, jint, jboolean);
+
 #ifdef __cplusplus
 }
 #endif

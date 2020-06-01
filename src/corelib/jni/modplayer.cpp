@@ -162,6 +162,15 @@ JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetPlayin
 	return result;
 }
 
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpMuteChannel
+  (JNIEnv *env, jobject thiz, jint channel, jboolean mute) {
+
+	if (channel < 0 || channel >= modInfo.mod->chn) return;
+
+	xmp_channel_mute(ctx, channel, mute);
+}
+
+
 
 #ifdef __cplusplus
 }

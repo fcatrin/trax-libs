@@ -1,8 +1,10 @@
 package xtvapps.simusplayer.core.widgets;
 
+import fts.core.Log;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.events.PaintEvent;
+import fts.events.TouchEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Color;
 import fts.graphics.Point;
@@ -15,6 +17,7 @@ public class WaveWidget extends Widget {
 	public WaveWidget(Window window) {
 		super(window);
 		lineColor = new Color("#333B50");
+		setClickable(true);
 	}
 
 	public void setWave(int wave[]) {

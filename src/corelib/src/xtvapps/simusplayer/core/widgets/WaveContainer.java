@@ -2,10 +2,14 @@ package xtvapps.simusplayer.core.widgets;
 
 import java.util.List;
 
+import fts.core.Callback;
 import fts.core.Container;
 import fts.core.LayoutInfo;
+import fts.core.Log;
 import fts.core.Widget;
 import fts.core.Window;
+import fts.events.OnClickListener;
+import fts.events.TouchEvent;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 
@@ -32,6 +36,8 @@ public class WaveContainer extends Container {
 	int spacing = 0;
 
 	private Drawable waveBackground;
+	
+	private Callback<Integer> muteChannelCallback;
 	
 	public WaveContainer(Window w) {
 		super(w);
@@ -82,6 +88,17 @@ public class WaveContainer extends Container {
 				w.setBackground(waveBackground);
 				w.setBounds(x, y, waveWidth, waveHeight);
 				add(w);
+
+				final int channel = row * cols + col;
+
+				w.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(Widget w) {
+						if (muteChannelCallback!=null) muteChannelCallback.onResult(channel);
+					}
+				});
+				
 				x+= waveWidth + spacing;
 				
 			}
@@ -89,6 +106,10 @@ public class WaveContainer extends Container {
 		}
 	}
 	
+	public void setMuteChannelCallback(Callback<Integer> muteChannelCallback) {
+		this.muteChannelCallback = muteChannelCallback;
+	}
+
 	public void setWave(int waveIndex, int wave[]) {
 		List<Widget> children = getChildren();
 		

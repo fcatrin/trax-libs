@@ -23,6 +23,8 @@ public class ModPlayer {
 	boolean isPlaying = false;
 	boolean isPaused = false;
 	
+	boolean mutedChannels[];
+	
 	public ModPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
 	}
@@ -35,6 +37,8 @@ public class ModPlayer {
 		xmpInit(path, waveDevice.getFreq());
 
 		loadModInfo();
+		
+		mutedChannels = new boolean[modInfo.tracks];
 
 		audioThread = new Thread() {
 			@Override
@@ -105,6 +109,14 @@ public class ModPlayer {
 		try {Thread.sleep(SLEEP_TIME);} catch (Exception e) {};
 	}
 	
+	public void toggleChannel(int channel) {
+		boolean mute = !mutedChannels[channel];
+		xmpMuteChannel(channel, mute);
+		mutedChannels[channel] = mute;
+		
+		Log.d(LOGTAG, "toggle channel " + channel);
+	}
+	
 	private void loadModInfo() {
 		modInfo.modName = xmpGetModuleName();
 		modInfo.modFormat = xmpGetModuleFormat();
@@ -151,6 +163,7 @@ public class ModPlayer {
 	public native int[]   xmpGetModuleInfo();
 	public native String  xmpGetSampleName(int sample);
 	public native int[]   xmpGetPlayingInfo();
+	public native void    xmpMuteChannel(int channel, boolean mute);
 	
 	public class ModInfo {
 		public String modName;

@@ -3,6 +3,7 @@ package xtvapps.simusplayer;
 import java.io.IOException;
 
 import fts.core.Application;
+import fts.core.Callback;
 import fts.core.Context;
 import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
@@ -83,6 +84,14 @@ public class SimusPlayerMod {
 		};
 
 		t.start();
+
+		waveContainer.setMuteChannelCallback(new Callback<Integer>() {
+			
+			@Override
+			public void onResult(Integer channel) {
+				modPlayer.toggleChannel(channel);
+			}
+		});
 		
 		window.open();
 		window.mainLoop();
