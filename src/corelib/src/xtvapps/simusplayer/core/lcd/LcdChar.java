@@ -16,7 +16,7 @@ public class LcdChar {
 	static int pixel_cols = 5;
 	static int pixel_rows = 7;
 	
-	static int pixel_size = 2;
+	static int pixel_size = 4;
 	static int pixel_spacing = 1;
 	
 	static {
@@ -52,13 +52,18 @@ public class LcdChar {
 		}
 	}
 	
-	public static void drawString(Canvas c, int x, int y, String s) {
-		for(int i=0; i<s.length(); i++) {
-			int bitmap[] = font.get(s.substring(i, i+1));
-			if (bitmap == null) bitmap = font.get(" ");
+	public static void drawString(Canvas c, int x, int y, String s, int offset, int len) {
+		int emptyBitmap[] = font.get(" ");
+		for(int i=0; i<len; i++) {
+			int index = offset + i;
+			int bitmap[] = emptyBitmap;
+			if (0 <= index && index < s.length()) {
+				bitmap = font.get(s.substring(index, index+1));
+				if (bitmap == null) bitmap = emptyBitmap;
+			}
 			
 			drawChar(c, x, y, bitmap);
-			x += (pixel_size + pixel_spacing) * pixel_cols;
+			x += (pixel_size + pixel_spacing) * (pixel_cols+1);
 		}
 	}
 	

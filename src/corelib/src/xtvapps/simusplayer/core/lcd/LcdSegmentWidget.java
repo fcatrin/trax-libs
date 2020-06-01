@@ -28,7 +28,7 @@ public class LcdSegmentWidget extends Widget {
 		Canvas canvas = e.canvas;
 		int x = bounds.x;
 		int y = bounds.y;
-		LcdChar.drawString(canvas, x, y, text);
+		LcdChar.drawString(canvas, x, y, text, 0, len);
 	}
 
 	@Override

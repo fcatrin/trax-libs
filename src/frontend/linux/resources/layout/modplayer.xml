@@ -1,13 +1,15 @@
 <LinearContainer
-    background="#303030"
+    background="#FB7D11"
     orientation="vertical"
     width="match_parent"
     height="match_parent">
     <xtvapps.simusplayer.core.lcd.LcdScreenWidget
+        id="lcd"
         width="match_parent"
         height="wrap_content"
-        onColor="#F0FFFF"
-        offColor="#A0A0A0"/>
+        padding="0pt"
+        onColor="#371C01"
+        offColor="#D1690D"/>
     <LinearContainer
         orientation="horizontal"
         width="match_parent"

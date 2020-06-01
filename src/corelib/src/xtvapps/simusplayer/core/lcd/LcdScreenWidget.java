@@ -15,7 +15,7 @@ public class LcdScreenWidget extends Container {
 		super(w);
 		
 		lcdName = new LcdSegmentWidget(w);
-		lcdName.setLen(8);
+		lcdName.setLen(20);
 		add(lcdName);
 		
 		setName("Test title");
@@ -35,8 +35,11 @@ public class LcdScreenWidget extends Container {
 	
 	@Override
 	public void layout() {
+		int x = bounds.x + padding.left;
+		int y = bounds.y + padding.top;
+		
 		LayoutInfo layoutInfo = lcdName.getLayoutInfo();
-		lcdName.setBounds(0, 0, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+		lcdName.setBounds(x, y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 	}
 
 	@Override
@@ -48,7 +51,9 @@ public class LcdScreenWidget extends Container {
 
 	@Override
 	public Point getContentSize(int width, int height) {
-		return lcdName.getContentSize(width, height);
+		int paddingWidth = padding.left + padding.right;
+		int paddingHeight = padding.top + padding.bottom;
+		return lcdName.getContentSize(width + paddingWidth, height + paddingHeight);
 	}
 
 	@Override

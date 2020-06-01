@@ -2,8 +2,6 @@ package xtvapps.simusplayer;
 
 import java.io.IOException;
 
-import javax.sound.sampled.LineUnavailableException;
-
 import fts.core.Application;
 import fts.core.Context;
 import fts.core.DesktopLogger;
@@ -13,11 +11,10 @@ import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.linux.ComponentFactory;
-import xtvapps.simusplayer.core.AudioBuffer;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
-import xtvapps.simusplayer.core.ModPlayer.ModPlayerListener;
+import xtvapps.simusplayer.core.lcd.LcdScreenWidget;
 import xtvapps.simusplayer.core.widgets.WaveWidget;
 
 public class SimusPlayerMod {
@@ -26,15 +23,18 @@ public class SimusPlayerMod {
 	private static Window window;
 	
 	private static ModPlayer modPlayer;
+	private static LcdScreenWidget lcdScreen;
 
 	public static void main(String[] args) throws IOException {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 		
-		window = Application.createWindow("Simus Mod Player", 640, 360);
+		window = Application.createWindow("Simus Mod Player", 640, 240);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		Widget rootView = app.inflate(window, "modplayer");
 		window.setContentView(rootView);
+		
+		lcdScreen = (LcdScreenWidget)rootView.findWidget("lcd");
 
 		modPlayer = new ModPlayer(new DesktopWaveDevice(44100, 1024));
 		modPlayer.setModPlayerListener(new ModPlayer.ModPlayerListener() {
@@ -52,6 +52,7 @@ public class SimusPlayerMod {
 				for(int i=0; i<modInfo.samples; i++) {
 					System.out.println(String.format("%02X : %s", i, modPlayer.xmpGetSampleName(i)));
 				}
+				lcdScreen.setName(toFirstLetterUppercase(modInfo.modName));
 			}
 			
 			@Override
@@ -63,7 +64,7 @@ public class SimusPlayerMod {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					modPlayer.play("/home/fcatrin/git/retrobox/RetroBoxDroid/assets/music/bananasplit.mod");
+					modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -92,6 +93,10 @@ public class SimusPlayerMod {
 			System.out.println("pos: " + frameInfo.position + "/" + modInfo.patterns + " spd:" + frameInfo.speed + " bpm:" + frameInfo.bpm);
 			t0 = t;
 		}
+	}
+	
+	private static String toFirstLetterUppercase(String s) {
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 	
 	private static SimpleCallback getOnFrameCallback() {
