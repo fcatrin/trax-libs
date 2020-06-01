@@ -69,7 +69,12 @@ public class SimusPlayerMod {
 		Thread t = new Thread() {
 			public void run() {
 				try {
+					// modPlayer.play("/home/fcatrin/tmp/mods/bananasplit.mod");
+					// modPlayer.play("/home/fcatrin/tmp/mods/beyond_music.mod");
+					// modPlayer.play("/home/fcatrin/tmp/mods/bloodm.mod");
+					//  modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
 					modPlayer.play("/home/fcatrin/tmp/mods/devlpr94.xm");
+					// modPlayer.play("/home/fcatrin/tmp/mods/dirt.mod");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
