@@ -5,7 +5,7 @@ extern "C" {
 #include "xmp.h"
 #include "xtvapps_simusplayer_core_ModPlayer.h"
 
-#define WAVE_SIZE 64
+#define WAVE_SIZE 128
 
 xmp_context ctx;
 struct xmp_frame_info frameInfo;

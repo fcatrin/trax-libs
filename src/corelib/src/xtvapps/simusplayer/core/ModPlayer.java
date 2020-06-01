@@ -93,7 +93,7 @@ public class ModPlayer {
 		isPlaying = false;
 	}
 	
-	private int wave[][] = new int[24][64];
+	private int wave[][] = new int[24][128];
 	
 	public int[] getWave(int channel) {
 		int[] w = wave[channel];

@@ -33,21 +33,23 @@ public class WaveWidget extends Widget {
 			background.draw(canvas);
 		}
 		
-		if (wave== null) return;
+		if (wave == null) return;
 		canvas.setForeground(lineColor);
-		int px = bounds.x+2;
-		int py = bounds.y+2 + (bounds.height-4) / 2;
-		for(int x=0; x<64 && x<wave.length; x++) {
-			int sample = wave[x] / 256 / 8;
-			canvas.drawLine(px, py - sample, px, py - sample+1);
+		int px = bounds.x;
+		int py = bounds.y + bounds.height / 2;
+		
+		float steps = (float)wave.length / bounds.width;
+		
+		for(int x=0; x<bounds.width; x++) {
+			int sample = wave[(int)(x * steps)] / 256 / 8;
+			canvas.drawLine(px, py - sample, px, py - sample+2);
 			px++;
 		}
-
 	}
 
 	@Override
 	public Point getContentSize(int width, int height) {
-		return new Point(68, 68);
+		return new Point(0, 0);
 	}
 
 }

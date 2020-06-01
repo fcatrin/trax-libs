@@ -10,7 +10,7 @@
 #define FILTER_SHIFT	16
 #define ANTICLICK_SHIFT	3
 
-#define WAVE_SIZE 64
+#define WAVE_SIZE 128
 
 #ifdef LIBXMP_PAULA_SIMULATOR
 #include "paula.h"
