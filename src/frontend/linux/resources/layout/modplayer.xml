@@ -3,10 +3,11 @@
     orientation="vertical"
     width="match_parent"
     height="match_parent">
-    <TextWidget
+    <xtvapps.simusplayer.core.lcd.LcdScreenWidget
         width="match_parent"
         height="wrap_content"
-        text="Test Title" />
+        onColor="#F0FFFF"
+        offColor="#A0A0A0"/>
     <LinearContainer
         orientation="horizontal"
         width="match_parent"
