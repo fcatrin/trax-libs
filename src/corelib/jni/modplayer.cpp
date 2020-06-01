@@ -120,9 +120,9 @@ JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModule
 
 	xmp_module *mod = modInfo.mod;
 	int modInfoData[] = {
-			mod->trk,
+			mod->chn,
 			mod->len,
-			mod->smp,
+			mod->ins,
 			mod->spd,
 			mod->bpm
 	};
@@ -138,7 +138,7 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetSampleNa
 
 	if (sampleIndex < 0 || sampleIndex >= modInfo.mod->smp) return NULL;
 
-	char *sampleName = modInfo.mod->xxs[sampleIndex].name;
+	char *sampleName = modInfo.mod->xxi[sampleIndex].name;
 	return env->NewStringUTF(sampleName);
 }
 

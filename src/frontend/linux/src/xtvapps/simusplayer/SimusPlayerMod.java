@@ -15,6 +15,9 @@ import fts.core.Window;
 import fts.linux.ComponentFactory;
 import xtvapps.simusplayer.core.AudioBuffer;
 import xtvapps.simusplayer.core.ModPlayer;
+import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
+import xtvapps.simusplayer.core.ModPlayer.ModInfo;
+import xtvapps.simusplayer.core.ModPlayer.ModPlayerListener;
 import xtvapps.simusplayer.core.widgets.WaveWidget;
 
 public class SimusPlayerMod {
@@ -34,6 +37,28 @@ public class SimusPlayerMod {
 		window.setContentView(rootView);
 
 		modPlayer = new ModPlayer(new DesktopWaveDevice(44100, 1024));
+		modPlayer.setModPlayerListener(new ModPlayer.ModPlayerListener() {
+			
+			@Override
+			public void onStart() {
+				ModPlayer.ModInfo modInfo = modPlayer.getModInfo();
+				System.out.println("name: " + modInfo.modName);
+				System.out.println("format: " + modInfo.modFormat);
+				System.out.println("tracks: " + modInfo.tracks);
+				System.out.println("patterns: " + modInfo.patterns);
+				System.out.println("samples: " + modInfo.samples);
+				System.out.println("speed: " + modInfo.speed);
+				System.out.println("bpm: " + modInfo.bpm);
+				for(int i=0; i<modInfo.samples; i++) {
+					System.out.println(String.format("%02X : %s", i, modPlayer.xmpGetSampleName(i)));
+				}
+			}
+			
+			@Override
+			public void onEnd() {
+				Log.d(LOGTAG, "player ends");
+			}
+		});
 		
 		Thread t = new Thread() {
 			public void run() {
@@ -53,10 +78,19 @@ public class SimusPlayerMod {
 		modPlayer.stop();
 	}
 
+	private static long t0 = 0;
 	protected static void onFrameCallback() {
 		for(int i=0; i<4; i++) {
 			WaveWidget waveWidget = (WaveWidget)window.findWidget("waveBox" + i);
 			waveWidget.setWave(modPlayer.getWave(i));
+		}
+		
+		long t = System.currentTimeMillis();
+		if (t - t0 > 200 ) {
+			ModInfo modInfo = modPlayer.getModInfo();
+			FrameInfo frameInfo = modPlayer.getFrameInfo();
+			System.out.println("pos: " + frameInfo.position + "/" + modInfo.patterns + " spd:" + frameInfo.speed + " bpm:" + frameInfo.bpm);
+			t0 = t;
 		}
 	}
 	
