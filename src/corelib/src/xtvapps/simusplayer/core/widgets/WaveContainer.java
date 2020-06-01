@@ -6,9 +6,8 @@ import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
 import fts.core.Window;
-import fts.graphics.Color;
+import fts.graphics.Drawable;
 import fts.graphics.Point;
-import fts.graphics.Shape;
 
 public class WaveContainer extends Container {
 	private static final int layouts[] = {
@@ -31,6 +30,8 @@ public class WaveContainer extends Container {
 
 	int waves = 0;
 	int spacing = 0;
+
+	private Drawable waveBackground;
 	
 	public WaveContainer(Window w) {
 		super(w);
@@ -41,6 +42,10 @@ public class WaveContainer extends Container {
 		
 		this.waves = waves;
 		requestLayout();
+	}
+	
+	public void setWaveBackground(Drawable waveBackground) {
+		this.waveBackground = waveBackground;
 	}
 	
 	public void setSpacing(int spacing) {
@@ -70,15 +75,12 @@ public class WaveContainer extends Container {
 		
 		int y = bounds.y + padding.top;
 		
-		Shape waveBackground = new Shape();
-		waveBackground.setFillColor(new Color("#D1690D"));
-		
 		for(int row = 0; row < rows; row++) {
 			int x = bounds.x + padding.left;
 			for(int col = 0; col < cols; col++) {
 				WaveWidget w = new WaveWidget(getWindow());
-				w.setBounds(x, y, waveWidth, waveHeight);
 				w.setBackground(waveBackground);
+				w.setBounds(x, y, waveWidth, waveHeight);
 				add(w);
 				x+= waveWidth + spacing;
 				
@@ -109,6 +111,7 @@ public class WaveContainer extends Container {
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (propertyName.equals("spacing")) return resolvePropertyValueDimen(propertyName, value);
+		if (propertyName.equals("waveBackground")) return resolveBackground(value);
 		return super.resolvePropertyValue(propertyName, value);
 	}
 	

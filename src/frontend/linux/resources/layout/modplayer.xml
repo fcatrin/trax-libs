@@ -1,6 +1,7 @@
 <LinearContainer
     background="#FB7D11"
     orientation="vertical"
+    padding="0pt"
     width="match_parent"
     height="match_parent">
     <xtvapps.simusplayer.core.lcd.LcdScreenWidget
@@ -24,7 +25,8 @@
 	        id="waves"
 	        spacing="4pt"
 	        padding="2pt"
+	        waveBackground="#D1690D"
 	        width="360pt"
-	        height="120pt" />
+	        height="160pt" />
 	</LinearContainer>
 </LinearContainer>
