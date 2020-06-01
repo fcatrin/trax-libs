@@ -10,29 +10,9 @@
         padding="0pt"
         onColor="#371C01"
         offColor="#D1690D"/>
-    <LinearContainer
-        orientation="horizontal"
-        width="match_parent"
-        height="wrap_content">
-	    <xtvapps.simusplayer.core.widgets.WaveWidget
-	        id="waveBox0"
-	        background="@drawable/wave_background"
-	        width="wrap_content"
-	        height="wrap_content" />
-	    <xtvapps.simusplayer.core.widgets.WaveWidget
-	        id="waveBox1"
-	        background="@drawable/wave_background"
-	        width="wrap_content"
-	        height="wrap_content" />
-	    <xtvapps.simusplayer.core.widgets.WaveWidget
-	        id="waveBox2"
-	        background="@drawable/wave_background"
-	        width="wrap_content"
-	        height="wrap_content" />
-	    <xtvapps.simusplayer.core.widgets.WaveWidget
-	        id="waveBox3"
-	        background="@drawable/wave_background"
-	        width="wrap_content"
-	        height="wrap_content" />
-    </LinearContainer>
+    <xtvapps.simusplayer.core.widgets.WaveContainer
+        id="waves"
+        width="200pt"
+        height="120pt" />
+
 </LinearContainer>

@@ -11,6 +11,7 @@ public class WaveWidget extends Widget {
 
 	int wave[];
 	private Color lineColor;
+	
 	public WaveWidget(Window window) {
 		super(window);
 		lineColor = new Color("#333B50");

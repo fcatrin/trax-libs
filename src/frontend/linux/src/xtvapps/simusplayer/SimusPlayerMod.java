@@ -15,6 +15,7 @@ import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
 import xtvapps.simusplayer.core.lcd.LcdScreenWidget;
+import xtvapps.simusplayer.core.widgets.WaveContainer;
 import xtvapps.simusplayer.core.widgets.WaveWidget;
 
 public class SimusPlayerMod {
@@ -23,7 +24,9 @@ public class SimusPlayerMod {
 	private static Window window;
 	
 	private static ModPlayer modPlayer;
+	private static ModInfo modInfo;
 	private static LcdScreenWidget lcdScreen;
+	private static WaveContainer waveContainer;
 
 	public static void main(String[] args) throws IOException {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
@@ -35,13 +38,14 @@ public class SimusPlayerMod {
 		window.setContentView(rootView);
 		
 		lcdScreen = (LcdScreenWidget)rootView.findWidget("lcd");
+		waveContainer = (WaveContainer)rootView.findWidget("waves");
 
 		modPlayer = new ModPlayer(new DesktopWaveDevice(44100, 1024));
 		modPlayer.setModPlayerListener(new ModPlayer.ModPlayerListener() {
 			
 			@Override
 			public void onStart() {
-				ModPlayer.ModInfo modInfo = modPlayer.getModInfo();
+				modInfo = modPlayer.getModInfo();
 				System.out.println("name: " + modInfo.modName);
 				System.out.println("format: " + modInfo.modFormat);
 				System.out.println("tracks: " + modInfo.tracks);
@@ -53,6 +57,7 @@ public class SimusPlayerMod {
 					System.out.println(String.format("%02X : %s", i, modPlayer.xmpGetSampleName(i)));
 				}
 				lcdScreen.setName(toFirstLetterUppercase(modInfo.modName));
+				waveContainer.setWaves(modInfo.tracks);
 			}
 			
 			@Override
@@ -64,7 +69,7 @@ public class SimusPlayerMod {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
+					modPlayer.play("/home/fcatrin/tmp/mods/devlpr94.xm");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -81,14 +86,14 @@ public class SimusPlayerMod {
 
 	private static long t0 = 0;
 	protected static void onFrameCallback() {
-		for(int i=0; i<4; i++) {
-			WaveWidget waveWidget = (WaveWidget)window.findWidget("waveBox" + i);
-			waveWidget.setWave(modPlayer.getWave(i));
+		if (modInfo == null) return;
+
+		for(int i=0; i<modInfo.tracks; i++) {
+			waveContainer.setWave(i, modPlayer.getWave(i));
 		}
 		
 		long t = System.currentTimeMillis();
 		if (t - t0 > 200 ) {
-			ModInfo modInfo = modPlayer.getModInfo();
 			FrameInfo frameInfo = modPlayer.getFrameInfo();
 			System.out.println("pos: " + frameInfo.position + "/" + modInfo.patterns + " spd:" + frameInfo.speed + " bpm:" + frameInfo.bpm);
 			t0 = t;
