@@ -35,7 +35,11 @@ public class SimusPlayerMod {
 
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 
-		final File modFile = new File("/home/fcatrin/tmp/mods/greenochrome.xm");
+		// final File modFile = new File("/home/fcatrin/tmp/mods/greenochrome.xm");
+		// final File modFile = new File("/home/fcatrin/tmp/mods/m4v-fasc.it");
+		// final File modFile = new File("/home/fcatrin/tmp/mods/mindstorm.mod");
+		final File modFile = new File("/home/fcatrin/tmp/mods/satellite.s3m");
+		
 		// modPlayer.play("/home/fcatrin/tmp/mods/bananasplit.mod");
 		// modPlayer.play("/home/fcatrin/tmp/mods/beyond_music.mod");
 		// modPlayer.play("/home/fcatrin/tmp/mods/bloodm.mod");
