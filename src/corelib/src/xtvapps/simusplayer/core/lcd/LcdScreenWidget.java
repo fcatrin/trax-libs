@@ -17,8 +17,6 @@ public class LcdScreenWidget extends Container {
 		lcdName = new LcdSegmentWidget(w);
 		lcdName.setLen(20);
 		add(lcdName);
-		
-		setName("Test title");
 	}
 
 	public void setOnColor(Color color) {

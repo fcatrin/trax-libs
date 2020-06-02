@@ -42,7 +42,7 @@ public class LcdChar {
 			for(int row = 0; row<pixel_rows; row++) {
 				boolean on = (bits & bit) != 0;
 				Color color = on ? onColor : offColor;
-				c.setForeground(color);
+				c.setColor(color);
 				c.drawFilledRect(px, py, pixel_size, pixel_size);
 				py += pixel_size + pixel_spacing;
 				

@@ -38,7 +38,7 @@ public class WaveWidget extends Widget {
 		}
 		
 		if (wave == null) return;
-		canvas.setForeground(waveLinesColor);
+		canvas.setColor(waveLinesColor);
 		int px = bounds.x;
 		int py = bounds.y + bounds.height / 2;
 		

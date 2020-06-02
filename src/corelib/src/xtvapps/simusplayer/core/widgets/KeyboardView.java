@@ -50,14 +50,14 @@ public class KeyboardView extends Widget {
 		int widthPerNote = bounds.width / WHITE_NOTES;
 		int left = bounds.x;
 
-		c.setForeground(backgroundColor);
+		c.setColor(backgroundColor);
 		c.drawFilledRect(bounds.x, bounds.y, bounds.width, bounds.height);
 		
 		for(int i=0; i<OCTAVES*12+1; i++) {
 			if (!isBlackNote(i)) {
 				int noteIndex = i + FIRST_NOTE;
 				boolean isNoteOn = notes!=null && noteIndex < notes.length && notes[noteIndex] > 0;
-				c.setForeground(isNoteOn ? whiteNoteColor : whiteKeysColor);
+				c.setColor(isNoteOn ? whiteNoteColor : whiteKeysColor);
 				c.drawFilledRect(left, bounds.y, widthPerNote-1, bounds.height);
 				left += widthPerNote;
 			}
@@ -70,7 +70,7 @@ public class KeyboardView extends Widget {
 			if (isBlackNote(i)) {
 				int noteIndex = i + FIRST_NOTE;
 				boolean isNoteOn = notes!=null && noteIndex < notes.length && notes[noteIndex] > 0;
-				c.setForeground(isNoteOn ? blackNoteColor : blackKeysColor);
+				c.setColor(isNoteOn ? blackNoteColor : blackKeysColor);
 				c.drawFilledRect(left, bounds.y, blackKeyWidth, blackKeyHeight);
 
 				int note_in_octave = i % 12;
