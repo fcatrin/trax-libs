@@ -1,5 +1,6 @@
 package xtvapps.simusplayer;
 
+import java.io.File;
 import java.io.IOException;
 
 import fts.core.Application;
@@ -9,6 +10,7 @@ import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.core.Log;
 import fts.core.SimpleCallback;
+import fts.core.Utils;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.linux.ComponentFactory;
@@ -30,7 +32,21 @@ public class SimusPlayerMod {
 	private static WaveContainer waveContainer;
 
 	public static void main(String[] args) throws IOException {
+
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
+
+		final File modFile = new File("/home/fcatrin/tmp/mods/greenochrome.xm");
+		// modPlayer.play("/home/fcatrin/tmp/mods/bananasplit.mod");
+		// modPlayer.play("/home/fcatrin/tmp/mods/beyond_music.mod");
+		// modPlayer.play("/home/fcatrin/tmp/mods/bloodm.mod");
+		// modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
+		// modPlayer.play("/home/fcatrin/tmp/mods/devlpr94.xm");
+		// modPlayer.play("/home/fcatrin/tmp/mods/dirt.mod");
+		// modPlayer.play("/home/fcatrin/tmp/mods/elimination.mod");
+		if (!modFile.exists()) {
+			Log.d(LOGTAG, modFile + " not found");
+			return;
+		}
 		
 		window = Application.createWindow("Simus Mod Player", 640, 240);
 		window.setOnFrameCallback(getOnFrameCallback());
@@ -57,7 +73,10 @@ public class SimusPlayerMod {
 				for(int i=0; i<modInfo.samples; i++) {
 					System.out.println(String.format("%02X : %s", i, modPlayer.xmpGetSampleName(i)));
 				}
-				lcdScreen.setName(toFirstLetterUppercase(modInfo.modName));
+				
+				String modName = Utils.isEmptyString(modInfo.modName) ? modFile.getName() : modInfo.modName;
+				
+				lcdScreen.setName(toFirstLetterUppercase(modName));
 				waveContainer.setWaves(modInfo.tracks);
 			}
 			
@@ -73,9 +92,11 @@ public class SimusPlayerMod {
 					// modPlayer.play("/home/fcatrin/tmp/mods/bananasplit.mod");
 					// modPlayer.play("/home/fcatrin/tmp/mods/beyond_music.mod");
 					// modPlayer.play("/home/fcatrin/tmp/mods/bloodm.mod");
-					//  modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
-					modPlayer.play("/home/fcatrin/tmp/mods/devlpr94.xm");
+					// modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
+					// modPlayer.play("/home/fcatrin/tmp/mods/devlpr94.xm");
 					// modPlayer.play("/home/fcatrin/tmp/mods/dirt.mod");
+					// modPlayer.play("/home/fcatrin/tmp/mods/elimination.mod");
+					modPlayer.play(modFile.getCanonicalPath());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
