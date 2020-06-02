@@ -91,6 +91,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSetVolume
 
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
   (JNIEnv *env, jobject thiz, jintArray wave, jint channel) {
+
 	if (ctx == NULL) return;
 
 	static struct xmp_frame_info frame_info;
@@ -99,6 +100,8 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
 	if (channel >= frame_info.virt_used) return;
 
 	struct xmp_frame_info::xmp_channel_info *channel_info = &frame_info.channel_info[channel];
+
+	if (channel_info->wave == NULL) return;
 
 	jsize resultSize = env->GetArrayLength(wave);
 	jsize arraySize = resultSize < WAVE_SIZE ? resultSize : WAVE_SIZE;

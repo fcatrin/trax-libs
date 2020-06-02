@@ -1884,7 +1884,15 @@ void xmp_get_frame_info(xmp_context opaque, struct xmp_frame_info *info)
 			ci->volume = c->info_finalvol >> 4;
 			ci->pan = c->info_finalpan;
 			ci->reserved = 0;
-			ci->wave = p->virt.voice_array[i].wave;
+
+			// look for wave for this channel
+			ci->wave = NULL;
+			for(int vi=0; vi < p->virt.virt_channels; vi++) {
+				if (p->virt.voice_array[vi].chn == i) {
+					ci->wave = p->virt.voice_array[vi].wave;
+				}
+			}
+
 			memset(&ci->event, 0, sizeof(*event));
 	
 			if (info->pattern < mod->pat && info->row < info->num_rows) {
