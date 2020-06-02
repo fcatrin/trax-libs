@@ -1,7 +1,7 @@
 <LinearContainer
     background="#FB7D11"
     orientation="vertical"
-    padding="20pt"
+    padding="10pt"
     width="match_parent"
     height="match_parent">
     <xtvapps.simusplayer.core.lcd.LcdScreenWidget
