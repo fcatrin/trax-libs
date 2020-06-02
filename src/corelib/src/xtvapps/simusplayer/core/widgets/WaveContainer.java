@@ -10,6 +10,7 @@ import fts.core.Widget;
 import fts.core.Window;
 import fts.events.OnClickListener;
 import fts.events.TouchEvent;
+import fts.graphics.Color;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 
@@ -38,6 +39,8 @@ public class WaveContainer extends Container {
 	private Drawable waveBackground;
 	
 	private Callback<Integer> muteChannelCallback;
+
+	private Color waveLinesColor;
 	
 	public WaveContainer(Window w) {
 		super(w);
@@ -53,7 +56,11 @@ public class WaveContainer extends Container {
 	public void setWaveBackground(Drawable waveBackground) {
 		this.waveBackground = waveBackground;
 	}
-	
+
+	public void setWaveLinesColor(Color waveLinesColor) {
+		this.waveLinesColor = waveLinesColor;
+	}
+
 	public void setSpacing(int spacing) {
 		this.spacing = spacing;
 	}
@@ -86,6 +93,7 @@ public class WaveContainer extends Container {
 			for(int col = 0; col < cols; col++) {
 				WaveWidget w = new WaveWidget(getWindow());
 				w.setBackground(waveBackground);
+				w.setWaveLinesColor(waveLinesColor);
 				w.setBounds(x, y, waveWidth, waveHeight);
 				add(w);
 
@@ -133,6 +141,7 @@ public class WaveContainer extends Container {
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (propertyName.equals("spacing")) return resolvePropertyValueDimen(propertyName, value);
 		if (propertyName.equals("waveBackground")) return resolveBackground(value);
+		if (propertyName.equals("waveLinesColor")) return resolvePropertyValueColor(propertyName, value);
 		return super.resolvePropertyValue(propertyName, value);
 	}
 	

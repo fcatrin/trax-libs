@@ -26,6 +26,7 @@
 	        spacing="4pt"
 	        padding="2pt"
 	        waveBackground="#D1690D"
+	        waveLinesColor="#371C01"
 	        width="360pt"
 	        height="160pt" />
 	</LinearContainer>
