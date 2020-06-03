@@ -18,10 +18,22 @@ public class LcdScreenWidget extends LinearContainer {
 		LcdChar.setOffColor(color);
 	}
 	
+	public void setPixelSize(int size) {
+		LcdChar.pixel_size = size;
+	}
+	
+	public void setPixelSpacing(int spacing) {
+		LcdChar.pixel_spacing = spacing;
+	}
+	
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (propertyName.equals("onColor") || propertyName.equals("offColor")) {
 			return resolvePropertyValueColor(propertyName, value);
+		}
+		
+		if (propertyName.equals("pixelSize") || propertyName.equals("pixelSpacing")) {
+			return resolvePropertyValueDimen(propertyName, value);
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}

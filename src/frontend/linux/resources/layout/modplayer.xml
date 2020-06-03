@@ -5,6 +5,8 @@
        orientation="vertical"
        padding="20pt"
        background="@color/lcdBackground"
+       pixelSize="3pt"
+       pixelSpacing="1pt"
        onColor="@color/lcdPixelOn"
        offColor="@color/lcdPixelOff">
        <LinearContainer
@@ -59,6 +61,6 @@
         marginTop="10pt"
         waveBackground="@color/lcdPixelOff"
         waveLinesColor="@color/lcdPixelOn"
-        width="600pt"
-        height="240pt" />
+        width="300pt"
+        height="120pt" />
 </xtvapps.simusplayer.core.lcd.LcdScreenWidget>

@@ -53,7 +53,7 @@ public class SimusPlayerMod {
 			return;
 		}
 		
-		window = Application.createWindow("Simus Mod Player", 800, 480);
+		window = Application.createWindow("Simus Mod Player", 480, 272);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		final Widget rootView = app.inflate(window, "modplayer");
