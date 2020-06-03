@@ -1,29 +1,60 @@
-<LinearContainer
-    background="#FB7D11"
-    orientation="vertical"
-    padding="10pt"
-    width="match_parent"
-    height="match_parent">
-    <xtvapps.simusplayer.core.lcd.LcdScreenWidget
-        id="lcd"
-        width="match_parent"
-        height="wrap_content"
-        orientation="vertical"
-        onColor="#371C01"
-        offColor="#D1690D">
-        <xtvapps.simusplayer.core.lcd.LcdSegmentWidget
-            id="lcdModName"
-            width="wrap_content"
-            height="wrap_content"
-            len="18" />
-        
-	    <xtvapps.simusplayer.core.widgets.WaveContainer
-	        id="waves"
-	        spacing="4pt"
-	        padding="2pt"
-	        waveBackground="#D1690D"
-	        waveLinesColor="#371C01"
-	        width="600pt"
-	        height="240pt" />
-	</xtvapps.simusplayer.core.lcd.LcdScreenWidget>
-</LinearContainer>
+<xtvapps.simusplayer.core.lcd.LcdScreenWidget
+       id="lcd"
+       width="match_parent"
+       height="match_parent"
+       orientation="vertical"
+       padding="20pt"
+       background="@color/lcdBackground"
+       onColor="@color/lcdPixelOn"
+       offColor="@color/lcdPixelOff">
+       <LinearContainer
+           width="match_parent"
+           height="wrap_content"
+           orientation="horizontal">
+           <TextWidget
+               width="0pt"
+               height="wrap_content"
+               text="SONG NAME"
+               padding="4pt"
+               color="@color/lcdPixelOn" />
+           <TextWidget
+               width="wrap_content"
+               height="wrap_content"
+               text="MOD"
+               padding="4pt"
+               align="center"
+               color="@color/lcdBackground"
+               background="@drawable/lcd_rounded_on" />
+           <TextWidget
+               width="wrap_content"
+               height="wrap_content"
+               text="S3M"
+               padding="4pt"
+               align="center"
+               color="@color/lcdBackground"
+               background="@drawable/lcd_rounded_off" />
+           <TextWidget
+               width="wrap_content"
+               height="wrap_content"
+               text="MIDI"
+               padding="4pt"
+               align="center"
+               color="@color/lcdBackground"
+               background="@drawable/lcd_rounded_off" />
+           
+       </LinearContainer>
+       <xtvapps.simusplayer.core.lcd.LcdSegmentWidget
+           id="lcdModName"
+           width="wrap_content"
+           height="wrap_content"
+           len="18" />
+       
+    <xtvapps.simusplayer.core.widgets.WaveContainer
+        id="waves"
+        spacing="4pt"
+        padding="2pt"
+        waveBackground="@color/lcdPixelOff"
+        waveLinesColor="@color/lcdPixelOn"
+        width="600pt"
+        height="240pt" />
+</xtvapps.simusplayer.core.lcd.LcdScreenWidget>

@@ -1,0 +1,6 @@
+<colors>
+    <color name="lcdBackground">#FB7D11</color>
+    <color name="lcdPixelOn">#371C01</color>
+    <color name="lcdPixelOff">#D1690D</color>
+    
+</colors>

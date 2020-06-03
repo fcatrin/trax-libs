@@ -46,7 +46,7 @@ public class WaveWidget extends Widget {
 		
 		for(int x=0; x<bounds.width; x++) {
 			int sample = wave[(int)(x * steps)] / 256 / 8;
-			canvas.drawLine(px, py - sample, px, py - sample+2);
+			canvas.drawLine(px, py - sample-2, px, py - sample+2);
 			px++;
 		}
 	}
