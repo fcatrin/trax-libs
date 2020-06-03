@@ -10,6 +10,7 @@
        <LinearContainer
            width="match_parent"
            height="wrap_content"
+           marginBottom="4pt"
            orientation="horizontal">
            <TextWidget
                width="0pt"
@@ -32,6 +33,7 @@
                padding="4pt"
                align="center"
                color="@color/lcdBackground"
+               marginLeft="4pt"
                background="@drawable/lcd_rounded_off" />
            <TextWidget
                width="wrap_content"
@@ -40,6 +42,7 @@
                padding="4pt"
                align="center"
                color="@color/lcdBackground"
+               marginLeft="4pt"
                background="@drawable/lcd_rounded_off" />
            
        </LinearContainer>
@@ -53,6 +56,7 @@
         id="waves"
         spacing="4pt"
         padding="2pt"
+        marginTop="10pt"
         waveBackground="@color/lcdPixelOff"
         waveLinesColor="@color/lcdPixelOn"
         width="600pt"
