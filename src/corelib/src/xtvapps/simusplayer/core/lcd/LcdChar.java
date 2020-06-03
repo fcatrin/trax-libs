@@ -16,8 +16,8 @@ public class LcdChar {
 	static int pixel_cols = 5;
 	static int pixel_rows = 7;
 	
-	static int pixel_size = 6;
-	static int pixel_spacing = 1;
+	public static int pixel_size = 6;
+	public static int pixel_spacing = 1;
 	
 	static {
 		initFont();
