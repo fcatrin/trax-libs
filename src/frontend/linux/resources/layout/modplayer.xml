@@ -3,7 +3,7 @@
        width="match_parent"
        height="match_parent"
        orientation="vertical"
-       padding="20pt"
+       padding="10pt"
        background="@color/lcdBackground"
        pixelSize="3pt"
        pixelSpacing="1pt"
@@ -52,7 +52,7 @@
            id="lcdModName"
            width="wrap_content"
            height="wrap_content"
-           len="18" />
+           len="19" />
        
     <xtvapps.simusplayer.core.widgets.WaveContainer
         id="waves"

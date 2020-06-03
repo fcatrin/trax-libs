@@ -3,6 +3,7 @@ package xtvapps.simusplayer.core.lcd;
 import java.util.HashMap;
 import java.util.Map;
 
+import fts.core.Log;
 import fts.graphics.Canvas;
 import fts.graphics.Color;
 import fts.graphics.Point;
@@ -69,8 +70,8 @@ public class LcdChar {
 	
 	public static Point getSize(int chars) {
 		int pixelSize  = pixel_size + pixel_spacing;
-		int charWidth  = pixel_cols * pixelSize - pixel_spacing;
-		int charHeight = pixel_rows * pixelSize - pixel_spacing;
+		int charWidth  = pixel_cols * pixelSize;
+		int charHeight = pixel_rows * pixelSize;
 		
 		int width = chars * (charWidth + pixelSize) - pixelSize;
 		return new Point(width, charHeight);
