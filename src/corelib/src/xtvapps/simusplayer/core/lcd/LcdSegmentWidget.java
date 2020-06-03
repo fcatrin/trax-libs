@@ -39,4 +39,11 @@ public class LcdSegmentWidget extends Widget {
 	@Override
 	public void redraw() {}
 
+	@Override
+	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("len")) {
+			return resolvePropertyValueInt(propertyName, value);
+		}
+		return super.resolvePropertyValue(propertyName, value);
+	}
 }

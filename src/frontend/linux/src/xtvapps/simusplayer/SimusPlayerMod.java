@@ -18,6 +18,7 @@ import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
 import xtvapps.simusplayer.core.lcd.LcdScreenWidget;
+import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 import xtvapps.simusplayer.core.widgets.WaveContainer;
 import xtvapps.simusplayer.core.widgets.WaveWidget;
 
@@ -52,10 +53,10 @@ public class SimusPlayerMod {
 			return;
 		}
 		
-		window = Application.createWindow("Simus Mod Player", 640, 240);
+		window = Application.createWindow("Simus Mod Player", 800, 480);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
-		Widget rootView = app.inflate(window, "modplayer");
+		final Widget rootView = app.inflate(window, "modplayer");
 		window.setContentView(rootView);
 		
 		lcdScreen = (LcdScreenWidget)rootView.findWidget("lcd");
@@ -80,7 +81,8 @@ public class SimusPlayerMod {
 				
 				String modName = Utils.isEmptyString(modInfo.modName) ? modFile.getName() : modInfo.modName;
 				
-				lcdScreen.setName(toFirstLetterUppercase(modName));
+				LcdSegmentWidget lcdModName = (LcdSegmentWidget)rootView.findWidget("lcdModName");
+				lcdModName.setText(toFirstLetterUppercase(modName));
 				waveContainer.setWaves(modInfo.tracks);
 			}
 			

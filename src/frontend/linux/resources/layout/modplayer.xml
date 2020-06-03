@@ -8,26 +8,22 @@
         id="lcd"
         width="match_parent"
         height="wrap_content"
-        padding="0pt"
+        orientation="vertical"
         onColor="#371C01"
-        offColor="#D1690D"/>
-    <LinearContainer
-        width="match_parent"
-        height="0pt"
-        orientation="horizontal"
-        >
-        <TextWidget
-            width="0pt"
-            height="1pt"
-            text="."
-             />
+        offColor="#D1690D">
+        <xtvapps.simusplayer.core.lcd.LcdSegmentWidget
+            id="lcdModName"
+            width="wrap_content"
+            height="wrap_content"
+            len="18" />
+        
 	    <xtvapps.simusplayer.core.widgets.WaveContainer
 	        id="waves"
 	        spacing="4pt"
 	        padding="2pt"
 	        waveBackground="#D1690D"
 	        waveLinesColor="#371C01"
-	        width="360pt"
-	        height="160pt" />
-	</LinearContainer>
+	        width="600pt"
+	        height="240pt" />
+	</xtvapps.simusplayer.core.lcd.LcdScreenWidget>
 </LinearContainer>
