@@ -3,7 +3,7 @@
 	width="match_parent"
 	height="match_parent"
 	orientation="vertical"
-	padding="10pt"
+	padding="17pt"
 	background="@color/lcdBackground"
 	pixelSize="2pt"
 	pixelSpacing="1pt"
@@ -55,23 +55,25 @@
 	<LinearContainer
 		width="match_parent"
 		height="wrap_content"
-		marginTop="10pt"
+		marginTop="20pt"
 		orientation="horizontal">
 		<LinearContainer
 			width="0pt"
-			height="match_parent"
+			height="120pt"
 			orientation="vertical">
 			<include layout="modplayer_info1" />
+			<AbsoluteContainer
+			    width="match_parent"
+			    height="0pt" />
 			<include layout="modplayer_info2" />
 		</LinearContainer>
 	    <xtvapps.simusplayer.core.widgets.WaveContainer
 	        id="waves"
 	        spacing="4pt"
-	        padding="2pt"
 	        marginTop="10pt"
 	        waveBackground="@color/lcdPixelOff"
 	        waveLinesColor="@color/lcdPixelOn"
-	        width="260pt"
+	        width="240pt"
 	        height="120pt" />
     </LinearContainer>
 </xtvapps.simusplayer.core.lcd.LcdScreenWidget>
