@@ -1,0 +1,15 @@
+<selector>
+    <item pressed="true">
+		<shape
+		    fillColor="@color/lcdPixelOff"
+		    strokeColor="@color/lcdPixelOn"
+		    strokeWidth="2pt"
+		    radius="4pt"/>
+    </item>
+    <item>
+		<shape
+		    strokeColor="@color/lcdPixelOn"
+		    strokeWidth="2pt"
+		    radius="4pt"/>
+    </item>
+</selector>

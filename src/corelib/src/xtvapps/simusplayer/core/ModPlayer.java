@@ -22,6 +22,7 @@ public class ModPlayer {
 	
 	boolean isPlaying = false;
 	boolean isPaused = false;
+	boolean isStopped = true;
 	
 	boolean mutedChannels[];
 	
@@ -84,17 +85,24 @@ public class ModPlayer {
 				Log.d(LOGTAG, "play stop");
 				waveDevice.close();
 			    xmpRelease();
-			    isPlaying = false;
 			    if (modPlayerListener!=null) modPlayerListener.onEnd();
+			    isStopped = true;
 			}
 		};
 		isPlaying = true;
 		isPaused = false;
+		isStopped = false;
 		audioThread.start();
 	}
 	
 	public void stop() {
 		isPlaying = false;
+	}
+	
+	public void waitForStop() {
+		while (!isStopped) {
+			sleep();
+		}
 	}
 	
 	private int wave[][] = new int[24][128];

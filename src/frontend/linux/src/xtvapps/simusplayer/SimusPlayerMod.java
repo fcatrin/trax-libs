@@ -2,6 +2,8 @@ package xtvapps.simusplayer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import fts.core.Application;
 import fts.core.Callback;
@@ -13,7 +15,9 @@ import fts.core.SimpleCallback;
 import fts.core.Utils;
 import fts.core.Widget;
 import fts.core.Window;
+import fts.events.OnClickListener;
 import fts.linux.ComponentFactory;
+import fts.widgets.ButtonWidget;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
@@ -34,8 +38,16 @@ public class SimusPlayerMod {
 	private static LcdSegmentWidget lcdPosition;
 	private static LcdSegmentWidget lcdTempo;
 
-	public static void main(String[] args) throws IOException {
+	private static List<String> songs = new ArrayList<String>();
+	private static int currentSong = 0;
 
+	public static void main(String[] args) throws IOException {
+		songs.add("/home/fcatrin/tmp/mods/elimination.mod");
+		songs.add("/home/fcatrin/tmp/mods/bloodm.mod");
+		songs.add("/home/fcatrin/tmp/mods/bananasplit.mod");
+		songs.add("/home/fcatrin/tmp/mods/devlpr94.xm");
+		songs.add("/home/fcatrin/tmp/mods/m4v-fasc.it");
+		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 
 		// final File modFile = new File("/home/fcatrin/tmp/mods/bananasplit.mod"); // 4 channels
@@ -48,12 +60,14 @@ public class SimusPlayerMod {
 		// final File modFile = new File("/home/fcatrin/tmp/mods/greenochrome.xm"); // 8 chn
 		// final File modFile = new File("/home/fcatrin/tmp/mods/m4v-fasc.it"); // 18 chn
 		// final File modFile = new File("/home/fcatrin/tmp/mods/mindstorm.mod"); // 4 chn
+		/*
 		final File modFile = new File("/home/fcatrin/tmp/mods/satellite.s3m"); // 8 chn
 		
 		if (!modFile.exists()) {
 			Log.d(LOGTAG, modFile + " not found");
 			return;
 		}
+		*/
 		
 		window = Application.createWindow("Simus Mod Player", 480, 272);
 		window.setOnFrameCallback(getOnFrameCallback());
@@ -67,6 +81,25 @@ public class SimusPlayerMod {
 		lcdLength   = (LcdSegmentWidget)rootView.findWidget("lcdLength");
 		lcdPosition = (LcdSegmentWidget)rootView.findWidget("lcdPosition");
 		lcdTempo    = (LcdSegmentWidget)rootView.findWidget("lcdTempo");
+		
+		ButtonWidget btnPrev = (ButtonWidget)rootView.findWidget("btnPrev");
+		ButtonWidget btnNext = (ButtonWidget)rootView.findWidget("btnNext");
+		
+		btnPrev.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(Widget w) {
+				playPrev();
+			}
+		});
+
+		btnNext.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(Widget w) {
+				playNext();
+			}
+		});
 
 		modPlayer = new ModPlayer(new DesktopWaveDevice(44100, 1024));
 		modPlayer.setModPlayerListener(new ModPlayer.ModPlayerListener() {
@@ -85,7 +118,7 @@ public class SimusPlayerMod {
 					System.out.println(String.format("%02X : %s", i, modPlayer.xmpGetSampleName(i)));
 				}
 				
-				String modName = Utils.isEmptyString(modInfo.modName) ? modFile.getName() : modInfo.modName;
+				String modName = Utils.isEmptyString(modInfo.modName) ? "" : modInfo.modName;
 				
 				LcdSegmentWidget lcdModName = (LcdSegmentWidget)rootView.findWidget("lcdModName");
 				lcdModName.setText(toFirstLetterUppercase(modName));
@@ -98,17 +131,6 @@ public class SimusPlayerMod {
 			}
 		});
 		
-		Thread t = new Thread() {
-			public void run() {
-				try {
-					modPlayer.play(modFile.getCanonicalPath());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		};
-
-		t.start();
 
 		waveContainer.setMuteChannelCallback(new Callback<Integer>() {
 			
@@ -118,9 +140,47 @@ public class SimusPlayerMod {
 			}
 		});
 		
+		play();
+		
 		window.open();
 		window.mainLoop();
 		modPlayer.stop();
+	}
+	
+	private static void play() {
+		play(songs.get(currentSong));
+	}
+	
+	private static void play(final String fileName) {
+		Thread t = new Thread() {
+			public void run() {
+				try {
+					modPlayer.play(fileName);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+
+		t.start();
+	}
+	
+	private static void playPrev() {
+		modPlayer.stop();
+		modPlayer.waitForStop();
+		currentSong--;
+		if (currentSong<0) currentSong = songs.size()-1;
+		
+		play();
+	}
+
+	private static void playNext() {
+		modPlayer.stop();
+		modPlayer.waitForStop();
+		currentSong++;
+		if (currentSong>=songs.size()) currentSong = 0;
+		
+		play();
 	}
 
 	private static String padz(int n) {
