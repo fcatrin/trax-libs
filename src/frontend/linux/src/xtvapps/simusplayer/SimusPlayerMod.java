@@ -38,18 +38,18 @@ public class SimusPlayerMod {
 
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 
-		// final File modFile = new File("/home/fcatrin/tmp/mods/greenochrome.xm");
-		// final File modFile = new File("/home/fcatrin/tmp/mods/m4v-fasc.it");
-		// final File modFile = new File("/home/fcatrin/tmp/mods/mindstorm.mod");
-		final File modFile = new File("/home/fcatrin/tmp/mods/satellite.s3m");
+		// final File modFile = new File("/home/fcatrin/tmp/mods/bananasplit.mod"); // 4 channels
+		// final File modFile = new File("/home/fcatrin/tmp/mods/beyond_music.mod"); // 4 channels
+		// final File modFile = new File("/home/fcatrin/tmp/mods/bloodm.mod"); // 6 channels
+		// final File modFile = new File("/home/fcatrin/tmp/mods/chi.mod"); // 4 chn
+		// final File modFile = new File("/home/fcatrin/tmp/mods/devlpr94.xm");  // 10 chn
+		// final File modFile = new File("/home/fcatrin/tmp/mods/dirt.mod"); // 4 chn
+		// final File modFile = new File("/home/fcatrin/tmp/mods/elimination.mod"); // 4 chn
+		// final File modFile = new File("/home/fcatrin/tmp/mods/greenochrome.xm"); // 8 chn
+		// final File modFile = new File("/home/fcatrin/tmp/mods/m4v-fasc.it"); // 18 chn
+		// final File modFile = new File("/home/fcatrin/tmp/mods/mindstorm.mod"); // 4 chn
+		final File modFile = new File("/home/fcatrin/tmp/mods/satellite.s3m"); // 8 chn
 		
-		// modPlayer.play("/home/fcatrin/tmp/mods/bananasplit.mod");
-		// modPlayer.play("/home/fcatrin/tmp/mods/beyond_music.mod");
-		// modPlayer.play("/home/fcatrin/tmp/mods/bloodm.mod");
-		// modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
-		// modPlayer.play("/home/fcatrin/tmp/mods/devlpr94.xm");
-		// modPlayer.play("/home/fcatrin/tmp/mods/dirt.mod");
-		// modPlayer.play("/home/fcatrin/tmp/mods/elimination.mod");
 		if (!modFile.exists()) {
 			Log.d(LOGTAG, modFile + " not found");
 			return;
