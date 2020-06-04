@@ -28,9 +28,9 @@
             height="wrap_content"
             align="center"
             color="@color/lcdPixelOn"
-            text="POSITION" />
+            text="LENGTH" />
 		<xtvapps.simusplayer.core.lcd.LcdSegmentWidget
-		    id="lcdPosition"
+		    id="lcdLength"
 		    width="wrap_content"
 		    height="wrap_content"
 		    len="5"

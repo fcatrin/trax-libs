@@ -20,7 +20,6 @@ import xtvapps.simusplayer.core.ModPlayer.ModInfo;
 import xtvapps.simusplayer.core.lcd.LcdScreenWidget;
 import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 import xtvapps.simusplayer.core.widgets.WaveContainer;
-import xtvapps.simusplayer.core.widgets.WaveWidget;
 
 public class SimusPlayerMod {
 	private static final String LOGTAG = SimusPlayer.class.getSimpleName();
@@ -29,8 +28,11 @@ public class SimusPlayerMod {
 	
 	private static ModPlayer modPlayer;
 	private static ModInfo modInfo;
-	private static LcdScreenWidget lcdScreen;
 	private static WaveContainer waveContainer;
+	private static LcdSegmentWidget lcdTime;
+	private static LcdSegmentWidget lcdLength;
+	private static LcdSegmentWidget lcdPosition;
+	private static LcdSegmentWidget lcdTempo;
 
 	public static void main(String[] args) throws IOException {
 
@@ -59,8 +61,12 @@ public class SimusPlayerMod {
 		final Widget rootView = app.inflate(window, "modplayer");
 		window.setContentView(rootView);
 		
-		lcdScreen = (LcdScreenWidget)rootView.findWidget("lcd");
 		waveContainer = (WaveContainer)rootView.findWidget("waves");
+		
+		lcdTime     = (LcdSegmentWidget)rootView.findWidget("lcdTime");
+		lcdLength   = (LcdSegmentWidget)rootView.findWidget("lcdLength");
+		lcdPosition = (LcdSegmentWidget)rootView.findWidget("lcdPosition");
+		lcdTempo    = (LcdSegmentWidget)rootView.findWidget("lcdTempo");
 
 		modPlayer = new ModPlayer(new DesktopWaveDevice(44100, 1024));
 		modPlayer.setModPlayerListener(new ModPlayer.ModPlayerListener() {
@@ -95,16 +101,8 @@ public class SimusPlayerMod {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					// modPlayer.play("/home/fcatrin/tmp/mods/bananasplit.mod");
-					// modPlayer.play("/home/fcatrin/tmp/mods/beyond_music.mod");
-					// modPlayer.play("/home/fcatrin/tmp/mods/bloodm.mod");
-					// modPlayer.play("/home/fcatrin/tmp/mods/chi.mod");
-					// modPlayer.play("/home/fcatrin/tmp/mods/devlpr94.xm");
-					// modPlayer.play("/home/fcatrin/tmp/mods/dirt.mod");
-					// modPlayer.play("/home/fcatrin/tmp/mods/elimination.mod");
 					modPlayer.play(modFile.getCanonicalPath());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -125,7 +123,24 @@ public class SimusPlayerMod {
 		modPlayer.stop();
 	}
 
-	private static long t0 = 0;
+	private static String padz(int n) {
+		if (n>99) n = 99;
+		return n < 10 ? "0" + n : "" + n;
+	}
+
+	private static String pads(String s, int n) {
+		s = "      " + s;
+		return s.substring(s.length()-n);
+	}
+
+	private static String buildTime(int t) {
+		t = t / 1000;
+		int seconds = t % 60;
+		int minutes = t / 60;
+		
+		return padz(minutes) + ":" + padz(seconds);
+	}
+	
 	protected static void onFrameCallback() {
 		if (modInfo == null) return;
 
@@ -133,12 +148,19 @@ public class SimusPlayerMod {
 			waveContainer.setWave(i, modPlayer.getWave(i));
 		}
 		
-		long t = System.currentTimeMillis();
-		if (t - t0 > 200 ) {
-			FrameInfo frameInfo = modPlayer.getFrameInfo();
-			System.out.println("pos: " + frameInfo.position + "/" + modInfo.patterns + " spd:" + frameInfo.speed + " bpm:" + frameInfo.bpm);
-			t0 = t;
-		}
+		FrameInfo frameInfo = modPlayer.getFrameInfo();
+		
+		String elapsed = buildTime(frameInfo.time);
+		String length  = buildTime(frameInfo.totalTime);
+		lcdTime.setText(elapsed);
+		lcdLength.setText(length);
+		
+		String position = padz(frameInfo.position) + "/" + padz(modInfo.patterns);
+		lcdPosition.setText(position);
+		
+		String tempo = pads(String.valueOf(frameInfo.bpm), 5);
+		lcdTempo.setText(tempo);
+		
 	}
 	
 	private static String toFirstLetterUppercase(String s) {
