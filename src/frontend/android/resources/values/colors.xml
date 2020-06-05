@@ -1,0 +1,19 @@
+<colors>
+    <color name="lcdBackground">#FB7D11</color>
+    <color name="lcdPixelOn">#371C01</color>
+    <color name="lcdPixelOff">#D1690D</color>
+
+    <!--  green LCD
+    <color name="lcdBackground">#CCE330</color>
+    <color name="lcdPixelOn">#292F0A</color>
+    <color name="lcdPixelOff">#9EB241</color>
+    -->
+    
+    
+    <!--  blue LCD
+    <color name="lcdBackground">#0C18D1</color>
+    <color name="lcdPixelOn">#FFFFFF</color>
+    <color name="lcdPixelOff">#0F00C6</color>    
+     -->
+    
+</colors>

@@ -1,0 +1,39 @@
+<LinearContainer
+    width="match_parent"
+    height="wrap_content"
+    orientation="horizontal">
+    <LinearContainer
+        width="0pt"
+        height="wrap_content"
+        orientation="vertical">
+        <TextWidget
+            width="0pt"
+            height="wrap_content"
+            align="center"
+            color="@color/lcdPixelOn"
+            text="TIME" />
+		<xtvapps.simusplayer.core.lcd.LcdSegmentWidget
+		    id="lcdTime"
+		    width="wrap_content"
+		    height="wrap_content"
+		    len="5"
+		    text="32:02" />
+	</LinearContainer>
+    <LinearContainer
+        width="0pt"
+        height="wrap_content"
+        orientation="vertical">
+        <TextWidget
+            width="0pt"
+            height="wrap_content"
+            align="center"
+            color="@color/lcdPixelOn"
+            text="LENGTH" />
+		<xtvapps.simusplayer.core.lcd.LcdSegmentWidget
+		    id="lcdLength"
+		    width="wrap_content"
+		    height="wrap_content"
+		    len="5"
+		    text="23/45" />
+	</LinearContainer>
+</LinearContainer>
