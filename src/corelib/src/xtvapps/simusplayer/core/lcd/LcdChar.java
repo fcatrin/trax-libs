@@ -54,6 +54,8 @@ public class LcdChar {
 	}
 	
 	public static void drawString(Canvas c, int x, int y, String s, int offset, int len) {
+		if (s == null) s = "";
+		
 		int emptyBitmap[] = font.get(" ");
 		for(int i=0; i<len; i++) {
 			int index = offset + i;
