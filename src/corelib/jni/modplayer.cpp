@@ -2,6 +2,14 @@
 extern "C" {
 #endif
 
+#ifdef ANDROID
+	#include <android/log.h>
+	#define  LOG_TAG    "modplayer"
+	#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#else
+	printf(__VA_ARGS__)
+#endif
+
 #include "xmp.h"
 #include "xtvapps_simusplayer_core_ModPlayer.h"
 
@@ -22,7 +30,9 @@ JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpInit
 
 	env->ReleaseStringUTFChars(sPath, path);
 
+	LOGD("loading module %s", path);
 	if (ret != 0) {
+		LOGD("cannot load module %s err:%d", path, ret);
 		return false;
 	}
 

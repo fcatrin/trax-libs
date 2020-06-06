@@ -16,6 +16,8 @@ LOCAL_SRC_FILES := modplayer.cpp
 LOCAL_STATIC_LIBRARIES := xmp
 
 LOCAL_CFLAGS += -g -Wall -fPIC -I. -I$(SIMUSPLAYER_PATH)/libxmp/include
+LOCAL_LDFLAGS += -llog
+
 ifeq ($(TARGET_ARCH),x86)
 #
 else
