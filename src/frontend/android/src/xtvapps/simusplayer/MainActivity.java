@@ -8,6 +8,7 @@ import java.util.List;
 import android.os.Bundle;
 import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
+import fts.core.Context;
 import fts.core.Log;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
@@ -36,8 +37,8 @@ public class MainActivity extends FtsActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Context.pointsPerPixel = 2;
 		super.onCreate(savedInstanceState);
-		
 		try {
 			songs.add(new File(getFilesDir(), "test/elimination.mod").getCanonicalPath());
 		} catch (IOException e1) {
@@ -177,7 +178,6 @@ public class MainActivity extends FtsActivity {
 		
 		String tempo = pads(String.valueOf(frameInfo.bpm), 5);
 		lcdTempo.setText(tempo);
-		
 	}
 	
 	private static String toFirstLetterUppercase(String s) {
