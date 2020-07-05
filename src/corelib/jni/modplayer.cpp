@@ -7,7 +7,7 @@ extern "C" {
 	#define  LOG_TAG    "modplayer"
 	#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #else
-	printf(__VA_ARGS__)
+	#define  LOGD(...) printf(__VA_ARGS__)
 #endif
 
 #include "xmp.h"
