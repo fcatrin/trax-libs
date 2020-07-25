@@ -7,10 +7,11 @@
         height="wrap_content"
         orientation="vertical">
         <TextWidget
-            width="0pt"
+            width="match_parent"
             height="wrap_content"
             align="center"
             color="@color/lcdPixelOn"
+            padding="4pt"
             text="TIME" />
 		<xtvapps.simusplayer.core.lcd.LcdSegmentWidget
 		    id="lcdTime"
@@ -24,10 +25,11 @@
         height="wrap_content"
         orientation="vertical">
         <TextWidget
-            width="0pt"
+            width="match_parent"
             height="wrap_content"
             align="center"
             color="@color/lcdPixelOn"
+            padding="4pt"
             text="LENGTH" />
 		<xtvapps.simusplayer.core.lcd.LcdSegmentWidget
 		    id="lcdLength"
