@@ -18,7 +18,8 @@
 			width="0pt"
 			height="wrap_content"
 			text="SONG NAME"
-			padding="4pt"
+			paddingTop="4pt"
+			paddingBottom="4pt"
 			color="@color/lcdPixelOn" />
 		<TextWidget
 			width="wrap_content"
