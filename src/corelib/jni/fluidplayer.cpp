@@ -15,18 +15,15 @@ extern "C" {
 
 static fluid_settings_t*     settings;
 static fluid_synth_t*        synth;
-static fluid_audio_driver_t* adriver;
 
 JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidInit
   (JNIEnv *env, jobject thiz, jint sample_rate) {
-	char setting_sample_rate[] = "synth.sample-rate";
 
-    settings = new_fluid_settings();
+	settings = new_fluid_settings();
 
-    fluid_settings_setnum(settings, setting_sample_rate, sample_rate);
+    fluid_settings_setnum(settings, "synth.sample-rate", sample_rate);
 
     synth    = new_fluid_synth(settings);
-    adriver  = new_fluid_audio_driver(settings, synth);
 	return true;
 }
 
@@ -34,11 +31,9 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidRelease
   (JNIEnv *env, jobject thiz) {
 	if (settings == NULL) return;
 
-	delete_fluid_audio_driver(adriver);
 	delete_fluid_synth(synth);
 	delete_fluid_settings(settings);
 
-	adriver  = NULL;
 	synth    = NULL;
 	settings = NULL;
 }
@@ -75,11 +70,13 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOn
 	fluid_synth_noteon(synth, channel, note, velocity);
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fuildNoteOff
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOff
   (JNIEnv *env, jobject thiz, jint channel, jint note) {
 	fluid_synth_noteoff(synth, channel, note);
 }
 
+
+int main(int argc, char **argv) {}
 
 #ifdef __cplusplus
 }

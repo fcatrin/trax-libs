@@ -51,10 +51,10 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOn
 
 /*
  * Class:     xtvapps_simusplayer_core_FluidPlayer
- * Method:    fuildNoteOff
+ * Method:    fluidNoteOff
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fuildNoteOff
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOff
   (JNIEnv *, jobject, jint, jint);
 
 #ifdef __cplusplus

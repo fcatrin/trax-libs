@@ -9,7 +9,7 @@ public class FluidPlayer {
 	private static final int SLEEP_TIME = 10;
 
 	static {
-		System.loadLibrary("simusplayer-fluid");
+		System.loadLibrary("simusplayer-mod");
 	}
 
 	private WaveDevice waveDevice;
@@ -90,6 +90,6 @@ public class FluidPlayer {
 	public native int     fluidFillBuffer(byte[] buffer);
 	
 	public native void fluidNoteOn(int channel, int note, int velocity);
-	public native void fuildNoteOff(int channel, int note);
+	public native void fluidNoteOff(int channel, int note);
 	
 }

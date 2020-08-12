@@ -3,11 +3,12 @@ LD = gcc
 
 CFLAGS = -g -Wall -I../..
 
-LDFLAGS = -lm -shared -L../../ -lsimusplayer-core
+LDFLAGS = -shared -L../../ -lsimusplayer-core
 LIBARCH =
 
 LIBPREFIX = lib
-LDFLAGS += -lstdc++
+LDFLAGS += -lstdc++ -lm 
+LDFLAGS += $(shell pkg-config --libs fluidsynth)
 
 CORE = ../../libsimusplayer-core.a
 
@@ -33,8 +34,6 @@ CFLAGS += \
  -O2 -Wall -I . -g -I$(JAVA_HOME)/include/ -I../../libs/libxmp/include/
  
 CFLAGS_ONLY = -std=gnu99
-
-LDFLAGS += $(pkg-config --libs fluidsynth)
   
 OBJS = $(addprefix $(OBJDIR)/, \
 	modplayer.o \
@@ -62,4 +61,5 @@ corebuild:
 clean :
 	find $(OBJDIR) -name "*.o" -exec rm {} \;
 	find $(LIBSDIR) -name "*.$(LIBEXT)" -exec rm {} \;
+	rm $(LINK_TARGET)
 	cd ../../ && $(MAKE) clean
