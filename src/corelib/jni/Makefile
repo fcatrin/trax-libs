@@ -36,6 +36,7 @@ CFLAGS_ONLY = -std=gnu99
   
 OBJS = $(addprefix $(OBJDIR)/, \
 	modplayer.o \
+	fluidplayer.o \
 	)
 		
 $(OBJDIR)/%.o: %.c 
