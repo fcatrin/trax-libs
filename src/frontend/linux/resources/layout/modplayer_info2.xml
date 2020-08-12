@@ -17,6 +17,7 @@
 		    id="lcdPosition"
 		    width="wrap_content"
 		    height="wrap_content"
+          containerAlign="center"
 		    len="5"
 		    text="32:02" />
 	</LinearContainer>
@@ -35,6 +36,7 @@
 		    id="lcdTempo"
 		    width="wrap_content"
 		    height="wrap_content"
+          containerAlign="center"
 		    len="5"
 		    text="23/45" />
 	</LinearContainer>
