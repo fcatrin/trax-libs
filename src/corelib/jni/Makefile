@@ -33,6 +33,8 @@ CFLAGS += \
  -O2 -Wall -I . -g -I$(JAVA_HOME)/include/ -I../../libs/libxmp/include/
  
 CFLAGS_ONLY = -std=gnu99
+
+LDFLAGS += $(pkg-config --libs fluidsynth)
   
 OBJS = $(addprefix $(OBJDIR)/, \
 	modplayer.o \

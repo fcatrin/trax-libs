@@ -12,10 +12,18 @@ extern "C" {
 /*
  * Class:     xtvapps_simusplayer_core_FluidPlayer
  * Method:    fluidInit
- * Signature: (Ljava/lang/String;I)Z
+ * Signature: (I)Z
  */
 JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidInit
-  (JNIEnv *, jobject, jstring, jint);
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_FluidPlayer
+ * Method:    fluidLoadSoundFontFile
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidLoadSoundFontFile
+  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     xtvapps_simusplayer_core_FluidPlayer
@@ -28,10 +36,26 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidRelease
 /*
  * Class:     xtvapps_simusplayer_core_FluidPlayer
  * Method:    fluidFillBuffer
- * Signature: ([BI)I
+ * Signature: ([B)I
  */
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidFillBuffer
-  (JNIEnv *, jobject, jbyteArray, jint);
+  (JNIEnv *, jobject, jbyteArray);
+
+/*
+ * Class:     xtvapps_simusplayer_core_FluidPlayer
+ * Method:    fluidNoteOn
+ * Signature: (III)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOn
+  (JNIEnv *, jobject, jint, jint, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_FluidPlayer
+ * Method:    fuildNoteOff
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fuildNoteOff
+  (JNIEnv *, jobject, jint, jint);
 
 #ifdef __cplusplus
 }

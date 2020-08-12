@@ -21,6 +21,8 @@ public class FluidPlayer {
 	
 	public FluidPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
+		fluidInit(waveDevice.freq);
+		fluidLoadSoundFontFile("/home/fcatrin/Descargas/Gravis_Ultrasound_Classic_PachSet_v1.6.sf2");
 	}
 	
 	public void play(String path) throws IOException {
@@ -50,11 +52,14 @@ public class FluidPlayer {
 						FluidPlayer.this.sleep();
 					} else {
 						AudioBuffer buffer = audioBuffers[frontBuffer];
+						fluidFillBuffer(buffer.samplesIn);
+						buffer.render();
 						waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
 						buffer.processed = false;
 					}
 				} while (isPlaying);
 				Log.d(LOGTAG, "play stop");
+				fluidRelease();
 				waveDevice.close();
 			    isStopped = true;
 			}
@@ -79,9 +84,12 @@ public class FluidPlayer {
 		try {Thread.sleep(SLEEP_TIME);} catch (Exception e) {};
 	}
 	
-	public native boolean fluidInit(String path, int freq);
+	public native boolean fluidInit(int freq);
+	public native void    fluidLoadSoundFontFile(String path);
 	public native void    fluidRelease();
-	public native int     fluidFillBuffer(byte[] buffer, int loop);
-
+	public native int     fluidFillBuffer(byte[] buffer);
+	
+	public native void fluidNoteOn(int channel, int note, int velocity);
+	public native void fuildNoteOff(int channel, int note);
 	
 }
