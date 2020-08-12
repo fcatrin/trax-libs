@@ -1,22 +1,31 @@
 CC = gcc
 LD = gcc
 
-CFLAGS = -g -Wall -I../..
+CFLAGS = -g -O2 -Wall -I .
 
-LDFLAGS = -shared -L../../ -lsimusplayer-core
+LDFLAGS = -shared 
 LIBARCH =
 
 LIBPREFIX = lib
 LDFLAGS += -lstdc++ -lm 
 LDFLAGS += $(shell pkg-config --libs fluidsynth)
 
-CORE = ../../libsimusplayer-core.a
+LIBXMPDIR=libs/libxmp
+
+include libs/midiloader/Makefile
+include libs/timidity/src/Makefile
+include $(LIBXMPDIR)/src/Makefile
+include $(LIBXMPDIR)/src/loaders/Makefile
+
+CFLAGS += -Imidi/
+CFLAGS += -DHAVE_MKSTEMP -DHAVE_FNMATCH -DLIBXMP_CORE_PLAYER -DHAVE_ROUND \
+		  -I$(LIBXMPDIR)/include/libxmp-lite -I$(LIBXMPDIR)/src -I$(LIBXMPDIR)/include
 
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
 ifeq ($(UNAME_S),Linux)
-	JAVA_HOME = /usr/lib/jvm/java-8-oracle/
-	CFLAGS += -D LINUX -fPIC -I$(JAVA_HOME)/include/linux/
+	JAVA_HOME = /usr/lib/jvm/java-8-oracle
+	CFLAGS += -D LINUX -fPIC -I$(JAVA_HOME)/include/linux/ -I$(JAVA_HOME)/include/
 	LIBEXT = so
 	ifeq ($(UNAME_P),x86_64)
 		LIBARCH = x86_64
@@ -28,14 +37,12 @@ endif
 OBJDIR = ../obj
 LIBSDIR = ../libs
 
-LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)simusplayer-mod.$(LIBEXT)
-
-CFLAGS += \
- -O2 -Wall -I . -g -I$(JAVA_HOME)/include/ -I../../libs/libxmp/include/
+LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)simusplayer-corelib.$(LIBEXT)
  
 CFLAGS_ONLY = -std=gnu99
   
-OBJS = $(addprefix $(OBJDIR)/, \
+OBJS += $(addprefix $(OBJDIR)/, \
+   common.o \
 	modplayer.o \
 	fluidplayer.o \
 	)
@@ -46,7 +53,7 @@ $(OBJDIR)/%.o: %.c
 $(OBJDIR)/%.o: %.cpp
 	$(CC) -c $(CFLAGS) -o $@ $< 
 
-all : prepare corebuild $(LINK_TARGET)
+all : prepare $(LINK_TARGET)
 
 $(LINK_TARGET) : $(CORE) $(OBJS)
 	$(LD) -o $@ $^ $(LDFLAGS) 
@@ -55,11 +62,6 @@ prepare :
 	@mkdir -p $(LIBSDIR)/$(LIBARCH)
 	@mkdir -p $(OBJDIR)
 
-corebuild:
-	cd ../.. && $(MAKE)
-
 clean :
-	find $(OBJDIR) -name "*.o" -exec rm {} \;
-	find $(LIBSDIR) -name "*.$(LIBEXT)" -exec rm {} \;
-	rm $(LINK_TARGET)
-	cd ../../ && $(MAKE) clean
+	@find $(OBJDIR) -name "*.o" -exec rm {} \; 2>/dev/null
+	@rm $(LINK_TARGET) 2>/dev/null || true

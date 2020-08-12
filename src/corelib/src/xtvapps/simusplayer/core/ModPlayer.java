@@ -9,7 +9,7 @@ public class ModPlayer {
 	private static final int SLEEP_TIME = 10;
 
 	static {
-		System.loadLibrary("simusplayer-mod");
+		System.loadLibrary("simusplayer-corelib");
 	}
 
 	private WaveDevice waveDevice;
