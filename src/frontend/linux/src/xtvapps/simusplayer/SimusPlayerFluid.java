@@ -40,7 +40,11 @@ public class SimusPlayerFluid {
 		Thread t = new Thread() {
 			public void run() {
 				try {
+					fluidPlayer.play("");
+					Thread.sleep(5000);
 					fluidPlayer.fluidNoteOn(0, 64, 100);
+					Thread.sleep(20);
+					fluidPlayer.fluidNoteOn(0, 71, 100);
 					Thread.sleep(1000);
 					fluidPlayer.fluidNoteOff(0, 64);
 				} catch (Exception e) {

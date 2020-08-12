@@ -3,6 +3,7 @@ package xtvapps.simusplayer.core;
 import java.io.IOException;
 
 import fts.core.Log;
+import xtvapps.simusplayer.core.AudioBuffer.Format;
 
 public class FluidPlayer {
 	private static final String LOGTAG = FluidPlayer.class.getSimpleName();
@@ -39,8 +40,8 @@ public class FluidPlayer {
 				
 				waveDevice.open();
 
-				AudioBuffer audioBuffer1 = new AudioBuffer(bufferSize, 0);
-				AudioBuffer audioBuffer2 = new AudioBuffer(bufferSize, 1);
+				AudioBuffer audioBuffer1 = new AudioBuffer(bufferSize, 0, Format.S16);
+				AudioBuffer audioBuffer2 = new AudioBuffer(bufferSize, 1, Format.S16);
 				AudioBuffer audioBuffers[] = {audioBuffer1, audioBuffer2};
 				
 				
