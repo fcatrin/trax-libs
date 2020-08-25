@@ -23,7 +23,7 @@ public class FluidPlayer {
 	public FluidPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
 		fluidInit(waveDevice.freq);
-		fluidLoadSoundFontFile("/home/fcatrin/Descargas/Gravis_Ultrasound_Classic_PachSet_v1.6.sf2");
+		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
 	}
 	
 	public void play(String path) throws IOException {
