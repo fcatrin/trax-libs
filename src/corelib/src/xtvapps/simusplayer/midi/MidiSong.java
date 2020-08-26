@@ -1,4 +1,4 @@
-package xtvapps.com.simusplayer.midi;
+package xtvapps.simusplayer.midi;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fts.core.Log;
-import xtvapps.com.simusplayer.midi.MidiEvent.EventType;
+import xtvapps.simusplayer.midi.MidiEvent.EventType;
 
 public class MidiSong {
 	private static final String LOGTAG = MidiSong.class.getSimpleName();

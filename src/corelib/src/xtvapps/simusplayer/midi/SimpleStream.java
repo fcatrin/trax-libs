@@ -1,4 +1,4 @@
-package xtvapps.com.simusplayer.midi;
+package xtvapps.simusplayer.midi;
 
 import java.io.IOException;
 
