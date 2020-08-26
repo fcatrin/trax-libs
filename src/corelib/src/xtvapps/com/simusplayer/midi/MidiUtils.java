@@ -44,4 +44,24 @@ public class MidiUtils {
 		return value;
 	}
 	
+	public static long readVar(SimpleStream is) throws IOException {
+		long value = 0;
+		int i = 0;
+
+		int c;
+		do {
+			c = readByte(is);
+			value = (value << 7) | (c & 0x7f);
+		} while ((c & 0x80) != 0 && i++ < 4);
+		return value;
+	}
+	
+	public static String readString(SimpleStream is, int len) throws IOException {
+		byte buffer[] = new byte[len];
+		for(int i=0; i<len; i++) {
+			buffer[i] = (byte)is.readByte();
+		}
+		return new String(buffer, "ASCII");
+	}
+	
 }

@@ -21,12 +21,26 @@ public class SimpleStream {
 		 return value;
 	}
 	
+	public void unreadByte() {
+		offset--;
+		checkOffset();
+	}
+	
 	public int getOffset() {
 		return offset;
 	}
 	
-	public void skip(int n) {
-		offset += n;
-		if (n<0) n = 0;
+	public void setOffset(int offset) {
+		this.offset = offset;
+		checkOffset();
+	}
+	
+	public void skip(long n) {
+		offset += (int)n;
+		checkOffset();
+	}
+	
+	private void checkOffset() {
+		if (offset < 0) offset = 0;
 	}
 }
