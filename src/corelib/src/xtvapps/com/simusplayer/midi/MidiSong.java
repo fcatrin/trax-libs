@@ -1,7 +1,7 @@
 package xtvapps.com.simusplayer.midi;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +12,7 @@ public class MidiSong {
 	private static final String LOGTAG = MidiSong.class.getSimpleName();
 	
 	private static final int SYSEX_META_TRACK_NAME = 0x03;
+	private static final String CHAR_ENCODING = "ASCII";
 	
 	List<MidiTrack> tracks;
 	boolean useSmpteTiming;
@@ -19,10 +20,10 @@ public class MidiSong {
 	long ppq;
 
 	public static MidiSong load(SimpleStream is) throws IOException {
-		long id = (MidiUtils.read32le(is));
-		if (id == MidiUtils.makeId("MThd")) {
+		long id = readId(is);
+		if (id == makeId("MThd")) {
 			return loadSmf(is);
-		} else if (id == MidiUtils.makeId("RIFF")) {
+		} else if (id == makeId("RIFF")) {
 			return loadRiff(is);
 		}
 		throw new InvalidFormatException();
@@ -30,24 +31,24 @@ public class MidiSong {
 
 	private static MidiSong loadRiff(SimpleStream is) throws IOException {
 		/* skip file length */
-		MidiUtils.read32le(is);
+		read32le(is);
 
 		/* check file type ("RMID" = RIFF MIDI) */
-		long id = MidiUtils.read32le(is);
-		if (id != MidiUtils.makeId("RMID")) {
+		long id = readId(is);
+		if (id != makeId("RMID")) {
 			throw new IOException("Invalid format");
 		}
 
 		do {
-			id = MidiUtils.read32le(is);
-			long len = MidiUtils.read32le(is);
+			id = readId(is);
+			long len = read32le(is);
 			
-			if (id == MidiUtils.makeId("data")) break;
+			if (id == makeId("data")) break;
 			is.skip(len+1);
 		} while(true);
 		
-		id = MidiUtils.read32le(is);
-		if (id != MidiUtils.makeId("MThd")) {
+		id = readId(is);
+		if (id != makeId("MThd")) {
 			throw new IOException("Invalid format");
 		}
 		
@@ -55,24 +56,24 @@ public class MidiSong {
 	}
 
 	private static MidiSong loadSmf(SimpleStream is) throws IOException {
-		long headerLen = MidiUtils.read32le(is);
+		long headerLen = readId(is);
 		if (headerLen < 6) {
 			throw new InvalidFormatException();
 		}
 
-		long type = MidiUtils.readInt(is, 2);
+		long type = readInt(is, 2);
 		if (type != 0 && type != 1) {
 			String msg = String.format("Type %d format is not supported", type);
 			throw new InvalidFormatException(msg);
 		}
 
-		long nTracks = MidiUtils.readInt(is, 2);
+		long nTracks = readInt(is, 2);
 		if (nTracks < 1 || nTracks > 1000) {
 			String msg = String.format("Invalid number of tracks: %d", nTracks);
 			throw new InvalidFormatException(msg);
 		}
 		
-		long timeDivision = MidiUtils.readInt(is, 2);
+		long timeDivision = readInt(is, 2);
 		if (timeDivision < 0) {
 			String msg = String.format("Invalid time division: %d", timeDivision);
 			throw new InvalidFormatException(msg);
@@ -119,14 +120,14 @@ public class MidiSong {
 		long len = 0;
 		for(int i = 0; i < nTracks; i++) {
 			do {
-				long id = MidiUtils.read32le(is);
-				len = MidiUtils.readInt(is, 4);
+				long id = readId(is);
+				len = readInt(is, 4);
 				if (len < 0 || len >= 0x10000000) {
 					String msg = String.format("invalid chunk length %d", len);
 					throw new InvalidFormatException(msg);
 				}
 
-				if (id == MidiUtils.makeId("MTrk")) {
+				if (id == makeId("MTrk")) {
 					break;
 				}
 				is.skip(len);
@@ -145,7 +146,7 @@ public class MidiSong {
 		int c, cmd, lastCmd = 0;
 		
 		while (is.getOffset() < trackEnd) {
-			long deltaTicks = MidiUtils.readVar(is);
+			long deltaTicks = readVar(is);
 			tick += deltaTicks;
 			
 			c = is.readByte();
@@ -189,7 +190,7 @@ public class MidiSong {
 				switch (cmd) {
 				case 0xf0: /* sysex */
 				case 0xf7: /* continued sysex, or escaped commands */
-					long len = MidiUtils.readVar(is);
+					long len = readVar(is);
 
 					event = new MidiEvent();
 					event.type = EventType.SYSEX;
@@ -208,11 +209,11 @@ public class MidiSong {
 					break;
 				case 0xff: /* meta event */
 					c = is.readByte();
-					len = MidiUtils.readVar(is);
+					len = readVar(is);
 
 					switch (c) {
 					case SYSEX_META_TRACK_NAME:
-						track.name = MidiUtils.readString(is, (int)len);
+						track.name = readString(is, (int)len);
 						break;
 					case 0x21:	 /* port number */
 						port = (int)is.readByte(); // Port Count is only available in the target system % port_count;
@@ -253,4 +254,63 @@ public class MidiSong {
 		}
 		return track;
 	}
+	
+	// binary level read functions
+	
+	private static long read32le(SimpleStream is) throws IOException {
+		long value = is.readByte();
+		value += is.readByte() << 8;
+		value += is.readByte() << 16;
+		value += is.readByte() << 24;
+		return value;
+	}
+	
+	private static long readId(SimpleStream is) throws IOException {
+		return read32le(is);
+	}
+	
+	private static long makeId(String id) {
+		try {
+			byte chars[] = id.getBytes(CHAR_ENCODING);
+			long value = chars[0];
+			value += chars[1] << 8;
+			value += chars[2] << 16;
+			value += chars[3] << 24;
+			return value;
+		} catch (UnsupportedEncodingException e) {
+			// should never happen
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	private static long readInt(SimpleStream is, int size) throws IOException {
+		long value = 0;
+		do {
+			int c = is.readByte();
+			value = value << 8 | c;
+		} while (--size > 0);
+		return value;
+	}
+	
+	public static long readVar(SimpleStream is) throws IOException {
+		long value = 0;
+		int i = 0;
+
+		int c;
+		do {
+			c = is.readByte();
+			value = (value << 7) | (c & 0x7f);
+		} while ((c & 0x80) != 0 && i++ < 4);
+		return value;
+	}
+	
+	public static String readString(SimpleStream is, int len) throws IOException {
+		byte buffer[] = new byte[len];
+		for(int i=0; i<len; i++) {
+			buffer[i] = (byte)is.readByte();
+		}
+		return new String(buffer, CHAR_ENCODING);
+	}
+
 }
