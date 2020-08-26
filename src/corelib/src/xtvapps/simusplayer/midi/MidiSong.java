@@ -19,6 +19,18 @@ public class MidiSong {
 	long tempo;
 	long ppq;
 
+	public List<MidiTrack> getTracks() {
+		return tracks;
+	}
+
+	public long getTempo() {
+		return tempo;
+	}
+
+	public long getPpq() {
+		return ppq;
+	}
+
 	public static MidiSong load(SimpleStream is) throws IOException {
 		long id = readId(is);
 		if (id == makeId("MThd")) {
@@ -56,7 +68,7 @@ public class MidiSong {
 	}
 
 	private static MidiSong loadSmf(SimpleStream is) throws IOException {
-		long headerLen = readId(is);
+		long headerLen = readInt(is, 4);
 		if (headerLen < 6) {
 			throw new InvalidFormatException();
 		}
@@ -133,7 +145,7 @@ public class MidiSong {
 				is.skip(len);
 			} while (true);
 			
-			song.tracks.add(readTrack(is, song, len));
+			song.tracks.add(readTrack(is, song, is.getOffset() + len));
 		}
 		return song;
 	}
