@@ -17,4 +17,13 @@ bool alsa_connect_port(int index);
 
 snd_seq_t *alsa_get_seq();
 
+void alsa_seq_init(struct port_info *port_info);
+void alsa_set_event_note(uint8 type, uint8 channel, uint8 note, uint8 velocity);
+void alsa_set_event_controller(uint8 channel, uint8 param, uint8 value);
+void alsa_set_event_change(uint8 type, uint8 channel, uint8 value);
+void alsa_set_event_pitch_bend(uint8 channel, uint8 value);
+void alsa_set_event_sysex(snd_seq_t *seq, int len, uint8 *sysex);
+void alsa_send_event(snd_seq_t *seq, uint32 tick);
+void alsa_seq_finish(snd_seq_t *seq, uint32 tick);
+
 #endif

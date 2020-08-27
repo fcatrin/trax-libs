@@ -1,9 +1,10 @@
 package xtvapps.simusplayer.midi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MidiTrack {
-	private List<MidiEvent> events;
+	private List<MidiEvent> events = new ArrayList<MidiEvent>();
 	private long endTick;
 	private int currentEventIndex;
 	private String name;
@@ -54,6 +55,10 @@ public class MidiTrack {
 		for(int i=0; i<notes.length; i++) {
 			notes[i] = 0;
 		}
+	}
+
+	public void addEvent(MidiEvent event) {
+		events.add(event);
 	}
 	
 }

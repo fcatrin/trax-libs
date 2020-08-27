@@ -227,3 +227,13 @@ void alsa_send_event(snd_seq_t *seq, uint32 tick) {
 	check_snd("output event", err);
 }
 
+void alsa_seq_finish(snd_seq_t *seq, uint32 tick) {
+	snd_seq_ev_set_fixed(&ev);
+	ev.type = SND_SEQ_EVENT_STOP;
+	ev.time.tick = tick;
+	ev.dest.client = SND_SEQ_CLIENT_SYSTEM;
+	ev.dest.port = SND_SEQ_PORT_SYSTEM_TIMER;
+	int err = snd_seq_event_output(seq, &ev);
+	check_snd("output event", err);
+}
+

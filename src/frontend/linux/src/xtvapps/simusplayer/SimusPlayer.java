@@ -1,5 +1,8 @@
 package xtvapps.simusplayer;
 
+import java.io.File;
+import java.io.IOException;
+
 import fts.core.Application;
 import fts.core.Context;
 import fts.core.DesktopLogger;
@@ -8,7 +11,13 @@ import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.linux.ComponentFactory;
+import xtvapps.simusplayer.core.CoreUtils;
 import xtvapps.simusplayer.core.widgets.KeyboardView;
+import xtvapps.simusplayer.midi.AlsaSequencer;
+import xtvapps.simusplayer.midi.MidiPlayer;
+import xtvapps.simusplayer.midi.MidiSong;
+import xtvapps.simusplayer.midi.MidiTrack;
+import xtvapps.simusplayer.midi.SimpleStream;
 
 public class SimusPlayer {
 
@@ -16,7 +25,7 @@ public class SimusPlayer {
 
 	private static Window window;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		if (args.length < 1) {
 			System.out.println("missing midi file name");
 			return;
@@ -52,11 +61,24 @@ public class SimusPlayer {
 
 		System.out.flush();
 		
+		// byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/canyon.mid"));
+		byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/a_bridge.mid"));
+
+		final MidiSong song = MidiSong.load(new SimpleStream(songData));
+		for(MidiTrack track : song.getTracks()) {
+			System.out.println(track.getName());
+		}
+		
+
 		Thread t = new Thread() {
 			@Override
 			public void run() {
 				NativeInterface.alsaConnectPort(2);
-				NativeInterface.midiPlay(songHandle);
+				
+				AlsaSequencer seq = new AlsaSequencer();
+				MidiPlayer midiPlayer = new MidiPlayer(seq);
+				midiPlayer.play(song);
+
 				NativeInterface.alsaDone();
 			}
 		};

@@ -183,6 +183,72 @@ JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_NativeInterface_midiGetNote
 	return result;
 }
 
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_midi_AlsaSequencer_alsaReset
+  (JNIEnv *env, jclass thiz) {
+	struct port_info *port_info = alsa_get_port_info(current_port);
+	alsa_seq_init(port_info);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_midi_AlsaSequencer_alsaSendEventNote
+  (JNIEnv *env, jclass thiz, jlong tick, jint type, jint channel, jint note, jint velocity) {
+	snd_seq_t * seq = alsa_get_seq();
+
+	alsa_set_event_note(type, channel, note, velocity);
+	alsa_send_event(seq, tick);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_midi_AlsaSequencer_alsaSendEventController
+  (JNIEnv *env, jclass thiz, jlong tick, jint channel, jint param, jint value) {
+	snd_seq_t * seq = alsa_get_seq();
+
+	alsa_set_event_controller(channel, param, value);
+	alsa_send_event(seq, tick);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_midi_AlsaSequencer_alsaSendEventChange
+  (JNIEnv *env, jclass thiz, jlong tick, jint type, jint channel, jint value) {
+	snd_seq_t * seq = alsa_get_seq();
+
+	alsa_set_event_change(type, channel, value);
+	alsa_send_event(seq, tick);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_midi_AlsaSequencer_alsaSendEventPitchBend
+  (JNIEnv *env, jclass thiz, jlong tick, jint channel, jint value) {
+	snd_seq_t * seq = alsa_get_seq();
+
+	alsa_set_event_pitch_bend(channel, value);
+	alsa_send_event(seq, tick);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_midi_AlsaSequencer_alsaSendEventSysex
+  (JNIEnv *env, jclass thiz, jlong tick, jintArray jsysex) {
+	snd_seq_t * seq = alsa_get_seq();
+
+	jsize in_len = env->GetArrayLength(jsysex);
+	jint *in_sysex = env->GetIntArrayElements(jsysex, 0);
+
+	uint8 sysex[in_len];
+	for(int i=0; i<in_len; i++) {
+		sysex[i] = in_sysex[i];
+	}
+
+	alsa_set_event_sysex(seq, in_len, sysex);
+	alsa_send_event(seq, tick);
+
+	env->ReleaseIntArrayElements(jsysex, in_sysex, 0);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_midi_AlsaSequencer_alsaFinish
+  (JNIEnv *env, jclass thiz, jlong tick) {
+	snd_seq_t * seq = alsa_get_seq();
+	alsa_send_event(seq, tick);
+
+	alsa_seq_finish(seq, tick);
+}
+
+
 #ifdef __cplusplus
 }
 #endif

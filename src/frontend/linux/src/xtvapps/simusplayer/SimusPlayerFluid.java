@@ -1,5 +1,6 @@
 package xtvapps.simusplayer;
 
+import java.io.File;
 import java.io.IOException;
 
 import fts.core.Application;
@@ -10,7 +11,11 @@ import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.linux.ComponentFactory;
+import xtvapps.simusplayer.core.CoreUtils;
 import xtvapps.simusplayer.core.FluidPlayer;
+import xtvapps.simusplayer.midi.MidiSong;
+import xtvapps.simusplayer.midi.MidiTrack;
+import xtvapps.simusplayer.midi.SimpleStream;
 
 public class SimusPlayerFluid {
 	private static final String LOGTAG = SimusPlayer.class.getSimpleName();
@@ -20,6 +25,14 @@ public class SimusPlayerFluid {
 
 	public static void main(String[] args) throws IOException {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
+		
+		byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/canyon.mid"));
+		MidiSong song = MidiSong.load(new SimpleStream(songData));
+		for(MidiTrack track : song.getTracks()) {
+			System.out.println(track.getName());
+		}
+		
+		/*
 
 		window = Application.createWindow("Simus Midi Player", 480, 272);
 		window.setOnFrameCallback(getOnFrameCallback());
@@ -34,6 +47,7 @@ public class SimusPlayerFluid {
 		window.open();
 		window.mainLoop();
 		fluidPlayer.stop();
+		*/
 	}
 	
 	private static void play() {

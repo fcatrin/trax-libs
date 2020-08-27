@@ -70,7 +70,7 @@ public class MidiPlayer {
 			}
 		}
 		
-		sequencer.finish();
+		sequencer.finish(maxTick);
 	}
 
 	private void sleep(long msec) {

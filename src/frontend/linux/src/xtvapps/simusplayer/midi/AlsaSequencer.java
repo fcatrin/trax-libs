@@ -75,8 +75,7 @@ public class AlsaSequencer implements MidiSequencer {
 			break;
 		}
 		case SYSEX: {
-			int channel = data[0];
-			alsaSendEventSysex(tick, channel, event.getSysex());
+			alsaSendEventSysex(tick, event.getSysex());
 			break;
 		}
 		case TEMPO:
@@ -87,8 +86,8 @@ public class AlsaSequencer implements MidiSequencer {
 	}
 
 	@Override
-	public void finish() {
-		alsaFinish();
+	public void finish(long tick) {
+		alsaFinish(tick);
 	}
 	
 	private static native void alsaReset();
@@ -96,7 +95,7 @@ public class AlsaSequencer implements MidiSequencer {
 	private static native void alsaSendEventController(long tick, int channel, int param, int value);
 	private static native void alsaSendEventChange(long tick, int type, int channel, int value);
 	private static native void alsaSendEventPitchBend(long tick, int channel, int value);
-	private static native void alsaSendEventSysex(long tick, int channel, int sysex[]);
-	private static native void alsaFinish();
+	private static native void alsaSendEventSysex(long tick, int sysex[]);
+	private static native void alsaFinish(long tick);
 
 }

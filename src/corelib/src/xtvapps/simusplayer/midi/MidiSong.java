@@ -272,6 +272,7 @@ public class MidiSong {
 					}
 				}
 			}
+			if (event!=null) track.addEvent(event);
 		}
 		return track;
 	}
