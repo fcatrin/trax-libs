@@ -16,14 +16,14 @@ public class MidiEvent {
 	
 	public static final int LAST_NOTE = 128;
 	
-	EventType type;
-	int  port;
-	long tick;
+	private EventType type;
+	private int  port;
+	private long tick;
 	
-	int  data[] = new int[3];
-	long tempo;
+	private int  data[] = new int[3];
+	private long tempo;
 	
-	int sysex[];
+	private int sysex[];
 	
 	public static EventType eventMap[] = new EventType[0x10];
 	
@@ -35,6 +35,54 @@ public class MidiEvent {
 		eventMap[0x0c] = EventType.PGMCHANGE;
 		eventMap[0x0d] = EventType.CHANPRESS;
 		eventMap[0x0e] = EventType.PITCHBEND;
+	}
+
+	public EventType getType() {
+		return type;
+	}
+
+	public void setType(EventType type) {
+		this.type = type;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public long getTick() {
+		return tick;
+	}
+
+	public void setTick(long tick) {
+		this.tick = tick;
+	}
+
+	public int[] getData() {
+		return data;
+	}
+
+	public void setData(int[] data) {
+		this.data = data;
+	}
+
+	public long getTempo() {
+		return tempo;
+	}
+
+	public void setTempo(long tempo) {
+		this.tempo = tempo;
+	}
+
+	public int[] getSysex() {
+		return sysex;
+	}
+
+	public void setSysex(int[] sysex) {
+		this.sysex = sysex;
 	}
 	
 }
