@@ -9,6 +9,8 @@ static int client;
 struct port_info ports[MAX_PORTS];
 int ports_total = 0;
 
+#define MIDI_BYTES_PER_SEC (31250 / (1 + 8 + 2))
+
 /* error handling for ALSA functions */
 static void check_snd(const char *operation, int err) {
 	if (err < 0)
@@ -138,5 +140,90 @@ void alsa_done() {
 		free(port_info->port_name);
 	}
 	snd_seq_close(seq);
+}
+
+snd_seq_event_t ev;
+
+static void handle_big_sysex(snd_seq_t *seq, snd_seq_event_t *ev) {
+	unsigned int length;
+	ssize_t event_size;
+	int err;
+
+	length = ev->data.ext.len;
+	if (length > MIDI_BYTES_PER_SEC)
+		ev->data.ext.len = MIDI_BYTES_PER_SEC;
+	event_size = snd_seq_event_length(ev);
+	if (event_size + 1 > snd_seq_get_output_buffer_size(seq)) {
+		err = snd_seq_drain_output(seq);
+		check_snd("drain output", err);
+		err = snd_seq_set_output_buffer_size(seq, event_size + 1);
+		check_snd("set output buffer size", err);
+	}
+	while (length > MIDI_BYTES_PER_SEC) {
+		err = snd_seq_event_output(seq, ev);
+		check_snd("output event", err);
+		err = snd_seq_drain_output(seq);
+		check_snd("drain output", err);
+		err = snd_seq_sync_output_queue(seq);
+		check_snd("sync output", err);
+		if (sleep(1))
+			log_error("aborted");
+		ev->data.ext.ptr += MIDI_BYTES_PER_SEC;
+		length -= MIDI_BYTES_PER_SEC;
+	}
+	ev->data.ext.len = length;
+}
+
+void alsa_seq_init(struct port_info *port_info) {
+	snd_seq_ev_clear(&ev);
+	snd_seq_ev_set_direct(&ev);
+	snd_seq_ev_set_dest(&ev, port_info->client, port_info->port);
+	ev.source.port = 0;
+}
+
+void alsa_set_event_note(uint8 type, uint8 channel, uint8 note, uint8 velocity) {
+	ev.type = type;
+	snd_seq_ev_set_fixed(&ev);
+
+	ev.data.note.channel  = channel;
+	ev.data.note.note     = note;
+	ev.data.note.velocity = velocity;
+}
+
+void alsa_set_event_controller(uint8 channel, uint8 param, uint8 value) {
+	ev.type = SND_SEQ_EVENT_CONTROLLER;
+	snd_seq_ev_set_fixed(&ev);
+
+	ev.data.control.channel = channel;
+	ev.data.control.param   = param;
+	ev.data.control.value   = value;
+}
+
+void alsa_set_event_change(uint8 type, uint8 channel, uint8 value) {
+	ev.type = type;
+	snd_seq_ev_set_fixed(&ev);
+
+	ev.data.control.channel = channel;
+	ev.data.control.value   = value;
+}
+
+void alsa_set_event_pitch_bend(uint8 channel, uint8 value) {
+	ev.type = SND_SEQ_EVENT_PITCHBEND;
+	snd_seq_ev_set_fixed(&ev);
+
+	ev.data.control.channel = channel;
+	ev.data.control.value = value;
+}
+
+void alsa_set_event_sysex(snd_seq_t *seq, int len, uint8 *sysex) {
+	ev.type = SND_SEQ_EVENT_SYSEX;
+	snd_seq_ev_set_variable(&ev, len, sysex);
+	handle_big_sysex(seq, &ev);
+}
+
+void alsa_send_event(snd_seq_t *seq, uint32 tick) {
+	ev.time.tick = tick;
+	int err = snd_seq_event_output_direct(seq, &ev);
+	check_snd("output event", err);
 }
 
