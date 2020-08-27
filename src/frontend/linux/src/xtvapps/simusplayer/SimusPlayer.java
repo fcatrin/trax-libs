@@ -32,7 +32,7 @@ public class SimusPlayer {
 		}
 		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
-		window = Application.createWindow("Simus Player", (7*8 + 1)*14, 80);
+		window = Application.createWindow("Simus Player", (7*8 + 1)*14, 64);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		Widget rootView = app.inflate(window, "main");

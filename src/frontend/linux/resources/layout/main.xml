@@ -11,6 +11,6 @@
     <xtvapps.simusplayer.core.widgets.KeyboardView
         id="keyboard"
         width="wrap_content"
-        height="wrap_content"
+        height="0pt"
          />
 </LinearContainer>

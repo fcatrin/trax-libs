@@ -65,7 +65,7 @@ public class KeyboardView extends Widget {
 		
 		left = bounds.x + widthPerNote / 2;
 		int blackKeyWidth = (int)(widthPerNote * 0.8);
-		int blackKeyHeight = (int)(bounds.height * 0.45);
+		int blackKeyHeight = (int)(bounds.height * 0.6);
 		for(int i=0; i<OCTAVES*12; i++) {
 			if (isBlackNote(i)) {
 				int noteIndex = i + FIRST_NOTE;
