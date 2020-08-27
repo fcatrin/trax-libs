@@ -6,6 +6,8 @@ public class MidiPlayer {
 	
 	private MidiSequencer sequencer;
 	boolean playing = false;
+	
+	int notes[] = new int[MidiEvent.LAST_NOTE];
 
 	public MidiPlayer(MidiSequencer sequencer) {
 		this.sequencer = sequencer;
@@ -67,6 +69,13 @@ public class MidiPlayer {
 				tempo = event.getTempo();
 			} else {
 				sequencer.sendEvent(event);
+				
+				if (event.getType() == EventType.NOTEON || event.getType() == EventType.NOTEOFF) {
+					int[] data = event.getData();
+					int note = data[1];
+					int velocity = data[2];
+					notes[note] = event.getType() == EventType.NOTEON ? velocity : 0;
+				}
 			}
 		}
 		
@@ -79,5 +88,9 @@ public class MidiPlayer {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int[] getNotes() {
+		return notes;
 	}
 }

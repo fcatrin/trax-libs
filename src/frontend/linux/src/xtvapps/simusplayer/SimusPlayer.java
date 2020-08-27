@@ -24,6 +24,7 @@ public class SimusPlayer {
 	private static int songHandle;
 
 	private static Window window;
+	private static MidiPlayer midiPlayer;
 	
 	public static void main(String[] args) throws IOException {
 		if (args.length < 1) {
@@ -76,7 +77,7 @@ public class SimusPlayer {
 				NativeInterface.alsaConnectPort(2);
 				
 				AlsaSequencer seq = new AlsaSequencer();
-				MidiPlayer midiPlayer = new MidiPlayer(seq);
+				midiPlayer = new MidiPlayer(seq);
 				midiPlayer.play(song);
 
 				NativeInterface.alsaDone();
@@ -92,7 +93,7 @@ public class SimusPlayer {
 	}
 	
 	private static void onFrame() {
-		int[] notes = NativeInterface.midiGetNotes(songHandle, 1);
+		int[] notes = midiPlayer.getNotes();
 		KeyboardView keyboard = (KeyboardView)window.findWidget("keyboard");
 		keyboard.setNotes(notes);
 	}
