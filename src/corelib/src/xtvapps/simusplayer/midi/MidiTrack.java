@@ -14,6 +14,10 @@ public class MidiTrack {
 		return events;
 	}
 
+	public void setEndTick(long tick) {
+		endTick = tick;
+	}
+	
 	public long getEndTick() {
 		return endTick;
 	}
@@ -34,6 +38,10 @@ public class MidiTrack {
 		currentEventIndex++;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getName() {
 		return name;
 	}

@@ -156,6 +156,7 @@ public class MidiSong {
 		long tick = 0;
 		
 		int c, cmd, lastCmd = 0;
+		int d0, d1, d2;
 		
 		while (is.getOffset() < trackEnd) {
 			long deltaTicks = readVar(is);
@@ -181,22 +182,25 @@ public class MidiSong {
 			case 0xb:
 			case 0xe:
 				event = new MidiEvent();
-				event.type = MidiEvent.eventMap[cmd >> 4];
-				event.port = port;
-				event.tick = tick;
-				event.data[0] = cmd & 0x0f;
-				event.data[1] = is.readByte() & 0x7f;
-				event.data[2] = is.readByte() & 0x7f;
+				event.setType(MidiEvent.eventMap[cmd >> 4]);
+				event.setPort(port);
+				event.setTick(tick);
+				
+				d0 = cmd & 0x0f;
+				d1 = is.readByte() & 0x7f;
+				d2 = is.readByte() & 0x7f;
+				event.setData(new int[] {d0, d1, d2});
 				break;
 				
 			case 0xc: /* channel msg with 1 parameter byte */
 			case 0xd:
 				event = new MidiEvent();
-				event.type = MidiEvent.eventMap[cmd >> 4];
-				event.port = port;
-				event.tick = tick;
-				event.data[0] = cmd & 0x0f;
-				event.data[1] = is.readByte() & 0x7f;
+				event.setType(MidiEvent.eventMap[cmd >> 4]);
+				event.setPort(port);
+				event.setTick(tick);
+				d0 = cmd & 0x0f;
+				d1 = is.readByte() & 0x7f;
+				event.setData(new int[] {d0, d1});
 				break;
 			case 0xf:
 				switch (cmd) {
@@ -205,19 +209,22 @@ public class MidiSong {
 					long len = readVar(is);
 
 					event = new MidiEvent();
-					event.type = EventType.SYSEX;
-					event.port = port;
-					event.tick = tick;
+					event.setType(EventType.SYSEX);
+					event.setPort(port);
+					event.setTick(tick);
+					
+					int sysex[];
 					if (cmd == 0xf0) {
-						event.sysex = new int[(int)len+1];
-						event.sysex[0] = 0xf0;
+						sysex = new int[(int)len+1];
+						sysex[0] = 0xf0;
 						c = 1;
 					} else {
-						event.sysex = new int[(int)len];
+						sysex = new int[(int)len];
 						c = 0;
 					}
 					for (; c < len; ++c)
-						event.sysex[c] = is.readByte();
+						sysex[c] = is.readByte();
+					event.setSysex(sysex);
 					break;
 				case 0xff: /* meta event */
 					c = is.readByte();
@@ -225,7 +232,7 @@ public class MidiSong {
 
 					switch (c) {
 					case SYSEX_META_TRACK_NAME:
-						track.name = readString(is, (int)len);
+						track.setName(readString(is, (int)len));
 						break;
 					case 0x21:	 /* port number */
 						port = (int)is.readByte(); // Port Count is only available in the target system % port_count;
@@ -233,7 +240,7 @@ public class MidiSong {
 						break;
 
 					case 0x2f: /* end of track */
-						track.endTick = tick;
+						track.setEndTick(tick);
 						is.setOffset((int)trackEnd);
 						return track;
 
@@ -246,12 +253,14 @@ public class MidiSong {
 							is.skip(len);
 						} else {
 							event = new MidiEvent();
-							event.type = EventType.TEMPO;
-							event.port = port;
-							event.tick = tick;
-							event.tempo  = is.readByte() << 16;
-							event.tempo |= is.readByte() << 8;
-							event.tempo |= is.readByte();
+							event.setType(EventType.TEMPO);
+							event.setPort(port);
+							event.setTick(tick);
+							
+							long tempo = is.readByte() << 16;
+							tempo |= is.readByte() << 8;
+							tempo |= is.readByte();
+							event.setTempo(tempo);
 
 							is.skip(len - 3);
 						}

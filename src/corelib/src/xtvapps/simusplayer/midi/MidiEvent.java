@@ -20,7 +20,7 @@ public class MidiEvent {
 	private int  port;
 	private long tick;
 	
-	private int  data[] = new int[3];
+	private int  data[];
 	private long tempo;
 	
 	private int sysex[];
