@@ -96,7 +96,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventC
 
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventPitchBend
   (JNIEnv *env, jclass clazz, jint channel, jint value) {
-	fluid_synth_pitch_bend(synth, channel, value);
+	fluid_synth_pitch_bend(synth, channel, value + 8192);
 }
 
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventSysex
