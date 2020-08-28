@@ -54,7 +54,7 @@ public class SimusPlayerFluid {
 			public void run() {
 				try {
 					fluidPlayer.play("");
-					FluidSequencer sequencer = new FluidSequencer(fluidPlayer);
+					FluidSequencer sequencer = new FluidSequencer();
 					MidiPlayer player = new MidiPlayer(sequencer);
 					player.play(song);
 				} catch (Exception e) {

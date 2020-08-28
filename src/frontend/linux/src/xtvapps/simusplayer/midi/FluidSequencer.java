@@ -4,12 +4,6 @@ import xtvapps.simusplayer.core.FluidPlayer;
 
 public class FluidSequencer implements MidiSequencer {
 
-	private FluidPlayer fluidPlayer;
-
-	public FluidSequencer(FluidPlayer fluidPlayer) {
-		this.fluidPlayer = fluidPlayer;
-	}
-	
 	@Override
 	public void reset() {
 	}
