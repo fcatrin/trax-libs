@@ -20,4 +20,16 @@ void log_error(const char *msg, ...);
 void log_fatal(const char *msg, ...);
 void check_mem(void *p);
 
+enum midi_event {
+	NOTEOFF,
+	NOTEON,
+	KEYPRESS,
+	CONTROLLER,
+	PGMCHANGE,
+	CHANPRESS,
+	PITCHBEND,
+	TEMPO,
+	SYSEX
+};
+
 #endif

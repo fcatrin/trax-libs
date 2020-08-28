@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 #include <fluidsynth.h>
+#include "common.h"
 #include "xtvapps_simusplayer_core_FluidPlayer.h"
 
 static fluid_settings_t*     settings;
@@ -64,17 +65,44 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidFillBuffer
 	return 0;
 }
 
-
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOn
-  (JNIEnv *env, jobject thiz, jint channel, jint note, jint velocity) {
-	fluid_synth_noteon(synth, channel, note, velocity);
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventNote
+(JNIEnv *env, jclass clazz, jint type, jint channel, jint note, jint velocity) {
+	switch(type) {
+	case NOTEON:
+		fluid_synth_noteon(synth, channel, note, velocity);
+		break;
+	case NOTEOFF:
+		fluid_synth_noteoff(synth, channel, note);
+		break;
+	}
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOff
-  (JNIEnv *env, jobject thiz, jint channel, jint note) {
-	fluid_synth_noteoff(synth, channel, note);
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventController
+  (JNIEnv *env, jclass clazz, jint channel, jint param, jint value) {
+	fluid_synth_cc(synth, channel, param, value);
 }
 
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventChange
+  (JNIEnv *env, jclass clazz, jint type, jint channel, jint value) {
+	switch(type) {
+	case PGMCHANGE:
+		fluid_synth_program_change(synth, channel, value);
+		break;
+	case CHANPRESS:
+		fluid_synth_channel_pressure(synth, channel, value);
+		break;
+	}
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventPitchBend
+  (JNIEnv *env, jclass clazz, jint channel, jint value) {
+	fluid_synth_pitch_bend(synth, channel, value);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventSysex
+  (JNIEnv *env, jclass clazz, jintArray jsysex) {
+
+}
 
 int main(int argc, char **argv) {}
 

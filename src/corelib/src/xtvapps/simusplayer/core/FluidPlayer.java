@@ -90,7 +90,10 @@ public class FluidPlayer {
 	public native void    fluidRelease();
 	public native int     fluidFillBuffer(byte[] buffer);
 	
-	public native void fluidNoteOn(int channel, int note, int velocity);
-	public native void fluidNoteOff(int channel, int note);
+	public static native void fluidSendEventNote(int type, int channel, int note, int velocity);
+	public static native void fluidSendEventController(int channel, int param, int value);
+	public static native void fluidSendEventChange(int type, int channel, int value);
+	public static native void fluidSendEventPitchBend(int channel, int value);
+	public static native void fluidSendEventSysex(int sysex[]);
 	
 }

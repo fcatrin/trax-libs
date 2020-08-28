@@ -43,19 +43,43 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidFillBuffer
 
 /*
  * Class:     xtvapps_simusplayer_core_FluidPlayer
- * Method:    fluidNoteOn
- * Signature: (III)V
+ * Method:    fluidSendEventNote
+ * Signature: (IIII)V
  */
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOn
-  (JNIEnv *, jobject, jint, jint, jint);
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventNote
+  (JNIEnv *, jclass, jint, jint, jint, jint);
 
 /*
  * Class:     xtvapps_simusplayer_core_FluidPlayer
- * Method:    fluidNoteOff
+ * Method:    fluidSendEventController
+ * Signature: (III)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventController
+  (JNIEnv *, jclass, jint, jint, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_FluidPlayer
+ * Method:    fluidSendEventChange
+ * Signature: (III)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventChange
+  (JNIEnv *, jclass, jint, jint, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_FluidPlayer
+ * Method:    fluidSendEventPitchBend
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidNoteOff
-  (JNIEnv *, jobject, jint, jint);
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventPitchBend
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_FluidPlayer
+ * Method:    fluidSendEventSysex
+ * Signature: ([I)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventSysex
+  (JNIEnv *, jclass, jintArray);
 
 #ifdef __cplusplus
 }

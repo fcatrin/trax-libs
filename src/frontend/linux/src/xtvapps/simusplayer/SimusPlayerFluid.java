@@ -45,7 +45,7 @@ public class SimusPlayerFluid {
 	}
 	
 	private static void play() throws IOException {
-		byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/a_bridge.mid"));
+		byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/canyon.mid"));
 		final MidiSong song = MidiSong.load(new SimpleStream(songData));
 		for(MidiTrack track : song.getTracks()) {
 			System.out.println(track.getName());
