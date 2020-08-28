@@ -13,6 +13,8 @@ import fts.core.Window;
 import fts.linux.ComponentFactory;
 import xtvapps.simusplayer.core.CoreUtils;
 import xtvapps.simusplayer.core.FluidPlayer;
+import xtvapps.simusplayer.midi.FluidSequencer;
+import xtvapps.simusplayer.midi.MidiPlayer;
 import xtvapps.simusplayer.midi.MidiSong;
 import xtvapps.simusplayer.midi.MidiTrack;
 import xtvapps.simusplayer.midi.SimpleStream;
@@ -26,13 +28,6 @@ public class SimusPlayerFluid {
 	public static void main(String[] args) throws IOException {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 		
-		byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/canyon.mid"));
-		MidiSong song = MidiSong.load(new SimpleStream(songData));
-		for(MidiTrack track : song.getTracks()) {
-			System.out.println(track.getName());
-		}
-		
-		/*
 
 		window = Application.createWindow("Simus Midi Player", 480, 272);
 		window.setOnFrameCallback(getOnFrameCallback());
@@ -47,20 +42,21 @@ public class SimusPlayerFluid {
 		window.open();
 		window.mainLoop();
 		fluidPlayer.stop();
-		*/
 	}
 	
-	private static void play() {
+	private static void play() throws IOException {
+		byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/a_bridge.mid"));
+		final MidiSong song = MidiSong.load(new SimpleStream(songData));
+		for(MidiTrack track : song.getTracks()) {
+			System.out.println(track.getName());
+		}
 		Thread t = new Thread() {
 			public void run() {
 				try {
 					fluidPlayer.play("");
-					Thread.sleep(5000);
-					fluidPlayer.fluidNoteOn(0, 64, 100);
-					Thread.sleep(20);
-					fluidPlayer.fluidNoteOn(0, 71, 100);
-					Thread.sleep(1000);
-					fluidPlayer.fluidNoteOff(0, 64);
+					FluidSequencer sequencer = new FluidSequencer(fluidPlayer);
+					MidiPlayer player = new MidiPlayer(sequencer);
+					player.play(song);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
