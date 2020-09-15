@@ -1,8 +1,9 @@
-<project name="SimusPlayer JNI" default="build" basedir=".">
+<?eclipse.ant.import?>
+<project name="simusplayer-jni" default="build-jni" basedir=".">
 <property file="fts.properties"/>
 <property file="${fts.dir}/../fts.local.properties"/>
 
-<target name="build">
+<target name="build-jni">
     <exec executable="make" failonerror="true" dir="jni">
         <arg value="-f"/>
         <arg value="Makefile.fts"/>
@@ -11,7 +12,7 @@
     <exec executable="make" failonerror="true" dir="jni"/>
 </target>
 
-<target name="clean">
+<target name="clean-jni">
     <exec executable="make" failonerror="true" dir="jni">
         <arg value="clean"/>
     </exec>

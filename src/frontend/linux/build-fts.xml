@@ -1,7 +1,8 @@
-<project name="build-fts-simusplayer" default="build" basedir=".">
+<?eclipse.ant.import?>
+<project name="build-simusplayer-fts" default="build-fts" basedir=".">
 <property file="fts.properties"/>
 
-<target name="build">
+<target name="build-fts">
     <exec executable="${fts.dir}/tools/package.sh" failonerror="true"/>
 </target>
 
