@@ -1,0 +1,14 @@
+ <?eclipse.ant.import?>
+<project name="build-simusplayer-corelib-jni" default="build-jni" basedir=".">
+<property file="../../../simusplayer-corelib.local.properties"/>
+
+<target name="build-jni">
+    <exec executable="make" failonerror="true" dir="jni"/>
+</target>
+
+<target name="clean-jni">
+    <exec executable="make" failonerror="true" dir="jni">
+        <arg value="clean"/>
+    </exec>
+</target>
+</project>
