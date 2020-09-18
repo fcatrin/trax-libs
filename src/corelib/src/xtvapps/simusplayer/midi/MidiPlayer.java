@@ -93,4 +93,8 @@ public class MidiPlayer {
 	public int[] getNotes() {
 		return notes;
 	}
+	
+	public void stop() {
+		playing = false;
+	}
 }

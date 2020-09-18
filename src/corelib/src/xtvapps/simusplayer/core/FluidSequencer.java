@@ -1,6 +1,8 @@
-package xtvapps.simusplayer.midi;
+package xtvapps.simusplayer.core;
 
 import xtvapps.simusplayer.core.FluidPlayer;
+import xtvapps.simusplayer.midi.MidiEvent;
+import xtvapps.simusplayer.midi.MidiSequencer;
 
 public class FluidSequencer implements MidiSequencer {
 
