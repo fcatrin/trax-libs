@@ -27,7 +27,8 @@ public class FluidPlayer {
 		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
 	}
 	
-	public void play() throws IOException {
+	public void play(String path) throws IOException {
+		final FluidMidiThread midiThread = new FluidMidiThread(path);
 		final FluidRenderThread renderThread = new FluidRenderThread(this, waveDevice.getFreq(), 100, 4);
 		audioThread = new Thread() {
 			@Override
@@ -52,8 +53,10 @@ public class FluidPlayer {
 				
 				Log.d(LOGTAG, "play stop");
 				
+				midiThread.shutdown();
 				renderThread.shutdown();
 				try {
+					midiThread.join();
 					renderThread.join();
 				} catch (InterruptedException e) {}
 				
@@ -65,8 +68,10 @@ public class FluidPlayer {
 		isPlaying = true;
 		isPaused = false;
 		isStopped = false;
+		
 		renderThread.start();
 		audioThread.start();
+		midiThread.start();
 	}
 	
 	public void stop() {

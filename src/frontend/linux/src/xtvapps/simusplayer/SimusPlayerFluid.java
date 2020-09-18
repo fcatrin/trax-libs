@@ -33,12 +33,8 @@ public class SimusPlayerFluid {
 		
 		window.open();
 		
-		fluidPlayer.play();
-		FluidMidiThread fluidMidiThread = new FluidMidiThread("/home/fcatrin/tmp/canyon.mid");
-		fluidMidiThread.start();
+		fluidPlayer.play("/home/fcatrin/tmp/canyon.mid");
 		window.mainLoop();
-		fluidMidiThread.shutdown();
-		fluidMidiThread.join();
 		fluidPlayer.stop();
 	}
 	
