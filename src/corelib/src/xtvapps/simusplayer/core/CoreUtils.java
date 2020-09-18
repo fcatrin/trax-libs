@@ -8,6 +8,9 @@ import java.io.InputStream;
 
 public class CoreUtils {
 	private static final int BUF_SIZE = 0x10000;
+	private static final int SHORT_SLEEP_TIME = 10;
+	
+	private CoreUtils(){}
 	
 	public static byte[] loadBytes(File f) throws IOException {
 		InputStream is = new FileInputStream(f);
@@ -28,6 +31,10 @@ public class CoreUtils {
 		} finally {
 			if (is!=null) is.close();
 		}
+	}
+	
+	public static void shortSleep() {
+		try {Thread.sleep(SHORT_SLEEP_TIME);} catch (Exception e) {};
 	}
 
 }

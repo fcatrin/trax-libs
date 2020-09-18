@@ -33,7 +33,7 @@ public class SimusPlayerFluid {
 		
 		window.open();
 		
-		fluidPlayer.play("/home/fcatrin/tmp/canyon.mid");
+		fluidPlayer.play("/home/fcatrin/tmp/a_bridge.mid");
 		window.mainLoop();
 		fluidPlayer.stop();
 	}

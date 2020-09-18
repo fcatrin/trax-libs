@@ -3,19 +3,20 @@ package xtvapps.simusplayer.core;
 import java.io.IOException;
 
 import fts.core.Log;
-import xtvapps.simusplayer.core.AudioBuffer.Format;
-import xtvapps.simusplayer.core.AudioBuffer.Status;
+import xtvapps.simusplayer.core.audio.AudioBuffer;
+import xtvapps.simusplayer.core.audio.AudioRenderThread;
+import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
+import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
+import xtvapps.simusplayer.core.audio.AudioPlayerThread;
 
 public class FluidPlayer {
 	private static final String LOGTAG = FluidPlayer.class.getSimpleName();
-	private static final int SLEEP_TIME = 10;
 
 	static {
 		System.loadLibrary("simusplayer-corelib");
 	}
 
 	private WaveDevice waveDevice;
-	private Thread audioThread;
 	
 	boolean isPlaying = false;
 	boolean isPaused = false;
@@ -29,64 +30,48 @@ public class FluidPlayer {
 	
 	public void play(String path) throws IOException {
 		final FluidMidiThread midiThread = new FluidMidiThread(path);
-		final FluidRenderThread renderThread = new FluidRenderThread(this, waveDevice.getFreq(), 100, 4);
-		audioThread = new Thread() {
+		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4) {
+
+			@Override
+			public void fillBuffer(byte[] buffer) {
+				fluidFillBuffer(buffer);		
+			}
+		};
+		
+		final AudioPlayerThread audioPlayerThread = new AudioPlayerThread(waveDevice, renderThread);
+		
+		Thread controllerThread = new Thread("FluidControllerThread") {
 			@Override
 			public void run() {
-				waveDevice.open();
-				
-				Log.d(LOGTAG, "play start");
-				do {
-					if (isPaused) {
-						FluidPlayer.this.sleep();
-					} else {
-						AudioBuffer buffer = renderThread.getNextBuffer();
-						if (buffer != null) {
-							buffer.setStatus(Status.Processing);
-							waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
-							buffer.setStatus(Status.Free);
-						} else {
-							FluidPlayer.this.sleep();
-						}
-					}
-				} while (isPlaying);
-				
-				Log.d(LOGTAG, "play stop");
-				
+				while(isPlaying) {
+					CoreUtils.shortSleep();
+				}
 				midiThread.shutdown();
 				renderThread.shutdown();
+				audioPlayerThread.shutdown();
 				try {
 					midiThread.join();
 					renderThread.join();
+					audioPlayerThread.join();
 				} catch (InterruptedException e) {}
 				
 				fluidRelease();
-				waveDevice.close();
 			    isStopped = true;
-			}
+			}			
 		};
+		
 		isPlaying = true;
-		isPaused = false;
-		isStopped = false;
 		
 		renderThread.start();
-		audioThread.start();
+		audioPlayerThread.start();
 		midiThread.start();
+		controllerThread.start();
 	}
 	
 	public void stop() {
 		isPlaying = false;
 	}
 	
-	public void waitForStop() {
-		while (!isStopped) {
-			sleep();
-		}
-	}
-	
-	protected void sleep() {
-		try {Thread.sleep(SLEEP_TIME);} catch (Exception e) {};
-	}
 	
 	public native boolean fluidInit(int freq);
 	public native void    fluidLoadSoundFontFile(String path);

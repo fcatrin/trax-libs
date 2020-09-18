@@ -1,4 +1,4 @@
-package xtvapps.simusplayer.core;
+package xtvapps.simusplayer.core.audio;
 
 
 public class AudioBuffer {

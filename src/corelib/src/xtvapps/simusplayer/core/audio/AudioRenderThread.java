@@ -1,20 +1,19 @@
-package xtvapps.simusplayer.core;
+package xtvapps.simusplayer.core.audio;
 
-import xtvapps.simusplayer.core.AudioBuffer.Format;
-import xtvapps.simusplayer.core.AudioBuffer.Status;
+import xtvapps.simusplayer.core.FluidPlayer;
+import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
+import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 
-public class FluidRenderThread extends Thread {
+public abstract class AudioRenderThread extends Thread {
 	private AudioBuffer audioBuffers[];
 	private long lastTime = 0;
 	private int resolution = 0;
 	private int currentBufferIndex = 0;
 	private int nextBufferIndex = 0;
 	
-	private FluidPlayer player;
 	private boolean running;
 	
-	public FluidRenderThread(FluidPlayer player, int freq, int resolution, int buffers) {
-		this.player = player;
+	public AudioRenderThread(int freq, int resolution, int buffers) {
 		this.resolution = resolution;
 		
 		int bufferSize = freq / resolution;
@@ -38,12 +37,16 @@ public class FluidRenderThread extends Thread {
 	public void renderBuffer() {
 		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
 		while (audioBuffer.getStatus() != Status.Free) sleepms(1);
-		player.fluidFillBuffer(audioBuffer.samplesIn);
+		
+		fillBuffer(audioBuffer.samplesIn);
+		
 		audioBuffer.render();
 		audioBuffer.setStatus(Status.Filled);
 		
 		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
 	}
+
+	public abstract void fillBuffer(byte buffer[]);
 	
 	private static void sleepms(long msec) {
 		try {
