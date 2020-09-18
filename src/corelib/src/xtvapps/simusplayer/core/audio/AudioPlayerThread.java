@@ -2,7 +2,6 @@ package xtvapps.simusplayer.core.audio;
 
 import fts.core.Log;
 import xtvapps.simusplayer.core.CoreUtils;
-import xtvapps.simusplayer.core.FluidPlayer;
 import xtvapps.simusplayer.core.WaveDevice;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 

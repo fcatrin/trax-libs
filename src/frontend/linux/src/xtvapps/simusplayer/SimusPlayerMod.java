@@ -101,7 +101,7 @@ public class SimusPlayerMod {
 			}
 		});
 
-		modPlayer = new ModPlayer(new DesktopWaveDevice(44100, 1024));
+		modPlayer = new ModPlayer(new DesktopWaveDevice(44100, 4096));
 		modPlayer.setModPlayerListener(new ModPlayer.ModPlayerListener() {
 			
 			@Override

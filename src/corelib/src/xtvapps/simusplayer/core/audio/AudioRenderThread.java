@@ -1,6 +1,5 @@
 package xtvapps.simusplayer.core.audio;
 
-import xtvapps.simusplayer.core.FluidPlayer;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 

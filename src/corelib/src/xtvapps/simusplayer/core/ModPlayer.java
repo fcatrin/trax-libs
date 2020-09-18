@@ -3,6 +3,8 @@ package xtvapps.simusplayer.core;
 import java.io.IOException;
 
 import fts.core.Log;
+import xtvapps.simusplayer.core.audio.AudioPlayerThread;
+import xtvapps.simusplayer.core.audio.AudioRenderThread;
 
 public class ModPlayer {
 	private static final String LOGTAG = ModPlayer.class.getSimpleName();
@@ -13,7 +15,6 @@ public class ModPlayer {
 	}
 
 	private WaveDevice waveDevice;
-	private Thread audioThread;
 
 	private ModInfo modInfo = new ModInfo();
 	private FrameInfo frameInfo = new FrameInfo();
@@ -40,59 +41,46 @@ public class ModPlayer {
 		loadModInfo();
 		
 		mutedChannels = new boolean[modInfo.tracks];
+		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4) {
 
-		audioThread = new Thread() {
 			@Override
-			public void run() {
-				
-				if (modPlayerListener!=null) modPlayerListener.onStart();
-				
-				int minbuffsize = 1024;
-				int bufferSize = waveDevice.getBufferSize();
-
-				Log.d(LOGTAG, "buffersize: " + bufferSize + ", minbuffersize: "  + minbuffsize);
-				if (minbuffsize > bufferSize) {
-					bufferSize = minbuffsize;
-				}
-				
-				waveDevice.open();
-
-				AudioBuffer audioBuffer1 = new AudioBuffer(bufferSize, 0);
-				AudioBuffer audioBuffer2 = new AudioBuffer(bufferSize, 1);
-				AudioBuffer audioBuffers[] = {audioBuffer1, audioBuffer2};
-				
-				
-				int frontBuffer = 0;
-				
-				Log.d(LOGTAG, "play start");
-				do {
-					if (isPaused) {
-						ModPlayer.this.sleep();
-					} else {
-						AudioBuffer buffer = audioBuffers[frontBuffer];
-						xmpFillBuffer(audioBuffers[frontBuffer].samplesIn, 0);
-						buffer.render();
-						
-						frontBuffer++;
-						if (frontBuffer>=audioBuffers.length) frontBuffer = 0;
-					
-						loadFrameInfo();
-						waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
-
-						
-					}
-				} while (isPlaying);
-				Log.d(LOGTAG, "play stop");
-				waveDevice.close();
-			    xmpRelease();
-			    if (modPlayerListener!=null) modPlayerListener.onEnd();
-			    isStopped = true;
+			public void fillBuffer(byte[] buffer) {
+				xmpFillBuffer(buffer, 0);
+				loadFrameInfo();
 			}
 		};
+		
+		final AudioPlayerThread audioPlayerThread = new AudioPlayerThread(waveDevice, renderThread);
+		Thread controllerThread = new Thread("ModPlayerControllerThread") {
+			@Override
+			public void run() {
+				if (modPlayerListener!=null) modPlayerListener.onStart();
+
+				while(isPlaying) {
+					CoreUtils.shortSleep();
+				}
+				
+				renderThread.shutdown();
+				audioPlayerThread.shutdown();
+				try {
+					renderThread.join();
+					audioPlayerThread.join();
+				} catch (InterruptedException e) {}
+				
+			    xmpRelease();
+			    if (modPlayerListener!=null) modPlayerListener.onEnd();
+
+			    isStopped = true;
+			}			
+		};
+
 		isPlaying = true;
 		isPaused = false;
 		isStopped = false;
-		audioThread.start();
+		
+		renderThread.start();
+		audioPlayerThread.start();
+		controllerThread.start();
 	}
 	
 	public void stop() {
