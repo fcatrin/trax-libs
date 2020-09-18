@@ -1,0 +1,75 @@
+package xtvapps.simusplayer.core;
+
+import xtvapps.simusplayer.core.AudioBuffer.Format;
+import xtvapps.simusplayer.core.AudioBuffer.Status;
+
+public class FluidRenderThread extends Thread {
+	private AudioBuffer audioBuffers[];
+	private long lastTime = 0;
+	private int resolution = 0;
+	private int currentBufferIndex = 0;
+	private int nextBufferIndex = 0;
+	
+	private FluidPlayer player;
+	private boolean running;
+	
+	public FluidRenderThread(FluidPlayer player, int freq, int resolution, int buffers) {
+		this.player = player;
+		this.resolution = resolution;
+		
+		int bufferSize = freq / resolution;
+		
+		audioBuffers = new AudioBuffer[buffers];
+		for(int i=0; i<buffers; i++) {
+			audioBuffers[i] = new AudioBuffer(bufferSize, 0, Format.S16);
+		}
+	}
+	
+	public void render() {
+		long t0 = System.currentTimeMillis();
+		long waitmsec = lastTime + resolution - t0;
+		if (waitmsec<=0) {
+			renderBuffer();
+		} else if (waitmsec > resolution / 2) {
+			sleepms(resolution / 2);
+		}
+	}
+	
+	public void renderBuffer() {
+		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
+		while (audioBuffer.getStatus() != Status.Free) sleepms(1);
+		player.fluidFillBuffer(audioBuffer.samplesIn);
+		audioBuffer.render();
+		audioBuffer.setStatus(Status.Filled);
+		
+		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
+	}
+	
+	private static void sleepms(long msec) {
+		try {
+			Thread.sleep(msec);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public AudioBuffer getNextBuffer() {
+		AudioBuffer audioBuffer = audioBuffers[nextBufferIndex];
+		if (audioBuffer.getStatus() != Status.Filled) return null;
+		
+		nextBufferIndex = ++nextBufferIndex % audioBuffers.length;
+		return audioBuffer;
+	}
+	
+	@Override
+	public void run() {
+		running = true;
+		while (running) {
+			render();
+		}
+	}
+	
+	public void shutdown() {
+		running = false;
+	}
+}

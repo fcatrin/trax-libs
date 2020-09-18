@@ -1,16 +1,18 @@
 package xtvapps.simusplayer.core;
 
+
 public class AudioBuffer {
+	public enum Status {Free, Filled, Processing}
 	public enum Format {U16, S16}
 	private static final String LOGTAG = AudioBuffer.class.getSimpleName();
 	
 	short samplesOut[];
 	byte samplesIn[];
 	boolean hasMore = true;
-	boolean processed = false;
 	int id;
 	long markOffset = 0;
 	Format format = Format.U16;
+	private Status status = Status.Free;
 
 	public AudioBuffer(int length, int id) {
 		this(length, id, Format.U16);
@@ -44,6 +46,14 @@ public class AudioBuffer {
 				samplesOut[i] = value;
 			}
 		}
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 }

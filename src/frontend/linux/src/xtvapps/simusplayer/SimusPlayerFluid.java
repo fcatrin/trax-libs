@@ -35,7 +35,7 @@ public class SimusPlayerFluid {
 		final Widget rootView = app.inflate(window, "modplayer");
 		window.setContentView(rootView);
 		
-		fluidPlayer = new FluidPlayer(new DesktopWaveDevice(44100, 1024));
+		fluidPlayer = new FluidPlayer(new DesktopWaveDevice(44100, 4096));
 		
 		play();
 		

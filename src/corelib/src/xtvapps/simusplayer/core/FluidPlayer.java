@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import fts.core.Log;
 import xtvapps.simusplayer.core.AudioBuffer.Format;
+import xtvapps.simusplayer.core.AudioBuffer.Status;
 
 public class FluidPlayer {
 	private static final String LOGTAG = FluidPlayer.class.getSimpleName();
@@ -27,39 +28,31 @@ public class FluidPlayer {
 	}
 	
 	public void play(String path) throws IOException {
+		final FluidRenderThread renderThread = new FluidRenderThread(this, waveDevice.getFreq(), 100, 4);
 		audioThread = new Thread() {
 			@Override
 			public void run() {
-				int minbuffsize = 1024;
-				int bufferSize = waveDevice.getBufferSize();
-
-				Log.d(LOGTAG, "buffersize: " + bufferSize + ", minbuffersize: "  + minbuffsize);
-				if (minbuffsize > bufferSize) {
-					bufferSize = minbuffsize;
-				}
-				
 				waveDevice.open();
-
-				AudioBuffer audioBuffer1 = new AudioBuffer(bufferSize, 0, Format.S16);
-				AudioBuffer audioBuffer2 = new AudioBuffer(bufferSize, 1, Format.S16);
-				AudioBuffer audioBuffers[] = {audioBuffer1, audioBuffer2};
-				
-				
-				int frontBuffer = 0;
 				
 				Log.d(LOGTAG, "play start");
 				do {
 					if (isPaused) {
 						FluidPlayer.this.sleep();
 					} else {
-						AudioBuffer buffer = audioBuffers[frontBuffer];
-						fluidFillBuffer(buffer.samplesIn);
-						buffer.render();
-						waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
-						buffer.processed = false;
+						AudioBuffer buffer = renderThread.getNextBuffer();
+						if (buffer != null) {
+							buffer.setStatus(Status.Processing);
+							waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
+							buffer.setStatus(Status.Free);
+						} else {
+							FluidPlayer.this.sleep();
+						}
 					}
 				} while (isPlaying);
+				
 				Log.d(LOGTAG, "play stop");
+				
+				renderThread.shutdown();
 				fluidRelease();
 				waveDevice.close();
 			    isStopped = true;
@@ -68,8 +61,24 @@ public class FluidPlayer {
 		isPlaying = true;
 		isPaused = false;
 		isStopped = false;
+		renderThread.start();
 		audioThread.start();
 	}
+	
+	private Thread doRenderThread(AudioBuffer audioBuffers[]) {
+		final long resolution = 100; // msec
+		final long samples = 44100 / resolution;
+		
+		Thread renderThread = new Thread() {
+			@Override
+			public void run() {
+				
+			}
+		};
+		renderThread.start();
+		return renderThread;
+	}
+	
 	
 	public void stop() {
 		isPlaying = false;

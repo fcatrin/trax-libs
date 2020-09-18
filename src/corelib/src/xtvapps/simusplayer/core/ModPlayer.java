@@ -79,7 +79,7 @@ public class ModPlayer {
 						loadFrameInfo();
 						waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
 
-						buffer.processed = false;
+						
 					}
 				} while (isPlaying);
 				Log.d(LOGTAG, "play stop");
