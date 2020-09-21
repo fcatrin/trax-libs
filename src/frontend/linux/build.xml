@@ -91,4 +91,16 @@
             <classpath refid="simusplayer-linux.classpath"/>
         </java>
     </target>
+    <target name="SimusPlayerMod-rpi">
+        <java classname="xtvapps.simusplayer.SimusPlayerMod" failonerror="true" fork="yes">
+            <jvmarg line="-Djava.library.path=libs/armv7l"/>
+            <classpath refid="simusplayer-linux.classpath"/>
+        </java>
+    </target>
+    <target name="SimusPlayerFluid-rpi">
+        <java classname="xtvapps.simusplayer.SimusPlayerFluid" failonerror="true" fork="yes">
+            <jvmarg line="-Djava.library.path=libs/armv7l"/>
+            <classpath refid="simusplayer-linux.classpath"/>
+        </java>
+    </target>
 </project>
