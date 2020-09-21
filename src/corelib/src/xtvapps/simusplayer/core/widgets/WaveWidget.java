@@ -21,6 +21,7 @@ public class WaveWidget extends Widget {
 
 	public void setWave(int wave[]) {
 		this.wave = wave;
+		invalidate();
 	}
 	
 	public void setWaveLinesColor(Color waveLinesColor) {

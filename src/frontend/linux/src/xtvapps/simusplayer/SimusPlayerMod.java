@@ -201,9 +201,19 @@ public class SimusPlayerMod {
 		return padz(minutes) + ":" + padz(seconds);
 	}
 	
+	static int frameskip = 2;
+	static int frames = 0;
+	
 	protected static void onFrameCallback() {
 		if (modInfo == null) return;
 
+		if (frames != frameskip) {
+			frames++;
+			return;
+		}
+		
+		frames = 0;
+		
 		for(int i=0; i<modInfo.tracks; i++) {
 			waveContainer.setWave(i, modPlayer.getWave(i));
 		}
@@ -220,7 +230,6 @@ public class SimusPlayerMod {
 		
 		String tempo = pads(String.valueOf(frameInfo.bpm), 5);
 		lcdTempo.setText(tempo);
-		
 	}
 	
 	private static String toFirstLetterUppercase(String s) {
