@@ -35,10 +35,6 @@ public class KeyboardView extends Widget {
 		this.notes = notes;
 	}
 
-	@Override
-	public void redraw() {
-	}
-
 	private boolean isBlackNote(int note) {
 		int note_in_octave = note % 12;
 		return note_in_octave == 1 || note_in_octave == 3 || note_in_octave == 6 || note_in_octave == 8 || note_in_octave == 10;

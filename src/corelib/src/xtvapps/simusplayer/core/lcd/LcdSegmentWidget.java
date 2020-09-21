@@ -26,18 +26,13 @@ public class LcdSegmentWidget extends Widget {
 	@Override
 	protected void onPaint(PaintEvent e) {
 		Canvas canvas = e.canvas;
-		int x = bounds.x;
-		int y = bounds.y;
-		LcdChar.drawString(canvas, x, y, text, 0, len);
+		LcdChar.drawString(canvas, 0, 0, text, 0, len);
 	}
 
 	@Override
 	public Point getContentSize(int width, int height) {
 		return LcdChar.getSize(len);
 	}
-
-	@Override
-	public void redraw() {}
 
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
