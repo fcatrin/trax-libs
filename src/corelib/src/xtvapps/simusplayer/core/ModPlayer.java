@@ -1,8 +1,10 @@
 package xtvapps.simusplayer.core;
 
+import java.io.File;
 import java.io.IOException;
 
 import fts.core.Log;
+import fts.core.Utils;
 import xtvapps.simusplayer.core.audio.AudioPlayerThread;
 import xtvapps.simusplayer.core.audio.AudioRenderThread;
 
@@ -35,10 +37,10 @@ public class ModPlayer {
 		this.modPlayerListener = modPlayerListener;
 	}
 	
-	public void play(String path) throws IOException {
-		xmpInit(path, waveDevice.getFreq());
+	public void play(File modFile) throws IOException {
+		xmpInit(modFile.getAbsolutePath(), waveDevice.getFreq());
 
-		loadModInfo();
+		loadModInfo(modFile);
 		
 		mutedChannels = new boolean[modInfo.tracks];
 		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4) {
@@ -113,9 +115,11 @@ public class ModPlayer {
 		Log.d(LOGTAG, "toggle channel " + channel);
 	}
 	
-	private void loadModInfo() {
+	private void loadModInfo(File modFile) {
 		modInfo.modName = xmpGetModuleName();
 		modInfo.modFormat = xmpGetModuleFormat();
+		
+		if (Utils.isEmptyString(modInfo.modName)) modInfo.modName = modFile.getName();
 
 		int[] modInfoData = xmpGetModuleInfo();
 		modInfo.tracks = modInfoData[0];

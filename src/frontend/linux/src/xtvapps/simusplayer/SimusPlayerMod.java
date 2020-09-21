@@ -38,36 +38,18 @@ public class SimusPlayerMod {
 	private static LcdSegmentWidget lcdPosition;
 	private static LcdSegmentWidget lcdTempo;
 
-	private static List<String> songs = new ArrayList<String>();
+	private static List<File> songs = new ArrayList<File>();
 	private static int currentSong = 0;
 
 	public static void main(String[] args) throws IOException {
-		songs.add("/opt/mods/elimination.mod");
-		songs.add("/opt/mods/bloodm.mod");
-		songs.add("/opt/mods/bananasplit.mod");
-		songs.add("/opt/mods/devlpr94.xm");
-		songs.add("/opt/mods/m4v-fasc.it");
+		File dir = new File("/opt/songs/mods");
+		File[] modFiles = dir.listFiles();
+		for(File modFile : modFiles) {
+			if (modFile.isFile()) songs.add(modFile);
+		}
 		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 
-		// final File modFile = new File("/home/fcatrin/tmp/mods/bananasplit.mod"); // 4 channels
-		// final File modFile = new File("/home/fcatrin/tmp/mods/beyond_music.mod"); // 4 channels
-		// final File modFile = new File("/home/fcatrin/tmp/mods/bloodm.mod"); // 6 channels
-		// final File modFile = new File("/home/fcatrin/tmp/mods/chi.mod"); // 4 chn
-		// final File modFile = new File("/home/fcatrin/tmp/mods/devlpr94.xm");  // 10 chn
-		// final File modFile = new File("/home/fcatrin/tmp/mods/dirt.mod"); // 4 chn
-		// final File modFile = new File("/home/fcatrin/tmp/mods/elimination.mod"); // 4 chn
-		// final File modFile = new File("/home/fcatrin/tmp/mods/greenochrome.xm"); // 8 chn
-		// final File modFile = new File("/home/fcatrin/tmp/mods/m4v-fasc.it"); // 18 chn
-		// final File modFile = new File("/home/fcatrin/tmp/mods/mindstorm.mod"); // 4 chn
-		/*
-		final File modFile = new File("/home/fcatrin/tmp/mods/satellite.s3m"); // 8 chn
-		
-		if (!modFile.exists()) {
-			Log.d(LOGTAG, modFile + " not found");
-			return;
-		}
-		*/
 		
 		window = Application.createWindow("Simus Mod Player", 480, 272);
 		window.setOnFrameCallback(getOnFrameCallback());
@@ -118,7 +100,7 @@ public class SimusPlayerMod {
 					System.out.println(String.format("%02X : %s", i, modPlayer.xmpGetSampleName(i)));
 				}
 				
-				String modName = Utils.isEmptyString(modInfo.modName) ? "" : modInfo.modName;
+				String modName = Utils.isEmptyString(modInfo.modName) ? "" : toFirstLetterUppercase(modInfo.modName);
 				
 				LcdSegmentWidget lcdModName = (LcdSegmentWidget)rootView.findWidget("lcdModName");
 				lcdModName.setText(toFirstLetterUppercase(modName));
@@ -151,11 +133,11 @@ public class SimusPlayerMod {
 		play(songs.get(currentSong));
 	}
 	
-	private static void play(final String fileName) {
+	private static void play(final File file) {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					modPlayer.play(fileName);
+					modPlayer.play(file);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
