@@ -42,11 +42,11 @@ public class SimusPlayerMod {
 	private static int currentSong = 0;
 
 	public static void main(String[] args) throws IOException {
-		songs.add("/home/fcatrin/tmp/mods/elimination.mod");
-		songs.add("/home/fcatrin/tmp/mods/bloodm.mod");
-		songs.add("/home/fcatrin/tmp/mods/bananasplit.mod");
-		songs.add("/home/fcatrin/tmp/mods/devlpr94.xm");
-		songs.add("/home/fcatrin/tmp/mods/m4v-fasc.it");
+		songs.add("/opt/mods/elimination.mod");
+		songs.add("/opt/mods/bloodm.mod");
+		songs.add("/opt/mods/bananasplit.mod");
+		songs.add("/opt/mods/devlpr94.xm");
+		songs.add("/opt/mods/m4v-fasc.it");
 		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 
