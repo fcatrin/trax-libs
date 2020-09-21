@@ -20,7 +20,13 @@ public class LcdSegmentWidget extends Widget {
 	}
 	
 	public void setText(String text) {
+		if (this.text == text) return;  // fast check for null values on both states
+		
+		boolean mustInvalidate = 
+				(text!=null && !text.equals(this.text)) ||
+				(this.text!=null && !this.text.equals(text));		
 		this.text = text;
+		if (mustInvalidate)	invalidate();
 	}
 
 	@Override
