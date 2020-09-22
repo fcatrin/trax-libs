@@ -13,6 +13,7 @@ public class AudioRenderThread extends Thread {
 	private boolean running;
 	
 	private AudioRenderer audioRenderer;
+	private String audioRendererLock = "";
 	
 	public AudioRenderThread(int freq, int resolution, int buffers) {
 		this.resolution = resolution;
@@ -26,7 +27,9 @@ public class AudioRenderThread extends Thread {
 	}
 	
 	public void setAudioRenderer(AudioRenderer audioRenderer) {
-		this.audioRenderer = audioRenderer;
+		synchronized (audioRendererLock) {
+			this.audioRenderer = audioRenderer;
+		}
 	}
 	
 	public void render() {
@@ -43,7 +46,7 @@ public class AudioRenderThread extends Thread {
 		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
 		while (audioBuffer.getStatus() != Status.Free) sleepms(1);
 		
-		synchronized (audioRenderer) {
+		synchronized (audioRendererLock) {
 			if (audioRenderer!=null) {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
 			} else {

@@ -26,13 +26,14 @@ public class FluidPlayer {
 	
 	public FluidPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
-	}
-	
-	public void play(File midiFile) throws IOException {
+
 		fluidInit(waveDevice.freq);
 		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
+	}
+	
+	public void play(File midiFile, final AudioRenderThread audioRenderThread, final AudioPlayerThread audioPlayerThread) throws IOException {
 		
-		AudioRenderer audioRenderer = new AudioRenderer() {
+		final AudioRenderer audioRenderer = new AudioRenderer() {
 
 			@Override
 			public void fillBuffer(byte[] buffer) {
@@ -41,35 +42,29 @@ public class FluidPlayer {
 		};
 
 		final FluidMidiThread midiThread = new FluidMidiThread(midiFile.getAbsolutePath());
-		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
-		renderThread.setAudioRenderer(audioRenderer);
-		
-		final AudioPlayerThread audioPlayerThread = new AudioPlayerThread(waveDevice, renderThread);
 		
 		Thread controllerThread = new Thread("FluidControllerThread") {
 			@Override
 			public void run() {
-				while(isPlaying) {
+				audioRenderThread.setAudioRenderer(audioRenderer);
+				
+				while (isPlaying) {
 					CoreUtils.shortSleep();
 				}
+
+				audioRenderThread.setAudioRenderer(null);
+
 				midiThread.shutdown();
-				renderThread.shutdown();
-				audioPlayerThread.shutdown();
 				try {
 					midiThread.join();
-					renderThread.join();
-					audioPlayerThread.join();
 				} catch (InterruptedException e) {}
 				
-				fluidRelease();
 			    isStopped = true;
 			}			
 		};
 		
 		isPlaying = true;
 		
-		renderThread.start();
-		audioPlayerThread.start();
 		midiThread.start();
 		controllerThread.start();
 	}
@@ -89,7 +84,11 @@ public class FluidPlayer {
 		}
 	}
 	
-	
+	public void shutdown() {
+		waitForStop();
+		fluidRelease();
+	}
+
 	public native boolean fluidInit(int freq);
 	public native void    fluidLoadSoundFontFile(String path);
 	public native void    fluidRelease();

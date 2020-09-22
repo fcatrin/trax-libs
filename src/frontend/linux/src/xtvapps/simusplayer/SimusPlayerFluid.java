@@ -15,8 +15,9 @@ import fts.core.Window;
 import fts.events.OnClickListener;
 import fts.linux.ComponentFactory;
 import fts.widgets.ButtonWidget;
-import xtvapps.simusplayer.core.FluidMidiThread;
 import xtvapps.simusplayer.core.FluidPlayer;
+import xtvapps.simusplayer.core.audio.AudioPlayerThread;
+import xtvapps.simusplayer.core.audio.AudioRenderThread;
 import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 
 public class SimusPlayerFluid {
@@ -28,6 +29,9 @@ public class SimusPlayerFluid {
 	private static List<File> songs = new ArrayList<File>();
 	private static int currentSong = 0;
 	private static LcdSegmentWidget lcdModName;
+	
+	private static AudioPlayerThread audioPlayerThread;
+	private static AudioRenderThread audioRenderThread;
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		File dir = new File("/opt/songs/midi");
@@ -67,19 +71,45 @@ public class SimusPlayerFluid {
 		});
 
 		
-		fluidPlayer = new FluidPlayer(new DesktopWaveDevice(44100, 4096));
-		
 		window.open();
 		
-		play();
+		onStart();
 		window.mainLoop();
-		fluidPlayer.stop();
+		onStop();
 	}
 	
+	private static void onStart() {
+		DesktopWaveDevice waveDevice = new DesktopWaveDevice(44100, 4096);
+		fluidPlayer = new FluidPlayer(waveDevice);
+		
+		audioPlayerThread = new AudioPlayerThread(waveDevice);
+		audioRenderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
+		audioPlayerThread.setAudioRenderThread(audioRenderThread);
+		
+		audioPlayerThread.start();
+		audioRenderThread.start();
+		
+		play();
+
+	}
+
+	private static void onStop() {
+		fluidPlayer.stop();
+		audioPlayerThread.shutdown();
+		audioRenderThread.shutdown();
+		try {
+			audioPlayerThread.join();
+			audioRenderThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		fluidPlayer.shutdown();
+	}
+
 	private static void play() {
 		try {
 			File songFile = songs.get(currentSong);
-			fluidPlayer.play(songFile);
+			fluidPlayer.play(songFile, audioRenderThread, audioPlayerThread);
 			
 			lcdModName.setText(songFile.getName());
 

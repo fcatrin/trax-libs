@@ -21,6 +21,8 @@ import fts.widgets.ButtonWidget;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
+import xtvapps.simusplayer.core.audio.AudioPlayerThread;
+import xtvapps.simusplayer.core.audio.AudioRenderThread;
 import xtvapps.simusplayer.core.lcd.LcdScreenWidget;
 import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 import xtvapps.simusplayer.core.widgets.WaveContainer;
@@ -40,6 +42,9 @@ public class SimusPlayerMod {
 
 	private static List<File> songs = new ArrayList<File>();
 	private static int currentSong = 0;
+	
+	private static AudioPlayerThread audioPlayerThread;
+	private static AudioRenderThread audioRenderThread;
 
 	public static void main(String[] args) throws IOException {
 		File dir = new File("/opt/songs/mods");
@@ -121,30 +126,49 @@ public class SimusPlayerMod {
 				modPlayer.toggleChannel(channel);
 			}
 		});
+
+		window.open();
+
+		onStart();
+		window.mainLoop();
+		onStop();
+	}
+	
+	private static void onStart() {
+		DesktopWaveDevice waveDevice = new DesktopWaveDevice(44100, 4096);
+
+		audioPlayerThread = new AudioPlayerThread(waveDevice);
+		audioRenderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
+		audioPlayerThread.setAudioRenderThread(audioRenderThread);
 		
+		audioPlayerThread.start();
+		audioRenderThread.start();
+
 		play();
 		
-		window.open();
-		window.mainLoop();
+	}
+	
+	private static void onStop() {
 		modPlayer.stop();
+
+		audioPlayerThread.shutdown();
+		audioRenderThread.shutdown();
+		try {
+			audioPlayerThread.join();
+			audioRenderThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	private static void play() {
-		play(songs.get(currentSong));
-	}
-	
-	private static void play(final File file) {
-		Thread t = new Thread() {
-			public void run() {
-				try {
-					modPlayer.play(file);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		};
-
-		t.start();
+		File songFile = songs.get(currentSong);
+		try {
+			modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static void playPrev() {

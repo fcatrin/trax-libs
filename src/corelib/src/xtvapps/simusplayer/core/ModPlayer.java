@@ -38,14 +38,14 @@ public class ModPlayer {
 		this.modPlayerListener = modPlayerListener;
 	}
 	
-	public void play(File modFile) throws IOException {
+	public void play(File modFile, final AudioRenderThread audioRenderThread, final AudioPlayerThread audioPlayerThread) throws IOException {
 		xmpInit(modFile.getAbsolutePath(), waveDevice.getFreq());
 
 		loadModInfo(modFile);
 		
 		mutedChannels = new boolean[modInfo.tracks];
 
-		AudioRenderer audioRenderer = new AudioRenderer() {
+		final AudioRenderer audioRenderer = new AudioRenderer() {
 			
 			@Override
 			public void fillBuffer(byte[] buffer) {
@@ -54,27 +54,21 @@ public class ModPlayer {
 			}
 		};
 		
-		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
-		renderThread.setAudioRenderer(audioRenderer);
 		
-		final AudioPlayerThread audioPlayerThread = new AudioPlayerThread(waveDevice, renderThread);
 		Thread controllerThread = new Thread("ModPlayerControllerThread") {
 			@Override
 			public void run() {
+				audioRenderThread.setAudioRenderer(audioRenderer);
 				if (modPlayerListener!=null) modPlayerListener.onStart();
 
 				while(isPlaying) {
 					CoreUtils.shortSleep();
 				}
 				
-				renderThread.shutdown();
-				audioPlayerThread.shutdown();
-				try {
-					renderThread.join();
-					audioPlayerThread.join();
-				} catch (InterruptedException e) {}
+				audioRenderThread.setAudioRenderer(null);
 				
 			    xmpRelease();
+
 			    if (modPlayerListener!=null) modPlayerListener.onEnd();
 
 			    isStopped = true;
@@ -85,8 +79,6 @@ public class ModPlayer {
 		isPaused = false;
 		isStopped = false;
 		
-		renderThread.start();
-		audioPlayerThread.start();
 		controllerThread.start();
 	}
 	

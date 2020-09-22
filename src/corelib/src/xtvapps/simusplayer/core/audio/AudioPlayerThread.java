@@ -14,9 +14,14 @@ public class AudioPlayerThread extends Thread{
 	private WaveDevice waveDevice;
 	private AudioRenderThread audioRenderThread;
 
-	public AudioPlayerThread(WaveDevice waveDevice, AudioRenderThread audioRenderThread) {
+	public AudioPlayerThread(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
-		this.audioRenderThread = audioRenderThread;
+	}
+
+	public void setAudioRenderThread(AudioRenderThread audioRenderThread) {
+		synchronized (audioRenderThread) {
+			this.audioRenderThread = audioRenderThread;
+		}
 	}
 	
 	@Override
@@ -28,18 +33,19 @@ public class AudioPlayerThread extends Thread{
 		
 		waveDevice.open();
 		
+		AudioBuffer buffer = null;
 		do {
-			if (isPaused) {
-				CoreUtils.shortSleep();
-			} else {
-				AudioBuffer buffer = audioRenderThread.getNextBuffer();
-				if (buffer != null) {
-					buffer.setStatus(Status.Processing);
-					waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
-					buffer.setStatus(Status.Free);
-				} else {
-					CoreUtils.shortSleep();
+			synchronized (audioRenderThread) {
+				if (audioRenderThread!=null && !isPaused) {
+					buffer = audioRenderThread.getNextBuffer(); 
 				}
+			}
+			if (buffer != null) {
+				buffer.setStatus(Status.Processing);
+				waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
+				buffer.setStatus(Status.Free);
+			} else {
+				CoreUtils.shortSleep();
 			}
 		} while (isPlaying);
 		
