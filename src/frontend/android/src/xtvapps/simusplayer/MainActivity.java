@@ -16,6 +16,8 @@ import fts.core.Window;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
+import xtvapps.simusplayer.core.audio.AudioPlayerThread;
+import xtvapps.simusplayer.core.audio.AudioRenderThread;
 import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 import xtvapps.simusplayer.core.widgets.WaveContainer;
 
@@ -33,6 +35,12 @@ public class MainActivity extends FtsActivity {
 
 	private static List<File> songs = new ArrayList<File>();
 	private static int currentSong = 0;
+
+	private AndroidWaveDevice waveDevice;
+
+	private AudioPlayerThread audioPlayerThread;
+
+	private AudioRenderThread audioRenderThread;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +73,8 @@ public class MainActivity extends FtsActivity {
 			e.printStackTrace();
 		}
 		
-		modPlayer = new ModPlayer(new AndroidWaveDevice(44100, 1024));
+		waveDevice = new AndroidWaveDevice(44100, 4096);
+		modPlayer = new ModPlayer(waveDevice);
 		modPlayer.setModPlayerListener(new ModPlayer.ModPlayerListener() {
 			
 			@Override
@@ -101,25 +110,17 @@ public class MainActivity extends FtsActivity {
 		return "modplayer";
 	}
 	
-	private static void play() {
-		play(songs.get(currentSong));
+	private void play() {
+		File songFile = songs.get(currentSong);
+		try {
+			modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	private static void play(final File songFile) {
-		Thread t = new Thread() {
-			public void run() {
-				try {
-					modPlayer.play(songFile);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		};
-
-		t.start();
-	}
-	
-	private static void playPrev() {
+	private void playPrev() {
 		modPlayer.stop();
 		modPlayer.waitForStop();
 		currentSong--;
@@ -128,7 +129,7 @@ public class MainActivity extends FtsActivity {
 		play();
 	}
 
-	private static void playNext() {
+	private void playNext() {
 		modPlayer.stop();
 		modPlayer.waitForStop();
 		currentSong++;
@@ -184,6 +185,14 @@ public class MainActivity extends FtsActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		
+		audioPlayerThread = new AudioPlayerThread(waveDevice);
+		audioRenderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
+		audioPlayerThread.setAudioRenderThread(audioRenderThread);
+		
+		audioPlayerThread.start();
+		audioRenderThread.start();
+		
 		play();
 	}
 
@@ -192,6 +201,16 @@ public class MainActivity extends FtsActivity {
 		super.onStop();
 		modPlayer.stop();
 		modPlayer.waitForStop();
+		
+		audioPlayerThread.shutdown();
+		audioRenderThread.shutdown();
+		try {
+			audioPlayerThread.join();
+			audioRenderThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
