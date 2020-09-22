@@ -16,7 +16,6 @@ import fts.core.Window;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
-import xtvapps.simusplayer.core.lcd.LcdScreenWidget;
 import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 import xtvapps.simusplayer.core.widgets.WaveContainer;
 
@@ -32,18 +31,15 @@ public class MainActivity extends FtsActivity {
 	private static ModPlayer modPlayer;
 	private static ModInfo modInfo;
 
-	private static List<String> songs = new ArrayList<String>();
+	private static List<File> songs = new ArrayList<File>();
 	private static int currentSong = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Context.pointsPerPixel = 2;
 		super.onCreate(savedInstanceState);
-		try {
-			songs.add(new File(getFilesDir(), "test/elimination.mod").getCanonicalPath());
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+
+		songs.add(new File(getFilesDir(), "test/elimination.mod"));
 		
 		final Window window = getFtsWindow();
 		
@@ -109,11 +105,11 @@ public class MainActivity extends FtsActivity {
 		play(songs.get(currentSong));
 	}
 	
-	private static void play(final String fileName) {
+	private static void play(final File songFile) {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					modPlayer.play(fileName);
+					modPlayer.play(songFile);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
