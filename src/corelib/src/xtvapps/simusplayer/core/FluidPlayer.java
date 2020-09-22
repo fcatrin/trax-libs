@@ -1,5 +1,6 @@
 package xtvapps.simusplayer.core;
 
+import java.io.File;
 import java.io.IOException;
 
 import fts.core.Log;
@@ -24,12 +25,13 @@ public class FluidPlayer {
 	
 	public FluidPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
-		fluidInit(waveDevice.freq);
-		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
 	}
 	
-	public void play(String path) throws IOException {
-		final FluidMidiThread midiThread = new FluidMidiThread(path);
+	public void play(File midiFile) throws IOException {
+		fluidInit(waveDevice.freq);
+		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
+
+		final FluidMidiThread midiThread = new FluidMidiThread(midiFile.getAbsolutePath());
 		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4) {
 
 			@Override
@@ -72,6 +74,17 @@ public class FluidPlayer {
 		isPlaying = false;
 	}
 	
+	public void waitForStop() {
+		try {
+			Thread.sleep(1000);
+			while (!isStopped) {
+				Thread.sleep(10);
+			}
+		} catch (InterruptedException e) {
+			
+		}
+	}
+	
 	
 	public native boolean fluidInit(int freq);
 	public native void    fluidLoadSoundFontFile(String path);
@@ -83,5 +96,5 @@ public class FluidPlayer {
 	public static native void fluidSendEventChange(int type, int channel, int value);
 	public static native void fluidSendEventPitchBend(int channel, int value);
 	public static native void fluidSendEventSysex(int sysex[]);
-	
+
 }

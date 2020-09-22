@@ -90,8 +90,13 @@ public class ModPlayer {
 	}
 	
 	public void waitForStop() {
-		while (!isStopped) {
-			sleep();
+		try {
+			Thread.sleep(1000);
+			while (!isStopped) {
+				Thread.sleep(100);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	
