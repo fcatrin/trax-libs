@@ -6,6 +6,7 @@ import java.io.IOException;
 import fts.core.Log;
 import xtvapps.simusplayer.core.audio.AudioBuffer;
 import xtvapps.simusplayer.core.audio.AudioRenderThread;
+import xtvapps.simusplayer.core.audio.AudioRenderer;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 import xtvapps.simusplayer.core.audio.AudioPlayerThread;
@@ -30,15 +31,18 @@ public class FluidPlayer {
 	public void play(File midiFile) throws IOException {
 		fluidInit(waveDevice.freq);
 		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
-
-		final FluidMidiThread midiThread = new FluidMidiThread(midiFile.getAbsolutePath());
-		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4) {
+		
+		AudioRenderer audioRenderer = new AudioRenderer() {
 
 			@Override
 			public void fillBuffer(byte[] buffer) {
 				fluidFillBuffer(buffer);		
 			}
 		};
+
+		final FluidMidiThread midiThread = new FluidMidiThread(midiFile.getAbsolutePath());
+		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
+		renderThread.setAudioRenderer(audioRenderer);
 		
 		final AudioPlayerThread audioPlayerThread = new AudioPlayerThread(waveDevice, renderThread);
 		

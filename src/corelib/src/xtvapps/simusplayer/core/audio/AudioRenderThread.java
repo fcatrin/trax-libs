@@ -3,7 +3,7 @@ package xtvapps.simusplayer.core.audio;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 
-public abstract class AudioRenderThread extends Thread {
+public class AudioRenderThread extends Thread {
 	private AudioBuffer audioBuffers[];
 	private long lastTime = 0;
 	private int resolution = 0;
@@ -11,6 +11,8 @@ public abstract class AudioRenderThread extends Thread {
 	private int nextBufferIndex = 0;
 	
 	private boolean running;
+	
+	private AudioRenderer audioRenderer;
 	
 	public AudioRenderThread(int freq, int resolution, int buffers) {
 		this.resolution = resolution;
@@ -21,6 +23,10 @@ public abstract class AudioRenderThread extends Thread {
 		for(int i=0; i<buffers; i++) {
 			audioBuffers[i] = new AudioBuffer(bufferSize, 0, Format.S16);
 		}
+	}
+	
+	public void setAudioRenderer(AudioRenderer audioRenderer) {
+		this.audioRenderer = audioRenderer;
 	}
 	
 	public void render() {
@@ -37,7 +43,14 @@ public abstract class AudioRenderThread extends Thread {
 		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
 		while (audioBuffer.getStatus() != Status.Free) sleepms(1);
 		
-		fillBuffer(audioBuffer.samplesIn);
+		synchronized (audioRenderer) {
+			if (audioRenderer!=null) {
+				audioRenderer.fillBuffer(audioBuffer.samplesIn);
+			} else {
+				sleepms(10);
+				return;
+			}
+		}
 		
 		audioBuffer.render();
 		audioBuffer.setStatus(Status.Filled);
@@ -45,8 +58,6 @@ public abstract class AudioRenderThread extends Thread {
 		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
 	}
 
-	public abstract void fillBuffer(byte buffer[]);
-	
 	private static void sleepms(long msec) {
 		try {
 			Thread.sleep(msec);

@@ -7,6 +7,7 @@ import fts.core.Log;
 import fts.core.Utils;
 import xtvapps.simusplayer.core.audio.AudioPlayerThread;
 import xtvapps.simusplayer.core.audio.AudioRenderThread;
+import xtvapps.simusplayer.core.audio.AudioRenderer;
 
 public class ModPlayer {
 	private static final String LOGTAG = ModPlayer.class.getSimpleName();
@@ -43,14 +44,18 @@ public class ModPlayer {
 		loadModInfo(modFile);
 		
 		mutedChannels = new boolean[modInfo.tracks];
-		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4) {
 
+		AudioRenderer audioRenderer = new AudioRenderer() {
+			
 			@Override
 			public void fillBuffer(byte[] buffer) {
 				xmpFillBuffer(buffer, 0);
 				loadFrameInfo();
 			}
 		};
+		
+		final AudioRenderThread renderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
+		renderThread.setAudioRenderer(audioRenderer);
 		
 		final AudioPlayerThread audioPlayerThread = new AudioPlayerThread(waveDevice, renderThread);
 		Thread controllerThread = new Thread("ModPlayerControllerThread") {
