@@ -13,6 +13,8 @@ public class AudioRenderThread extends Thread {
 	private boolean running;
 	
 	private AudioRenderer audioRenderer;
+	private AudioProcessor audioProcessor;
+
 	private String audioRendererLock = "";
 	
 	public AudioRenderThread(int freq, int resolution, int buffers) {
@@ -49,6 +51,7 @@ public class AudioRenderThread extends Thread {
 		synchronized (audioRendererLock) {
 			if (audioRenderer!=null) {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
+				
 			} else {
 				sleepms(10);
 				return;
@@ -56,6 +59,7 @@ public class AudioRenderThread extends Thread {
 		}
 		
 		audioBuffer.render();
+		if (audioProcessor != null) audioProcessor.process(audioBuffer);
 		audioBuffer.setStatus(Status.Filled);
 		
 		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
