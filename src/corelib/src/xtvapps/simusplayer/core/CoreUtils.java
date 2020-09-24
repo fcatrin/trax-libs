@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 public class CoreUtils {
 	private static final int BUF_SIZE = 0x10000;
@@ -37,4 +38,18 @@ public class CoreUtils {
 		try {Thread.sleep(SHORT_SLEEP_TIME);} catch (Exception e) {};
 	}
 
+	public static byte[] toByteArray(short input[]) {
+		ByteBuffer byteBuf = ByteBuffer.allocate(2*input.length);
+		for(int i=0; i<input.length; i++) {
+		    byteBuf.putShort(input[i]);
+		}
+		return byteBuf.array();
+	}
+
+	public static int findNextPowerOfTwo(int requestedBufferSize) {
+		int n = 2;
+		while (n < requestedBufferSize) n = 2*n;
+		return n;
+	}
+	
 }
