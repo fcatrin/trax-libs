@@ -6,8 +6,8 @@ public class AudioBuffer {
 	public enum Format {U16, S16}
 	private static final String LOGTAG = AudioBuffer.class.getSimpleName();
 	
-	short samplesOut[];
-	byte samplesIn[];
+	public short samplesOut[];
+	public byte samplesIn[];
 	boolean hasMore = true;
 	int id;
 	long markOffset = 0;
