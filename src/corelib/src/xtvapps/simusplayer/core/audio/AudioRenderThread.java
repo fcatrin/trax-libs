@@ -1,5 +1,11 @@
 package xtvapps.simusplayer.core.audio;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import xtvapps.simusplayer.core.CoreUtils;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 
@@ -17,21 +23,31 @@ public class AudioRenderThread extends Thread {
 
 	private String audioRendererLock = "";
 	
+	private static boolean debugEnabled = false;	
+	FileOutputStream fosDebugPre;
+	FileOutputStream fosDebugPost;
+	
 	public AudioRenderThread(int freq, int resolution, int buffers) {
 		this.resolution = resolution;
-		
-		int bufferSize = freq / resolution;
+
+		int requestedBufferSize = freq / resolution;
+		int bufferSize = CoreUtils.findNextPowerOfTwo(requestedBufferSize); 
 		
 		audioBuffers = new AudioBuffer[buffers];
 		for(int i=0; i<buffers; i++) {
 			audioBuffers[i] = new AudioBuffer(bufferSize, 0, Format.S16);
 		}
+
 	}
 	
 	public void setAudioRenderer(AudioRenderer audioRenderer) {
 		synchronized (audioRendererLock) {
 			this.audioRenderer = audioRenderer;
 		}
+	}
+	
+	public void setAudioProcessor(AudioProcessor audioProcessor) {
+		this.audioProcessor = audioProcessor;
 	}
 	
 	public void render() {
@@ -59,7 +75,11 @@ public class AudioRenderThread extends Thread {
 		}
 		
 		audioBuffer.render();
-		if (audioProcessor != null) audioProcessor.process(audioBuffer);
+		if (debugEnabled) debugWrite(fosDebugPre, audioBuffer.samplesOut);
+		if (audioProcessor != null) {
+			audioProcessor.process(audioBuffer);
+			if (debugEnabled) debugWrite(fosDebugPost, audioBuffer.samplesOut);
+		}
 		audioBuffer.setStatus(Status.Filled);
 		
 		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
@@ -83,9 +103,40 @@ public class AudioRenderThread extends Thread {
 	
 	@Override
 	public void run() {
+		debugInit();
 		running = true;
 		while (running) {
 			render();
+		}
+		debugDone();
+	}
+	
+	private void debugWrite(OutputStream os, short samples[]) {
+		try {
+			os.write(CoreUtils.toByteArray(samples));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void debugInit() {
+		if (!debugEnabled) return;
+		try {
+			File homeDir = new File(System.getProperty("user.home"));
+			fosDebugPre  = new FileOutputStream(new File(homeDir, "samplesPre.raw"));
+			fosDebugPost = new FileOutputStream(new File(homeDir, "samplesPost.raw"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void debugDone() {
+		if (!debugEnabled) return;
+		try {
+			fosDebugPre.close();
+			fosDebugPost.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
