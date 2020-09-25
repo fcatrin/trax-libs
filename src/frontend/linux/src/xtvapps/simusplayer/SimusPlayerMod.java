@@ -17,6 +17,7 @@ import fts.core.Widget;
 import fts.core.NativeWindow;
 import fts.events.OnClickListener;
 import fts.linux.ComponentFactory;
+import fts.linux.Window;
 import fts.widgets.ButtonWidget;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
@@ -27,40 +28,40 @@ import xtvapps.simusplayer.core.lcd.LcdScreenWidget;
 import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 import xtvapps.simusplayer.core.widgets.WaveContainer;
 
-public class SimusPlayerMod {
+public class SimusPlayerMod extends Window {
 	private static final String LOGTAG = SimusPlayer.class.getSimpleName();
 	private static final int SLEEP_TIME = 10;
-	private static NativeWindow window;
 	
-	private static ModPlayer modPlayer;
-	private static ModInfo modInfo;
-	private static WaveContainer waveContainer;
-	private static LcdSegmentWidget lcdTime;
-	private static LcdSegmentWidget lcdLength;
-	private static LcdSegmentWidget lcdPosition;
-	private static LcdSegmentWidget lcdTempo;
+	private ModPlayer modPlayer;
+	private ModInfo modInfo;
+	private WaveContainer waveContainer;
+	private LcdSegmentWidget lcdTime;
+	private LcdSegmentWidget lcdLength;
+	private LcdSegmentWidget lcdPosition;
+	private LcdSegmentWidget lcdTempo;
 
-	private static List<File> songs = new ArrayList<File>();
-	private static int currentSong = 0;
+	private List<File> songs = new ArrayList<File>();
+	private int currentSong = 0;
 	
-	private static AudioPlayerThread audioPlayerThread;
-	private static AudioRenderThread audioRenderThread;
+	private AudioPlayerThread audioPlayerThread;
+	private AudioRenderThread audioRenderThread;
 
-	public static void main(String[] args) throws IOException {
+	public SimusPlayerMod(String title, int width, int height) {
+		super(title, width, height);
+	}
+
+	private void loadSongs() {
 		File dir = new File("/opt/songs/mods");
 		File[] modFiles = dir.listFiles();
 		for(File modFile : modFiles) {
 			if (modFile.isFile()) songs.add(modFile);
 		}
-		
-		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
+	}
 
-		
-		window = Application.createNativeWindow("Simus Mod Player", 480, 272);
-		window.setOnFrameCallback(getOnFrameCallback());
-		
-		final Widget rootView = app.inflate(window, "modplayer");
-		window.setContentView(rootView);
+	@Override
+	public void onCreate() {
+		final Widget rootView = inflate("modplayer");
+		setContentView(rootView);
 		
 		waveContainer = (WaveContainer)rootView.findWidget("waves");
 		
@@ -117,7 +118,6 @@ public class SimusPlayerMod {
 				Log.d(LOGTAG, "player ends");
 			}
 		});
-		
 
 		waveContainer.setMuteChannelCallback(new Callback<Integer>() {
 			
@@ -126,15 +126,12 @@ public class SimusPlayerMod {
 				modPlayer.toggleChannel(channel);
 			}
 		});
-
-		window.open();
-
-		onStart();
-		window.mainLoop();
-		onStop();
+		
+		loadSongs();
 	}
 	
-	private static void onStart() {
+	@Override
+	public void onStart() {
 		DesktopWaveDevice waveDevice = new DesktopWaveDevice(44100, 4096);
 
 		audioPlayerThread = new AudioPlayerThread(waveDevice);
@@ -148,7 +145,8 @@ public class SimusPlayerMod {
 		
 	}
 	
-	private static void onStop() {
+	@Override
+	public void onStop() {
 		modPlayer.stop();
 
 		audioPlayerThread.shutdown();
@@ -162,7 +160,7 @@ public class SimusPlayerMod {
 		
 	}
 	
-	private static void play() {
+	private void play() {
 		File songFile = songs.get(currentSong);
 		try {
 			modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
@@ -171,7 +169,7 @@ public class SimusPlayerMod {
 		}
 	}
 	
-	private static void playPrev() {
+	private void playPrev() {
 		modPlayer.stop();
 		modPlayer.waitForStop();
 		currentSong--;
@@ -180,7 +178,7 @@ public class SimusPlayerMod {
 		play();
 	}
 
-	private static void playNext() {
+	private void playNext() {
 		modPlayer.stop();
 		modPlayer.waitForStop();
 		currentSong++;
@@ -210,7 +208,8 @@ public class SimusPlayerMod {
 	static int frameskip = 2;
 	static int frames = 0;
 	
-	protected static void onFrameCallback() {
+	@Override
+	public void onFrame() {
 		if (modInfo == null) return;
 
 		if (frames != frameskip) {
@@ -241,15 +240,10 @@ public class SimusPlayerMod {
 	private static String toFirstLetterUppercase(String s) {
 		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
-	
-	private static SimpleCallback getOnFrameCallback() {
-		return new SimpleCallback() {
-			
-			@Override
-			public void onResult() {
-				onFrameCallback();
-			}
-		};
+
+	public static void main(String[] args) throws IOException {
+		SimusPlayerMod modPlayer = new SimusPlayerMod("Simus Mod Player", 480, 272);
+		modPlayer.run();
 	}
 
 }
