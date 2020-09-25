@@ -1,7 +1,7 @@
 package xtvapps.simusplayer.core.lcd;
 
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.events.PaintEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Point;
@@ -11,7 +11,7 @@ public class LcdSegmentWidget extends Widget {
 	String text;
 	int len;
 	
-	public LcdSegmentWidget(Window window) {
+	public LcdSegmentWidget(NativeWindow window) {
 		super(window);
 	}
 	

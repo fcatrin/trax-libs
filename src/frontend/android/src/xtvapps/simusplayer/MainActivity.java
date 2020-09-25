@@ -12,7 +12,7 @@ import fts.core.Context;
 import fts.core.Log;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
@@ -49,7 +49,7 @@ public class MainActivity extends FtsActivity {
 
 		songs.add(new File(getFilesDir(), "test/elimination.mod"));
 		
-		final Window window = getFtsWindow();
+		final NativeWindow window = getFtsWindow();
 		
 		window.setOnFrameCallback(new SimpleCallback() {
 			

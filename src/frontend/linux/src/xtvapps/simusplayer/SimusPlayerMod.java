@@ -14,7 +14,7 @@ import fts.core.Log;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.events.OnClickListener;
 import fts.linux.ComponentFactory;
 import fts.widgets.ButtonWidget;
@@ -30,7 +30,7 @@ import xtvapps.simusplayer.core.widgets.WaveContainer;
 public class SimusPlayerMod {
 	private static final String LOGTAG = SimusPlayer.class.getSimpleName();
 	private static final int SLEEP_TIME = 10;
-	private static Window window;
+	private static NativeWindow window;
 	
 	private static ModPlayer modPlayer;
 	private static ModInfo modInfo;
@@ -56,7 +56,7 @@ public class SimusPlayerMod {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 
 		
-		window = Application.createWindow("Simus Mod Player", 480, 272);
+		window = Application.createNativeWindow("Simus Mod Player", 480, 272);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		final Widget rootView = app.inflate(window, "modplayer");

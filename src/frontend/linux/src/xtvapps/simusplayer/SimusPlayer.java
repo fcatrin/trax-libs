@@ -9,7 +9,7 @@ import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.core.SimpleCallback;
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.linux.ComponentFactory;
 import xtvapps.simusplayer.core.CoreUtils;
 import xtvapps.simusplayer.core.widgets.KeyboardView;
@@ -23,7 +23,7 @@ public class SimusPlayer {
 
 	private static int songHandle;
 
-	private static Window window;
+	private static NativeWindow window;
 	private static MidiPlayer midiPlayer;
 	
 	public static void main(String[] args) throws IOException {
@@ -33,7 +33,7 @@ public class SimusPlayer {
 		}
 		
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
-		window = Application.createWindow("Simus Player", (7*8 + 1)*14, 64);
+		window = Application.createNativeWindow("Simus Player", (7*8 + 1)*14, 64);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		Widget rootView = app.inflate(window, "main");

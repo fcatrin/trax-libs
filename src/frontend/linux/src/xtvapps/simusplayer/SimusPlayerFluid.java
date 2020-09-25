@@ -11,7 +11,7 @@ import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.core.SimpleCallback;
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.events.OnClickListener;
 import fts.linux.ComponentFactory;
 import fts.widgets.ButtonWidget;
@@ -22,7 +22,7 @@ import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 
 public class SimusPlayerFluid {
 	private static final String LOGTAG = SimusPlayer.class.getSimpleName();
-	private static Window window;
+	private static NativeWindow window;
 	
 	private static FluidPlayer fluidPlayer;
 
@@ -43,7 +43,7 @@ public class SimusPlayerFluid {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
 		
 
-		window = Application.createWindow("Simus Midi Player", 480, 272);
+		window = Application.createNativeWindow("Simus Midi Player", 480, 272);
 		window.setOnFrameCallback(getOnFrameCallback());
 		
 		final Widget rootView = app.inflate(window, "modplayer");

@@ -1,7 +1,7 @@
 package xtvapps.simusplayer.core.widgets;
 
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.events.PaintEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Color;
@@ -22,7 +22,7 @@ public class KeyboardView extends Widget {
 	
 	int notes[] = {};
 	
-	public KeyboardView(Window window) {
+	public KeyboardView(NativeWindow window) {
 		super(window);
 		backgroundColor = new Color("#000000");
 		whiteKeysColor  = new Color("#F0F0F0");

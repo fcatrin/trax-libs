@@ -6,7 +6,7 @@ import fts.core.Callback;
 import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.events.OnClickListener;
 import fts.graphics.Color;
 import fts.graphics.Drawable;
@@ -40,7 +40,7 @@ public class WaveContainer extends Container {
 
 	private Color waveLinesColor;
 	
-	public WaveContainer(Window w) {
+	public WaveContainer(NativeWindow w) {
 		super(w);
 	}
 

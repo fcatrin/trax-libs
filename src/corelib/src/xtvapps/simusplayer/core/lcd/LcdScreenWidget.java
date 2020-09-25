@@ -1,12 +1,12 @@
 package xtvapps.simusplayer.core.lcd;
 
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.graphics.Color;
 import fts.widgets.LinearContainer;
 
 public class LcdScreenWidget extends LinearContainer {
 
-	public LcdScreenWidget(Window w) {
+	public LcdScreenWidget(NativeWindow w) {
 		super(w);
 	}
 
