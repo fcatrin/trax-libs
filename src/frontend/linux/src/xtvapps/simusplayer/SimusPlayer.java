@@ -3,14 +3,8 @@ package xtvapps.simusplayer;
 import java.io.File;
 import java.io.IOException;
 
-import fts.core.Application;
-import fts.core.Context;
-import fts.core.DesktopLogger;
-import fts.core.DesktopResourceLocator;
-import fts.core.SimpleCallback;
 import fts.core.Widget;
-import fts.core.NativeWindow;
-import fts.linux.ComponentFactory;
+import fts.linux.Window;
 import xtvapps.simusplayer.core.CoreUtils;
 import xtvapps.simusplayer.core.widgets.KeyboardView;
 import xtvapps.simusplayer.midi.AlsaSequencer;
@@ -19,29 +13,39 @@ import xtvapps.simusplayer.midi.MidiSong;
 import xtvapps.simusplayer.midi.MidiTrack;
 import xtvapps.simusplayer.midi.SimpleStream;
 
-public class SimusPlayer {
+public class SimusPlayer extends Window {
 
-	private static int songHandle;
+	private int songHandle;
 
-	private static NativeWindow window;
-	private static MidiPlayer midiPlayer;
+	private MidiPlayer midiPlayer;
+
+	public SimusPlayer(String title, int width, int height) {
+		super(title, width, height);
+	}
 	
-	public static void main(String[] args) throws IOException {
-		if (args.length < 1) {
-			System.out.println("missing midi file name");
-			return;
-		}
-		
-		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
-		window = Application.createNativeWindow("Simus Player", (7*8 + 1)*14, 64);
-		window.setOnFrameCallback(getOnFrameCallback());
-		
-		Widget rootView = app.inflate(window, "main");
-		window.setContentView(rootView);
-		
+	@Override
+	public void onCreate() {
+		Widget rootView = inflate("main");
+		setContentView(rootView);
+	}
+	
+	@Override
+	public void onFrame() {
+		int[] notes = midiPlayer.getNotes();
+		KeyboardView keyboard = (KeyboardView)findWidget("keyboard");
+		keyboard.setNotes(notes);
+	}
+	
+	@Override
+	public void onStop() {
+		NativeInterface.midiStop();
+	}
+
+	@Override
+	public void onStart() {
 		NativeInterface.alsaInit();
 
-		songHandle = NativeInterface.midiLoad(args[0]);
+		songHandle = NativeInterface.midiLoad("/opt/songs/midi/a_bridge.mid");
 		System.out.println(songHandle);
 		
 		int nTracks = NativeInterface.midiGetTracksCount(songHandle);
@@ -63,49 +67,37 @@ public class SimusPlayer {
 		System.out.flush();
 		
 		// byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/canyon.mid"));
-		byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/a_bridge.mid"));
-
-		final MidiSong song = MidiSong.load(new SimpleStream(songData));
-		for(MidiTrack track : song.getTracks()) {
-			System.out.println(track.getName());
+		try {
+			byte[] songData = CoreUtils.loadBytes(new File("/home/fcatrin/tmp/a_bridge.mid"));
+	
+			final MidiSong song = MidiSong.load(new SimpleStream(songData));
+			for(MidiTrack track : song.getTracks()) {
+				System.out.println(track.getName());
+			}
+			
+	
+			Thread t = new Thread() {
+				@Override
+				public void run() {
+					NativeInterface.alsaConnectPort(2);
+					
+					AlsaSequencer seq = new AlsaSequencer();
+					midiPlayer = new MidiPlayer(seq);
+					midiPlayer.play(song);
+	
+					NativeInterface.alsaDone();
+				}
+			};
+			
+			t.start();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
-
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				NativeInterface.alsaConnectPort(2);
-				
-				AlsaSequencer seq = new AlsaSequencer();
-				midiPlayer = new MidiPlayer(seq);
-				midiPlayer.play(song);
-
-				NativeInterface.alsaDone();
-			}
-		};
-		
-		t.start();
-
-		window.open();
-		window.mainLoop();
-		NativeInterface.midiStop();
-
 	}
 	
-	private static void onFrame() {
-		int[] notes = midiPlayer.getNotes();
-		KeyboardView keyboard = (KeyboardView)window.findWidget("keyboard");
-		keyboard.setNotes(notes);
-	}
-	
-	private static SimpleCallback getOnFrameCallback() {
-		return new SimpleCallback() {
-
-			@Override
-			public void onResult() {
-				onFrame();
-			}
-		};
+	public static void main(String[] args) throws IOException {
+		SimusPlayer player = new SimusPlayer("Simus Player", (7*8 + 1)*14, 64);
+		player.run();
 	}
 
 }
