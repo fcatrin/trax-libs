@@ -51,14 +51,6 @@ public class MainActivity extends FtsActivity {
 		
 		final NativeWindow window = getFtsWindow();
 		
-		window.setOnFrameCallback(new SimpleCallback() {
-			
-			@Override
-			public void onResult() {
-				onFrameCallback();
-			}
-		});
-		
 		waveContainer = (WaveContainer)window.findWidget("waves");
 		
 		lcdTime     = (LcdSegmentWidget)window.findWidget("lcdTime");
