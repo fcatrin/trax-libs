@@ -5,49 +5,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import fts.core.Application;
-import fts.core.Context;
-import fts.core.DesktopLogger;
-import fts.core.DesktopResourceLocator;
-import fts.core.SimpleCallback;
 import fts.core.Widget;
-import fts.core.NativeWindow;
 import fts.events.OnClickListener;
-import fts.linux.ComponentFactory;
+import fts.linux.Window;
 import fts.widgets.ButtonWidget;
 import xtvapps.simusplayer.core.FluidPlayer;
 import xtvapps.simusplayer.core.audio.AudioPlayerThread;
 import xtvapps.simusplayer.core.audio.AudioRenderThread;
 import xtvapps.simusplayer.core.lcd.LcdSegmentWidget;
 
-public class SimusPlayerFluid {
+public class SimusPlayerFluid extends Window {
+
 	private static final String LOGTAG = SimusPlayer.class.getSimpleName();
-	private static NativeWindow window;
 	
-	private static FluidPlayer fluidPlayer;
+	private FluidPlayer fluidPlayer;
 
-	private static List<File> songs = new ArrayList<File>();
-	private static int currentSong = 0;
-	private static LcdSegmentWidget lcdModName;
+	private List<File> songs = new ArrayList<File>();
+	private int currentSong = 0;
+	private LcdSegmentWidget lcdModName;
 	
-	private static AudioPlayerThread audioPlayerThread;
-	private static AudioRenderThread audioRenderThread;
-	
-	public static void main(String[] args) throws IOException, InterruptedException {
-		File dir = new File("/opt/songs/midi");
-		File[] modFiles = dir.listFiles();
-		for(File modFile : modFiles) {
-			if (modFile.isFile()) songs.add(modFile);
-		}
-		
-		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
-		
+	private AudioPlayerThread audioPlayerThread;
+	private AudioRenderThread audioRenderThread;
 
-		window = Application.createNativeWindow("Simus Midi Player", 480, 272);
-		window.setOnFrameCallback(getOnFrameCallback());
-		
-		final Widget rootView = app.inflate(window, "modplayer");
-		window.setContentView(rootView);
+	public SimusPlayerFluid(String title, int width, int height) {
+		super(title, width, height);
+	}
+	
+	@Override
+	public void onCreate() {
+		Widget rootView = inflate("modplayer");
+		setContentView(rootView);
 
 		lcdModName = (LcdSegmentWidget)rootView.findWidget("lcdModName");
 
@@ -70,15 +57,19 @@ public class SimusPlayerFluid {
 			}
 		});
 
-		
-		window.open();
-		
-		onStart();
-		window.mainLoop();
-		onStop();
+		loadSongs();		
+	}
+
+	private void loadSongs() {
+		File dir = new File("/opt/songs/midi");
+		File[] modFiles = dir.listFiles();
+		for(File modFile : modFiles) {
+			if (modFile.isFile()) songs.add(modFile);
+		}
 	}
 	
-	private static void onStart() {
+	@Override
+	public void onStart() {
 		DesktopWaveDevice waveDevice = new DesktopWaveDevice(44100, 4096);
 		fluidPlayer = new FluidPlayer(waveDevice);
 		
@@ -90,10 +81,10 @@ public class SimusPlayerFluid {
 		audioRenderThread.start();
 		
 		play();
-
 	}
 
-	private static void onStop() {
+	@Override
+	public void onStop() {
 		fluidPlayer.stop();
 		audioPlayerThread.shutdown();
 		audioRenderThread.shutdown();
@@ -106,7 +97,7 @@ public class SimusPlayerFluid {
 		fluidPlayer.shutdown();
 	}
 
-	private static void play() {
+	private void play() {
 		try {
 			File songFile = songs.get(currentSong);
 			fluidPlayer.play(songFile, audioRenderThread, audioPlayerThread);
@@ -118,20 +109,8 @@ public class SimusPlayerFluid {
 		}
 	}
 	
-	protected static void onFrameCallback() {
-	}
 	
-	private static SimpleCallback getOnFrameCallback() {
-		return new SimpleCallback() {
-			
-			@Override
-			public void onResult() {
-				onFrameCallback();
-			}
-		};
-	}
-	
-	private static void playPrev() {
+	private void playPrev() {
 		fluidPlayer.stop();
 		fluidPlayer.waitForStop();
 		currentSong--;
@@ -140,13 +119,19 @@ public class SimusPlayerFluid {
 		play();
 	}
 
-	private static void playNext() {
+	private void playNext() {
 		fluidPlayer.stop();
 		fluidPlayer.waitForStop();
 		currentSong++;
 		if (currentSong>=songs.size()) currentSong = 0;
 		
 		play();
+	}
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+	
+		SimusPlayerFluid fluidPlayer = new SimusPlayerFluid("Simus Midi Player", 480, 272);
+		fluidPlayer.run();
 	}
 
 }
