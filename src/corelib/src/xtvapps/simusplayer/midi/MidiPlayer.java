@@ -1,5 +1,6 @@
 package xtvapps.simusplayer.midi;
 
+import fts.core.Utils;
 import xtvapps.simusplayer.midi.MidiEvent.EventType;
 
 public class MidiPlayer {

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
+import fts.core.Utils;
+
 public class CoreUtils {
 	private static final int BUF_SIZE = 0x10000;
 	private static final int SHORT_SLEEP_TIME = 10;
