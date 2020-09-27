@@ -9,7 +9,7 @@ import xtvapps.simusplayer.core.audio.AudioPlayerThread;
 import xtvapps.simusplayer.core.audio.AudioRenderThread;
 import xtvapps.simusplayer.core.audio.AudioRenderer;
 
-public class ModPlayer {
+public class ModPlayer extends MediaPlayer {
 	private static final String LOGTAG = ModPlayer.class.getSimpleName();
 	private static final int SLEEP_TIME = 10;
 
@@ -17,27 +17,22 @@ public class ModPlayer {
 		System.loadLibrary("simusplayer-corelib");
 	}
 
-	private WaveDevice waveDevice;
-
 	private ModInfo modInfo = new ModInfo();
 	private FrameInfo frameInfo = new FrameInfo();
 
 	private ModPlayerListener modPlayerListener;
 	
-	boolean isPlaying = false;
-	boolean isPaused = false;
-	boolean isStopped = true;
-	
 	boolean mutedChannels[];
 	
 	public ModPlayer(WaveDevice waveDevice) {
-		this.waveDevice = waveDevice;
+		super(waveDevice);
 	}
 	
 	public void setModPlayerListener(ModPlayerListener modPlayerListener) {
 		this.modPlayerListener = modPlayerListener;
 	}
 	
+	@Override
 	public void play(File modFile, final AudioRenderThread audioRenderThread, final AudioPlayerThread audioPlayerThread) throws IOException {
 		xmpInit(modFile.getAbsolutePath(), waveDevice.getFreq());
 
@@ -80,17 +75,6 @@ public class ModPlayer {
 		isStopped = false;
 		
 		controllerThread.start();
-	}
-	
-	public void stop() {
-		isPlaying = false;
-	}
-	
-	public void waitForStop() {
-		Utils.sleep(1000);
-		while (!isStopped) {
-			Utils.sleep(100);
-		}
 	}
 	
 	private int wave[][] = new int[24][128];

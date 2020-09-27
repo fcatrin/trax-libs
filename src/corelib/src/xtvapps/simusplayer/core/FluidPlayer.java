@@ -12,26 +12,29 @@ import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 import xtvapps.simusplayer.core.audio.AudioPlayerThread;
 
-public class FluidPlayer {
+public class FluidPlayer extends MediaPlayer {
 	private static final String LOGTAG = FluidPlayer.class.getSimpleName();
 
 	static {
 		System.loadLibrary("simusplayer-corelib");
 	}
 
-	private WaveDevice waveDevice;
-	
-	boolean isPlaying = false;
-	boolean isPaused = false;
-	boolean isStopped = true;
-	
 	public FluidPlayer(WaveDevice waveDevice) {
-		this.waveDevice = waveDevice;
+		super(waveDevice);
+	}
 
+	@Override
+	public void onInit() {
 		fluidInit(waveDevice.freq);
 		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
 	}
 	
+	@Override
+	public void onRelease() {
+		fluidRelease();
+	}
+	
+	@Override
 	public void play(File midiFile, final AudioRenderThread audioRenderThread, final AudioPlayerThread audioPlayerThread) throws IOException {
 		
 		final AudioRenderer audioRenderer = new AudioRenderer() {
@@ -70,22 +73,6 @@ public class FluidPlayer {
 		controllerThread.start();
 	}
 	
-	public void stop() {
-		isPlaying = false;
-	}
-	
-	public void waitForStop() {
-		Utils.sleep(1000);
-		while (!isStopped) {
-			Utils.sleep(10);
-		}
-	}
-	
-	public void shutdown() {
-		waitForStop();
-		fluidRelease();
-	}
-
 	public native boolean fluidInit(int freq);
 	public native void    fluidLoadSoundFontFile(String path);
 	public native void    fluidRelease();
