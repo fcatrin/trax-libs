@@ -56,20 +56,20 @@ public class AudioRenderThread extends Thread {
 		if (waitmsec<=0) {
 			renderBuffer();
 		} else if (waitmsec > resolution / 2) {
-			sleepms(resolution / 2);
+			Utils.sleep(resolution / 2);
 		}
 	}
 	
 	public void renderBuffer() {
 		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
-		while (audioBuffer.getStatus() != Status.Free) sleepms(1);
+		while (audioBuffer.getStatus() != Status.Free) Utils.sleep(1);
 		
 		synchronized (audioRendererLock) {
 			if (audioRenderer!=null) {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
 				
 			} else {
-				sleepms(10);
+				Utils.sleep(10);
 				return;
 			}
 		}
@@ -85,14 +85,6 @@ public class AudioRenderThread extends Thread {
 		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
 	}
 
-	private static void sleepms(long msec) {
-		try {
-			Thread.sleep(msec);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public AudioBuffer getNextBuffer() {
 		AudioBuffer audioBuffer = audioBuffers[nextBufferIndex];
 		if (audioBuffer.getStatus() != Status.Filled) return null;

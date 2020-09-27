@@ -74,13 +74,9 @@ public class FluidPlayer {
 	}
 	
 	public void waitForStop() {
-		try {
-			Thread.sleep(1000);
-			while (!isStopped) {
-				Thread.sleep(10);
-			}
-		} catch (InterruptedException e) {
-			
+		Utils.sleep(1000);
+		while (!isStopped) {
+			Utils.sleep(10);
 		}
 	}
 	

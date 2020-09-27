@@ -35,7 +35,7 @@ public class CoreUtils {
 	}
 	
 	public static void shortSleep() {
-		try {Thread.sleep(SHORT_SLEEP_TIME);} catch (Exception e) {};
+		Utils.sleep(SHORT_SLEEP_TIME);
 	}
 
 	public static byte[] toByteArray(short input[]) {

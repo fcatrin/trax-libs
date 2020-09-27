@@ -56,7 +56,7 @@ public class MidiPlayer {
 			// wait if the event is still in the future
 			long waitTicks = minTick - (ticksElapsed + ticks);
 			if (waitTicks > 0) {
-				sleep(waitTicks / 2);
+				Utils.sleep(waitTicks / 2);
 				continue;
 			}
 			
@@ -80,14 +80,6 @@ public class MidiPlayer {
 		}
 		
 		sequencer.finish(maxTick);
-	}
-
-	private void sleep(long msec) {
-		try {
-			Thread.sleep(msec);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public int[] getNotes() {

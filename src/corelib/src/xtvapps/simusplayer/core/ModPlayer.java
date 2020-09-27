@@ -87,13 +87,9 @@ public class ModPlayer {
 	}
 	
 	public void waitForStop() {
-		try {
-			Thread.sleep(1000);
-			while (!isStopped) {
-				Thread.sleep(100);
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		Utils.sleep(1000);
+		while (!isStopped) {
+			Utils.sleep(100);
 		}
 	}
 	
@@ -103,10 +99,6 @@ public class ModPlayer {
 		int[] w = wave[channel];
 		xmpFillWave(w, channel);
 		return w;
-	}
-	
-	protected void sleep() {
-		try {Thread.sleep(SLEEP_TIME);} catch (Exception e) {};
 	}
 	
 	public void toggleChannel(int channel) {
