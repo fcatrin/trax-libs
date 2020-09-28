@@ -4,13 +4,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
+import fts.core.Log;
 import fts.core.Utils;
 import xtvapps.simusplayer.core.CoreUtils;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 
 public class AudioRenderThread extends Thread {
+	private static final String LOGTAG = AudioRenderer.class.getSimpleName();
+	
 	private AudioBuffer audioBuffers[];
 	private long lastTime = 0;
 	private int resolution = 0;
@@ -63,15 +67,16 @@ public class AudioRenderThread extends Thread {
 	
 	public void renderBuffer() {
 		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
-		while (audioBuffer.getStatus() != Status.Free) Utils.sleep(1);
+		while (audioBuffer.getStatus() != Status.Free) {
+			Utils.sleep(1);
+		}
 		
 		synchronized (audioRendererLock) {
 			if (audioRenderer!=null) {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
-				
 			} else {
+				Arrays.fill(audioBuffer.samplesIn, (byte)0);
 				Utils.sleep(10);
-				return;
 			}
 		}
 		
