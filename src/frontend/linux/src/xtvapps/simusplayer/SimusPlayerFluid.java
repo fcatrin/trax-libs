@@ -98,15 +98,10 @@ public class SimusPlayerFluid extends Window {
 	}
 
 	private void play() {
-		try {
-			File songFile = songs.get(currentSong);
-			fluidPlayer.play(songFile, audioRenderThread, audioPlayerThread);
-			
-			lcdModName.setText(songFile.getName());
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		File songFile = songs.get(currentSong);
+		fluidPlayer.play(songFile, audioRenderThread, audioPlayerThread);
+		
+		lcdModName.setText(songFile.getName());
 	}
 	
 	

@@ -162,11 +162,7 @@ public class SimusPlayerMod extends Window {
 	
 	private void play() {
 		File songFile = songs.get(currentSong);
-		try {
-			modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
 	}
 	
 	private void playPrev() {
