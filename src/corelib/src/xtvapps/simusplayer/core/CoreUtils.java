@@ -54,4 +54,13 @@ public class CoreUtils {
 		return n;
 	}
 	
+	public static String nameNoExt(File file) {
+		String name = file.getName();
+		int p = name.lastIndexOf(".");
+		if (p>0) {
+			name = name.substring(0, p);
+		}
+		return name;
+	}
+
 }
