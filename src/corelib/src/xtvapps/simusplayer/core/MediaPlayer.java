@@ -1,7 +1,6 @@
 package xtvapps.simusplayer.core;
 
 import java.io.File;
-import java.io.IOException;
 
 import fts.core.Utils;
 import xtvapps.simusplayer.core.audio.AudioPlayerThread;
@@ -13,6 +12,9 @@ public abstract class MediaPlayer {
 	protected boolean isPlaying = false;
 	protected boolean isPaused = false;
 	protected boolean isStopped = true;
+
+	private int timeTotal;
+	private int timeElapsed;
 	
 	public MediaPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
@@ -20,6 +22,9 @@ public abstract class MediaPlayer {
 	}
 	
 	public void play(final File file, final AudioRenderThread audioRenderThread, final AudioPlayerThread audioPlayerThread) {
+		timeTotal   = 0;
+		timeElapsed = 0;
+		
 		Thread controllerThread = new Thread("MediaPlayerControllerThread") {
 			@Override
 			public void run() {
@@ -60,9 +65,27 @@ public abstract class MediaPlayer {
 		waitForStop();
 		onRelease();
 	}
-	
+
+	public int getTimeTotal() {
+		return timeTotal;
+	}
+
+	public void setTimeTotal(int timeTotal) {
+		this.timeTotal = timeTotal;
+	}
+
+	public int getTimeElapsed() {
+		return timeElapsed;
+	}
+
+	public void setTimeElapsed(int timeElapsed) {
+		this.timeElapsed = timeElapsed;
+	}
+
 	public abstract void onInit();
 	public abstract void onRelease();
 	public abstract AudioRenderer onPrepare(File songFile);
 	public abstract void onFinish();
+	public abstract void doForward();
+	public abstract void doRewind();
 }

@@ -105,6 +105,22 @@ JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetPlayin
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpMuteChannel
   (JNIEnv *, jobject, jint, jboolean);
 
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpForward
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpForward
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpRewind
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpRewind
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

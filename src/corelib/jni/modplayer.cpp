@@ -183,6 +183,15 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpMuteChannel
 	xmp_channel_mute(ctx, channel, mute);
 }
 
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpForward
+  (JNIEnv *env, jobject thiz){
+	if (ctx) xmp_next_position(ctx);
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpRewind
+  (JNIEnv *env, jobject thiz) {
+	if (ctx) xmp_prev_position(ctx);
+}
 
 
 #ifdef __cplusplus

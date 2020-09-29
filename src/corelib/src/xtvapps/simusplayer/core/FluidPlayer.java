@@ -70,4 +70,14 @@ public class FluidPlayer extends MediaPlayer {
 	public static native void fluidSendEventPitchBend(int channel, int value);
 	public static native void fluidSendEventSysex(int sysex[]);
 
+	@Override
+	public void doForward() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void doRewind() {
+		// TODO Auto-generated method stub
+	}
+
 }

@@ -1,12 +1,9 @@
 package xtvapps.simusplayer.core;
 
 import java.io.File;
-import java.io.IOException;
 
 import fts.core.Log;
 import fts.core.Utils;
-import xtvapps.simusplayer.core.audio.AudioPlayerThread;
-import xtvapps.simusplayer.core.audio.AudioRenderThread;
 import xtvapps.simusplayer.core.audio.AudioRenderer;
 
 public class ModPlayer extends MediaPlayer {
@@ -19,7 +16,7 @@ public class ModPlayer extends MediaPlayer {
 
 	private ModInfo modInfo = new ModInfo();
 	private FrameInfo frameInfo = new FrameInfo();
-
+	
 	private ModPlayerListener modPlayerListener;
 	
 	boolean mutedChannels[];
@@ -56,7 +53,6 @@ public class ModPlayer extends MediaPlayer {
 				loadFrameInfo();
 			}
 		};
-		
 	}
 
 	@Override
@@ -108,6 +104,9 @@ public class ModPlayer extends MediaPlayer {
 		frameInfo.totalTime    = playingInfo[4];
 		frameInfo.virtChannels = playingInfo[5];
 		frameInfo.virtUsed     = playingInfo[6];
+		
+		setTimeTotal(frameInfo.totalTime);
+		setTimeElapsed(frameInfo.time); 
 	}
 	
 	public ModInfo getModInfo() {
@@ -116,6 +115,16 @@ public class ModPlayer extends MediaPlayer {
 	
 	public FrameInfo getFrameInfo() {
 		return frameInfo;
+	}
+
+	@Override
+	public void doForward() {
+		xmpForward();
+	}
+
+	@Override
+	public void doRewind() {
+		xmpRewind();
 	}
 
 	public native boolean xmpInit(String path, int freq);
@@ -130,6 +139,8 @@ public class ModPlayer extends MediaPlayer {
 	public native String  xmpGetSampleName(int sample);
 	public native int[]   xmpGetPlayingInfo();
 	public native void    xmpMuteChannel(int channel, boolean mute);
+	public native void    xmpForward();
+	public native void    xmpRewind();
 	
 	public class ModInfo {
 		public String modName;
