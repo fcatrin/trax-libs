@@ -31,6 +31,14 @@ public class LcdChar {
 	public static void setOffColor(Color offColor) {
 		LcdChar.offColor = offColor;
 	}
+	
+	public static Color getOnColor() {
+		return LcdChar.onColor;
+	}
+
+	public static Color getOffColor() {
+		return LcdChar.offColor;
+	}
 
 	public static void drawChar(Canvas c, int x, int y, int bitmap[]) {
 		int px = x;
