@@ -23,6 +23,7 @@ JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidInit
 	settings = new_fluid_settings();
 
     fluid_settings_setnum(settings, "synth.sample-rate", sample_rate);
+    fluid_settings_setnum(settings, "synth.gain", 0.6);
 
     synth    = new_fluid_synth(settings);
 	return true;
