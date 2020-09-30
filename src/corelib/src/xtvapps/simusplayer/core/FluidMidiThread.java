@@ -31,4 +31,8 @@ public class FluidMidiThread extends Thread {
 	public void shutdown() {
 		midiPlayer.stop();
 	}
+
+	public int[][] getNotes() {
+		return midiPlayer.getNotes();
+	}
 }

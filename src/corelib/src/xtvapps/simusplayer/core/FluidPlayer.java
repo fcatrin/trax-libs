@@ -80,4 +80,9 @@ public class FluidPlayer extends MediaPlayer {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public int[][] getNotes() {
+		return midiThread!=null ? midiThread.getNotes() : null;
+	}
+	
 }

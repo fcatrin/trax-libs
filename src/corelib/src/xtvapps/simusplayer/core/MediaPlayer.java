@@ -82,6 +82,10 @@ public abstract class MediaPlayer {
 		this.timeElapsed = timeElapsed;
 	}
 
+	public int[][] getNotes() {
+		return null;
+	}
+
 	public abstract void onInit();
 	public abstract void onRelease();
 	public abstract AudioRenderer onPrepare(File songFile);

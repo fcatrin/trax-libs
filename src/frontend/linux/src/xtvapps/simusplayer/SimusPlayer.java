@@ -31,9 +31,9 @@ public class SimusPlayer extends Window {
 	
 	@Override
 	public void onFrame() {
-		int[] notes = midiPlayer.getNotes();
+		int[][] notes = midiPlayer.getNotes();
 		KeyboardView keyboard = (KeyboardView)findWidget("keyboard");
-		keyboard.setNotes(notes);
+		keyboard.setNotes(notes[0]);
 	}
 	
 	@Override
