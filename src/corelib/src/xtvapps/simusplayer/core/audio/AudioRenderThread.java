@@ -89,6 +89,26 @@ public class AudioRenderThread extends Thread {
 		audioBuffer.setStatus(Status.Filled);
 		
 		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
+		
+		pushProcessedWave(audioBuffer);
+	}
+	
+	int waveLeft[]  = new int[240];
+	int waveRight[] = new int[240]; 
+	
+	private void pushProcessedWave(AudioBuffer audioBuffer) {
+		for(int i=0; i<waveLeft.length; i++) {
+			waveLeft[i]  = audioBuffer.samplesOut[i*2];
+			waveRight[i] = audioBuffer.samplesOut[i*2 + 1];
+		}
+	}
+	
+	public int[] getWaveLeft() {
+		return waveLeft;
+	}
+	
+	public int[] getWaveRight() {
+		return waveRight;
 	}
 
 	public AudioBuffer getNextBuffer() {

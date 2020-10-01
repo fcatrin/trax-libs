@@ -5,6 +5,7 @@ import java.util.List;
 import fts.core.Callback;
 import fts.core.Container;
 import fts.core.LayoutInfo;
+import fts.core.Log;
 import fts.core.Widget;
 import fts.core.NativeWindow;
 import fts.events.OnClickListener;
@@ -14,6 +15,7 @@ import fts.graphics.Point;
 
 public class WaveContainer extends Container {
 	private static final int layouts[] = {
+			2, 2, 1,
 			4, 2, 2,
 			6, 3, 2,
 			8, 4, 2,
@@ -31,7 +33,7 @@ public class WaveContainer extends Container {
 			32, 8, 4
 	};
 
-	int waves = 0;
+	int waves = 2;
 	int spacing = 0;
 
 	private Drawable waveBackground;
@@ -46,7 +48,7 @@ public class WaveContainer extends Container {
 
 	public void setWaves(int waves) {
 		if (this.waves == waves) return;
-		
+		new Exception("set waves to " + waves).printStackTrace();
 		this.waves = waves;
 		requestLayout();
 	}
@@ -77,6 +79,8 @@ public class WaveContainer extends Container {
 		
 		int cols = layouts[layoutBase+1];
 		int rows = layouts[layoutBase+2];
+		
+		Log.d("WaveContainer", String.format("waves:%d cols:%d rows:%d", waves, cols, rows));
 		
 		int availableWidth  = getInternalWidth()  - spacing * (cols-1);
 		int availableHeight = getInternalHeight() - spacing * (rows-1);
