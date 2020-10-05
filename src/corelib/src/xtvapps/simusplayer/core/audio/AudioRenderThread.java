@@ -22,6 +22,7 @@ public class AudioRenderThread extends Thread {
 	private int nextBufferIndex = 0;
 	
 	private boolean running;
+	private boolean isPaused;
 	
 	private AudioRenderer audioRenderer;
 	private AudioProcessor audioProcessor;
@@ -72,7 +73,7 @@ public class AudioRenderThread extends Thread {
 		}
 		
 		synchronized (audioRendererLock) {
-			if (audioRenderer!=null) {
+			if (audioRenderer!=null && !isPaused) {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
 			} else {
 				Arrays.fill(audioBuffer.samplesIn, (byte)0);
@@ -161,4 +162,13 @@ public class AudioRenderThread extends Thread {
 	public void shutdown() {
 		running = false;
 	}
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
+	}
+	
 }

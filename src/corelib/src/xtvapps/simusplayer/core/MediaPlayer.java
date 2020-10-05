@@ -10,8 +10,10 @@ import xtvapps.simusplayer.core.audio.AudioRenderer;
 public abstract class MediaPlayer {
 	protected WaveDevice waveDevice;
 	protected boolean isPlaying = false;
-	protected boolean isPaused = false;
 	protected boolean isStopped = true;
+	protected boolean isPaused = false;
+	
+	AudioPlayerThread audioPlayerThread;
 
 	private int timeTotal;
 	private int timeElapsed;
@@ -24,6 +26,7 @@ public abstract class MediaPlayer {
 	public void play(final File file, final AudioRenderThread audioRenderThread, final AudioPlayerThread audioPlayerThread) {
 		timeTotal   = 0;
 		timeElapsed = 0;
+		this.audioPlayerThread = audioPlayerThread;
 		
 		Thread controllerThread = new Thread("MediaPlayerControllerThread") {
 			@Override
@@ -32,6 +35,7 @@ public abstract class MediaPlayer {
 				if (audioRenderer != null) {
 					audioRenderThread.setAudioRenderer(audioRenderer);
 					while (isPlaying) {
+						audioRenderThread.setPaused(isPaused);
 						CoreUtils.shortSleep();
 					}
 					audioRenderThread.setAudioRenderer(null);
@@ -39,14 +43,22 @@ public abstract class MediaPlayer {
 				}
 				isPlaying = false;
 				isStopped = true;
+				MediaPlayer.this.audioPlayerThread = null;
 			}
 		};
 		
-		isPaused  = false;
 		isStopped = false;
 		isPlaying = true;
 
 		controllerThread.start();
+	}
+	
+	public boolean isPaused() {
+		return isPlaying && isPaused;
+	}
+	
+	public void setPause(boolean pause) {
+		isPaused = pause;
 	}
 	
 	public void stop() {
