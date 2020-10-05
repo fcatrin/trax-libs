@@ -59,6 +59,12 @@ public class FluidPlayer extends MediaPlayer {
 		midiThread = null;
 	}
 
+	@Override
+	public void setPause(boolean pause) {
+		if (midiThread!=null) midiThread.setPaused(pause);
+		super.setPause(pause);
+	}
+
 	public native boolean fluidInit(int freq);
 	public native void    fluidLoadSoundFontFile(String path);
 	public native void    fluidRelease();

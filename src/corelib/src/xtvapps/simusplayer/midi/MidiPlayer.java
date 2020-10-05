@@ -15,6 +15,7 @@ public class MidiPlayer {
 	
 	private MidiSequencer sequencer;
 	boolean playing = false;
+	boolean isPaused = false;
 	
 	Map<Integer, Integer> channelMap = new HashMap<Integer, Integer>();
 	int notes[][];
@@ -41,6 +42,11 @@ public class MidiPlayer {
 		
 		playing = true;
 		while (playing) {
+			if (isPaused) {
+				Utils.sleep(10);
+				t0 = System.currentTimeMillis();
+				continue;
+			}
 			long minTick = maxTick + 1;
 			long now = System.currentTimeMillis();
 			long elapsed = now - t0;
@@ -128,5 +134,9 @@ public class MidiPlayer {
 	
 	public void stop() {
 		playing = false;
+	}
+	
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
 	}
 }
