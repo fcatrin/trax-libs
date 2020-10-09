@@ -51,7 +51,6 @@ public abstract class MediaPlayer {
 				}
 				isPlaying = false;
 				isStopped = true;
-				// MediaPlayer.this.audioPlayerThread = null;
 			}
 		};
 		
