@@ -12,20 +12,28 @@ public abstract class MediaPlayer {
 	protected boolean isPlaying = false;
 	protected boolean isStopped = true;
 	protected boolean isPaused = false;
-	
-	AudioPlayerThread audioPlayerThread;
 
 	private int timeTotal;
 	private int timeElapsed;
+	private File file;
+	private AudioRenderThread audioRenderThread;
+	private AudioPlayerThread audioPlayerThread;
 	
 	public MediaPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
 		onInit();
 	}
 	
+	public void restart() {
+		play(file, audioRenderThread, audioPlayerThread);
+	}
+	
 	public void play(final File file, final AudioRenderThread audioRenderThread, final AudioPlayerThread audioPlayerThread) {
 		timeTotal   = 0;
 		timeElapsed = 0;
+		
+		this.file = file;
+		this.audioRenderThread = audioRenderThread;
 		this.audioPlayerThread = audioPlayerThread;
 		
 		Thread controllerThread = new Thread("MediaPlayerControllerThread") {
@@ -43,7 +51,7 @@ public abstract class MediaPlayer {
 				}
 				isPlaying = false;
 				isStopped = true;
-				MediaPlayer.this.audioPlayerThread = null;
+				// MediaPlayer.this.audioPlayerThread = null;
 			}
 		};
 		

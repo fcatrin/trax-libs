@@ -7,6 +7,7 @@ import xtvapps.simusplayer.core.audio.AudioRenderer;
 
 public class FluidPlayer extends MediaPlayer {
 	private static final String LOGTAG = FluidPlayer.class.getSimpleName();
+	private File soundFontFile;
 
 	static {
 		System.loadLibrary("simusplayer-corelib");
@@ -15,6 +16,18 @@ public class FluidPlayer extends MediaPlayer {
 
 	public FluidPlayer(WaveDevice waveDevice) {
 		super(waveDevice);
+	}
+	
+	public void setSoundFont(File soundFontFile) {
+		boolean wasPlaying = isPlaying;
+		if (isPlaying) {
+			shutdown();
+			waitForStop();
+		}
+		this.soundFontFile = soundFontFile;
+		if (wasPlaying) {
+			restart();
+		}
 	}
 
 	@Override
@@ -28,7 +41,7 @@ public class FluidPlayer extends MediaPlayer {
 	@Override
 	public AudioRenderer onPrepare(File songFile) {
 		fluidInit(waveDevice.freq);
-		fluidLoadSoundFontFile("/usr/share/sounds/sf2/FluidR3_GM.sf2");
+		fluidLoadSoundFontFile(soundFontFile.getAbsolutePath());
 
 		AudioRenderer audioRenderer = new AudioRenderer() {
 
