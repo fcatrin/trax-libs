@@ -109,14 +109,20 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
 	static struct xmp_frame_info frame_info;
 	xmp_get_frame_info(ctx, &frame_info);
 
-	if (channel >= frame_info.virt_used) return;
-
 	struct xmp_frame_info::xmp_channel_info *channel_info = &frame_info.channel_info[channel];
-
 
 	jint* waveBuffer = env->GetIntArrayElements(wave, NULL);
 
 	jsize resultSize = env->GetArrayLength(wave);
+	if (channel_info->wave != NULL) { // there is no reliable method to know if the channel is being mixed or not
+		int checksum = 0;
+		for(int i=0; i< WAVE_SIZE / 4; i++) checksum = checksum ^ channel_info->wave[i];
+		if (checksum == channel_info->wave_checksum) {
+			channel_info->wave = NULL;
+		} else {
+			channel_info->wave_checksum = checksum;
+		}
+	}
 	if (channel_info->wave == NULL) {
 		memset(waveBuffer, 0, resultSize * sizeof(jint));
 	} else {

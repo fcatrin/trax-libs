@@ -307,6 +307,7 @@ struct xmp_frame_info {			/* Current frame information */
 		unsigned char pan;	/* Current stereo pan */
 		unsigned char reserved;	/* Reserved */
 		int *wave; /* point to unmixed wave data */
+		int wave_checksum; /* last wave "checksum" */
 		struct xmp_event event;	/* Current track event */
 	} channel_info[XMP_MAX_CHANNELS];
 };
