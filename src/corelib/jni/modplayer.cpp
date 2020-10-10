@@ -1,3 +1,5 @@
+#include <string.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -111,11 +113,18 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
 
 	struct xmp_frame_info::xmp_channel_info *channel_info = &frame_info.channel_info[channel];
 
-	if (channel_info->wave == NULL) return;
+
+	jint* waveBuffer = env->GetIntArrayElements(wave, NULL);
 
 	jsize resultSize = env->GetArrayLength(wave);
-	jsize arraySize = resultSize < WAVE_SIZE ? resultSize : WAVE_SIZE;
-	env->SetIntArrayRegion(wave, 0, arraySize, channel_info->wave);
+	if (channel_info->wave == NULL) {
+		memset(waveBuffer, 0, resultSize * sizeof(jint));
+	} else {
+		jsize arraySize = resultSize < WAVE_SIZE ? resultSize : WAVE_SIZE;
+		memcpy(waveBuffer, channel_info->wave, arraySize * sizeof(jint));
+	}
+
+	env->ReleaseIntArrayElements(wave, waveBuffer, 0);
 }
 
 JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleName
