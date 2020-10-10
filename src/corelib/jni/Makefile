@@ -70,4 +70,5 @@ prepare :
 
 clean :
 	@find $(OBJDIR) -name "*.o" -exec rm {} \; 2>/dev/null
+	@find $(LIBXMPDIR) -name "*.o" -exec rm {} \; 2>/dev/null
 	@rm $(LINK_TARGET) 2>/dev/null || true
