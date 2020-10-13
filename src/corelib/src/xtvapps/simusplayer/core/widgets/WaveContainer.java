@@ -146,7 +146,5 @@ public class WaveContainer extends Container {
 		if (propertyName.equals("waveLinesColor")) return resolvePropertyValueColor(propertyName, value);
 		return super.resolvePropertyValue(propertyName, value);
 	}
-	
-	
 
 }
