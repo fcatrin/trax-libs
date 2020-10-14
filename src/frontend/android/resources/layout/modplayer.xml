@@ -1,7 +1,7 @@
 <xtvapps.simusplayer.core.lcd.LcdScreenWidget
 	id="lcd"
-	width="480px"
-	height="320px"
+	width="480pt"
+	height="320pt"
 	orientation="vertical"
 	padding="17pt"
 	background="@color/lcdBackground"

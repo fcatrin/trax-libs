@@ -42,6 +42,8 @@ public class MainActivity extends FtsActivity {
 	@Override
 	public void onWindowCreate() {
 		Context.pointsPerPixel = 2;
+		
+		setContentView(inflate("modplayer"));
 
 		songs.add(new File(getFilesDir(), "test/elimination.mod"));
 		
@@ -91,11 +93,6 @@ public class MainActivity extends FtsActivity {
 		});
 	}
 
-	@Override
-	protected String getRootLayout() {
-		return "modplayer";
-	}
-	
 	private void play() {
 		File songFile = songs.get(currentSong);
 		modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
