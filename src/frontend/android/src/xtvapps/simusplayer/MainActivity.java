@@ -5,14 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
 import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
 import fts.core.Context;
 import fts.core.Log;
-import fts.core.SimpleCallback;
 import fts.core.Utils;
-import fts.core.NativeWindow;
 import xtvapps.simusplayer.core.ModPlayer;
 import xtvapps.simusplayer.core.ModPlayer.FrameInfo;
 import xtvapps.simusplayer.core.ModPlayer.ModInfo;
@@ -43,20 +40,17 @@ public class MainActivity extends FtsActivity {
 	private AudioRenderThread audioRenderThread;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onWindowCreate() {
 		Context.pointsPerPixel = 2;
-		super.onCreate(savedInstanceState);
 
 		songs.add(new File(getFilesDir(), "test/elimination.mod"));
 		
-		final NativeWindow window = getFtsWindow();
+		waveContainer = (WaveContainer)findWidget("waves");
 		
-		waveContainer = (WaveContainer)window.findWidget("waves");
-		
-		lcdTime     = (LcdSegmentWidget)window.findWidget("lcdTime");
-		lcdLength   = (LcdSegmentWidget)window.findWidget("lcdLength");
-		lcdPosition = (LcdSegmentWidget)window.findWidget("lcdPosition");
-		lcdTempo    = (LcdSegmentWidget)window.findWidget("lcdTempo");
+		lcdTime     = (LcdSegmentWidget)findWidget("lcdTime");
+		lcdLength   = (LcdSegmentWidget)findWidget("lcdLength");
+		lcdPosition = (LcdSegmentWidget)findWidget("lcdPosition");
+		lcdTempo    = (LcdSegmentWidget)findWidget("lcdTempo");
 		
 		try {
 			AndroidUtils.unpackAssets(this, "test", getFilesDir());
@@ -85,7 +79,7 @@ public class MainActivity extends FtsActivity {
 				
 				String modName = Utils.isEmptyString(modInfo.modName) ? "" : modInfo.modName;
 				
-				LcdSegmentWidget lcdModName = (LcdSegmentWidget)window.findWidget("lcdModName");
+				LcdSegmentWidget lcdModName = (LcdSegmentWidget)findWidget("lcdModName");
 				lcdModName.setText(toFirstLetterUppercase(modName));
 				waveContainer.setWaves(modInfo.tracks);
 			}
@@ -104,12 +98,7 @@ public class MainActivity extends FtsActivity {
 	
 	private void play() {
 		File songFile = songs.get(currentSong);
-		try {
-			modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		modPlayer.play(songFile, audioRenderThread, audioPlayerThread);
 	}
 	
 	private void playPrev() {
@@ -147,9 +136,20 @@ public class MainActivity extends FtsActivity {
 		
 		return padz(minutes) + ":" + padz(seconds);
 	}
-	
-	protected static void onFrameCallback() {
+
+	int frameskip = 2;
+	int frames = 0;
+
+	@Override
+	public void onFrame() {
 		if (modInfo == null) return;
+		
+		if (frames != frameskip) {
+			frames++;
+			return;
+		}
+		
+		frames = 0;
 
 		for(int i=0; i<modInfo.tracks; i++) {
 			waveContainer.setWave(i, modPlayer.getWave(i));
@@ -175,9 +175,7 @@ public class MainActivity extends FtsActivity {
 
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		
+	public void onWindowStart() {
 		audioPlayerThread = new AudioPlayerThread(waveDevice);
 		audioRenderThread = new AudioRenderThread(waveDevice.getFreq(), 100, 4);
 		audioPlayerThread.setAudioRenderThread(audioRenderThread);
@@ -189,8 +187,7 @@ public class MainActivity extends FtsActivity {
 	}
 
 	@Override
-	protected void onStop() {
-		super.onStop();
+	public void onWindowStop() {
 		modPlayer.stop();
 		modPlayer.waitForStop();
 		
@@ -204,6 +201,5 @@ public class MainActivity extends FtsActivity {
 		}
 		
 	}
-	
 	
 }

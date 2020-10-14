@@ -1,12 +1,13 @@
 <xtvapps.simusplayer.core.lcd.LcdScreenWidget
 	id="lcd"
-	width="match_parent"
-	height="match_parent"
+	width="480px"
+	height="320px"
 	orientation="vertical"
 	padding="17pt"
 	background="@color/lcdBackground"
 	pixelSize="2pt"
 	pixelSpacing="1pt"
+	containerAlign="center"
 	onColor="@color/lcdPixelOn"
 	offColor="@color/lcdPixelOff">
 	<LinearContainer

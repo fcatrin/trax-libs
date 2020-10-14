@@ -11,7 +11,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := simusplayer-mod
+LOCAL_MODULE    := simusplayer-corelib
 LOCAL_SRC_FILES := modplayer.cpp
 LOCAL_STATIC_LIBRARIES := xmp
 
