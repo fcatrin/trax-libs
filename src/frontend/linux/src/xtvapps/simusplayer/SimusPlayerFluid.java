@@ -32,7 +32,7 @@ public class SimusPlayerFluid extends Window {
 	}
 	
 	@Override
-	public void onCreate() {
+	public void onWindowCreate() {
 		Widget rootView = inflate("modplayer");
 		setContentView(rootView);
 
@@ -69,7 +69,7 @@ public class SimusPlayerFluid extends Window {
 	}
 	
 	@Override
-	public void onStart() {
+	public void onWindowStart() {
 		DesktopWaveDevice waveDevice = new DesktopWaveDevice(44100, 4096);
 		fluidPlayer = new FluidPlayer(waveDevice);
 		
@@ -84,7 +84,7 @@ public class SimusPlayerFluid extends Window {
 	}
 
 	@Override
-	public void onStop() {
+	public void onWindowStop() {
 		fluidPlayer.stop();
 		audioPlayerThread.shutdown();
 		audioRenderThread.shutdown();

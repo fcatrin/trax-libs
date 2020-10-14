@@ -24,7 +24,7 @@ public class SimusPlayer extends Window {
 	}
 	
 	@Override
-	public void onCreate() {
+	public void onWindowCreate() {
 		Widget rootView = inflate("main");
 		setContentView(rootView);
 	}
@@ -37,12 +37,12 @@ public class SimusPlayer extends Window {
 	}
 	
 	@Override
-	public void onStop() {
+	public void onWindowStop() {
 		NativeInterface.midiStop();
 	}
 
 	@Override
-	public void onStart() {
+	public void onWindowStart() {
 		NativeInterface.alsaInit();
 		dumpAlsaPorts();
 		
