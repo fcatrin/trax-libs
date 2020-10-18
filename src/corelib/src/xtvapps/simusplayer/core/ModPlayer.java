@@ -49,7 +49,8 @@ public class ModPlayer extends MediaPlayer {
 			
 			@Override
 			public void fillBuffer(byte[] buffer) {
-				xmpFillBuffer(buffer, 0);
+				int result = xmpFillBuffer(buffer, 1);
+				hasEnded = result < 0;
 				loadFrameInfo();
 			}
 		};

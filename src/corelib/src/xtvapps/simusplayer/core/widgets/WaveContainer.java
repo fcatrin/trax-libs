@@ -48,7 +48,6 @@ public class WaveContainer extends Container {
 
 	public void setWaves(int waves) {
 		if (this.waves == waves) return;
-		new Exception("set waves to " + waves).printStackTrace();
 		this.waves = waves;
 		requestLayout();
 	}

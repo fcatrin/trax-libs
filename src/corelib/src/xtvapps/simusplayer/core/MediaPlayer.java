@@ -2,6 +2,7 @@ package xtvapps.simusplayer.core;
 
 import java.io.File;
 
+import fts.core.SimpleCallback;
 import fts.core.Utils;
 import xtvapps.simusplayer.core.audio.AudioPlayerThread;
 import xtvapps.simusplayer.core.audio.AudioRenderThread;
@@ -12,16 +13,22 @@ public abstract class MediaPlayer {
 	protected boolean isPlaying = false;
 	protected boolean isStopped = true;
 	protected boolean isPaused = false;
+	protected boolean hasEnded = false;
 
 	private int timeTotal;
 	private int timeElapsed;
 	private File file;
 	private AudioRenderThread audioRenderThread;
 	private AudioPlayerThread audioPlayerThread;
+	private SimpleCallback onEndedCallback;
 	
 	public MediaPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
 		onInit();
+	}
+	
+	public void setOnEndedCallback(SimpleCallback onEndedCallback) {
+		this.onEndedCallback = onEndedCallback;
 	}
 	
 	public void restart() {
@@ -42,7 +49,7 @@ public abstract class MediaPlayer {
 				AudioRenderer audioRenderer = onPrepare(file);
 				if (audioRenderer != null) {
 					audioRenderThread.setAudioRenderer(audioRenderer);
-					while (isPlaying) {
+					while (isPlaying && !hasEnded) {
 						audioRenderThread.setPaused(isPaused);
 						CoreUtils.shortSleep();
 					}
@@ -51,9 +58,11 @@ public abstract class MediaPlayer {
 				}
 				isPlaying = false;
 				isStopped = true;
+				if (hasEnded && onEndedCallback!=null) onEndedCallback.onResult();
 			}
 		};
 		
+		hasEnded  = false;
 		isStopped = false;
 		isPlaying = true;
 
