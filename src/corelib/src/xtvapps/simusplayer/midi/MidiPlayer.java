@@ -16,6 +16,7 @@ public class MidiPlayer {
 	private MidiSequencer sequencer;
 	boolean playing = false;
 	boolean isPaused = false;
+	boolean hasEnded = false;
 	
 	Map<Integer, Integer> channelMap = new HashMap<Integer, Integer>();
 	int notes[][];
@@ -25,6 +26,8 @@ public class MidiPlayer {
 	}
 	
 	public void play(MidiSong song) {
+		hasEnded = false;
+		
 		scanNotes(song);
 		
 		long maxTick = 0;
@@ -100,6 +103,7 @@ public class MidiPlayer {
 		}
 		
 		sequencer.finish(maxTick);
+		hasEnded = true;
 	}
 	
 	private void scanNotes(MidiSong song) {
@@ -138,5 +142,9 @@ public class MidiPlayer {
 	
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
+	}
+	
+	public boolean hasEnded() {
+		return hasEnded;
 	}
 }

@@ -47,7 +47,8 @@ public class FluidPlayer extends MediaPlayer {
 
 			@Override
 			public void fillBuffer(byte[] buffer) {
-				fluidFillBuffer(buffer);		
+				fluidFillBuffer(buffer);
+				hasEnded = midiThread.hasEnded();
 			}
 		};
 		try {

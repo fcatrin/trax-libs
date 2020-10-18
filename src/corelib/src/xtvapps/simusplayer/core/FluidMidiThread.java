@@ -39,4 +39,8 @@ public class FluidMidiThread extends Thread {
 	public void setPaused(boolean isPaused) {
 		midiPlayer.setPaused(isPaused);
 	}
+	
+	public boolean hasEnded() {
+		return midiPlayer.hasEnded();
+	}
 }
