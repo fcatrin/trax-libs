@@ -110,6 +110,17 @@ public class ModPlayer extends MediaPlayer {
 		setTimeElapsed(frameInfo.time); 
 	}
 	
+	@Override
+	public void seek(long position) {
+		int totalTime = frameInfo.totalTime;
+		if (totalTime == 0) return;
+		
+		// position comes relative to time, we need to convert it to patterns
+		float relative = (float)position / totalTime;
+		int pattern = (int)(relative * modInfo.patterns);
+		xmpSeek(pattern);
+	}
+	
 	public ModInfo getModInfo() {
 		return modInfo;
 	}
@@ -142,6 +153,7 @@ public class ModPlayer extends MediaPlayer {
 	public native void    xmpMuteChannel(int channel, boolean mute);
 	public native void    xmpForward();
 	public native void    xmpRewind();
+	public native void    xmpSeek(int pattern);
 	
 	public class ModInfo {
 		public String modName;

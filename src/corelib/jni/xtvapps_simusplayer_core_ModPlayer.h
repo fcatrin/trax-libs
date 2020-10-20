@@ -121,6 +121,14 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpForward
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpRewind
   (JNIEnv *, jobject);
 
+/*
+ * Class:     xtvapps_simusplayer_core_ModPlayer
+ * Method:    xmpSeek
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSeek
+  (JNIEnv *, jobject, jint);
+
 #ifdef __cplusplus
 }
 #endif

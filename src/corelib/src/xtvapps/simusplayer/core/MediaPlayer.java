@@ -113,6 +113,8 @@ public abstract class MediaPlayer {
 	public int[][] getNotes() {
 		return null;
 	}
+	
+	public void seek(long position){}
 
 	public abstract void onInit();
 	public abstract void onRelease();

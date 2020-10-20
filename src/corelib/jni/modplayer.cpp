@@ -208,6 +208,10 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpRewind
 	if (ctx) xmp_prev_position(ctx);
 }
 
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSeek
+  (JNIEnv *env, jobject thiz, jint pattern) {
+	if (ctx) xmp_set_position(ctx, pattern);
+}
 
 #ifdef __cplusplus
 }
