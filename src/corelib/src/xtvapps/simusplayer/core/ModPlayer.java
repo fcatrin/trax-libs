@@ -74,12 +74,14 @@ public class ModPlayer extends MediaPlayer {
 	
 	public void toggleChannel(int channel) {
 		boolean mute = !mutedChannels[channel];
+		muteChannel(channel, mute);
+	}
+
+	public void muteChannel(int channel, boolean mute) {
 		xmpMuteChannel(channel, mute);
 		mutedChannels[channel] = mute;
-		
-		Log.d(LOGTAG, "toggle channel " + channel);
 	}
-	
+
 	public boolean[] getWaveStatus() {
 		return mutedChannels;
 	}
