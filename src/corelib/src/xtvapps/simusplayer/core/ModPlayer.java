@@ -19,7 +19,7 @@ public class ModPlayer extends MediaPlayer {
 	
 	private ModPlayerListener modPlayerListener;
 	
-	boolean mutedChannels[];
+	boolean mutedChannels[] = new boolean[255];
 	
 	public ModPlayer(WaveDevice waveDevice) {
 		super(waveDevice);
@@ -40,9 +40,11 @@ public class ModPlayer extends MediaPlayer {
 		xmpInit(songFile.getAbsolutePath(), waveDevice.getFreq());
 
 		loadModInfo(songFile);
-		
-		mutedChannels = new boolean[modInfo.tracks];
 
+		for(int i=0; i<modInfo.tracks; i++) {
+			xmpMuteChannel(i, mutedChannels[i]);
+		}
+		
 		if (modPlayerListener!=null) modPlayerListener.onStart();
 
 		return new AudioRenderer() {
@@ -76,6 +78,10 @@ public class ModPlayer extends MediaPlayer {
 		mutedChannels[channel] = mute;
 		
 		Log.d(LOGTAG, "toggle channel " + channel);
+	}
+	
+	public boolean[] getWaveStatus() {
+		return mutedChannels;
 	}
 	
 	private void loadModInfo(File modFile) {
@@ -179,4 +185,5 @@ public class ModPlayer extends MediaPlayer {
 		public void onStart();
 		public void onEnd();
 	}
+
 }
