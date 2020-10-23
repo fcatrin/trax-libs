@@ -22,7 +22,6 @@ CFLAGS += -DHAVE_MKSTEMP -DHAVE_FNMATCH -DLIBXMP_CORE_PLAYER -DHAVE_ROUND \
 		  -I$(LIBXMPDIR)/include/libxmp-lite -I$(LIBXMPDIR)/src -I$(LIBXMPDIR)/include
 
 UNAME_S := $(shell uname -s)
-UNAME_P := $(shell uname -p)
 UNAME_M := $(shell uname -m)
 ifeq ($(UNAME_S),Linux)
         ifeq ($(UNAME_M),armv7l)
@@ -30,13 +29,13 @@ ifeq ($(UNAME_S),Linux)
     	    LIBARCH = armv7l
         else
     	    JAVA_HOME = /usr/lib/jvm/java-8-oracle
-	    ifeq ($(UNAME_P),x86_64)
+	    ifeq ($(UNAME_M),x86_64)
 		LIBARCH = x86_64
             endif
         endif
 	CFLAGS += -D LINUX -fPIC -I$(JAVA_HOME)/include/linux/ -I$(JAVA_HOME)/include/
 	LIBEXT = so
-	ifneq ($(filter %86,$(UNAME_P)),)
+	ifneq ($(filter %86,$(UNAME_M)),)
 	endif
 endif
  
