@@ -119,11 +119,12 @@ public class WaveContainer extends Container {
 		this.muteChannelCallback = muteChannelCallback;
 	}
 
-	public void setWave(int waveIndex, int wave[]) {
+	public void setWave(int waveIndex, int wave[], boolean muted) {
 		List<Widget> children = getChildren();
 		
 		if (waveIndex < children.size()) {
 			WaveWidget w = (WaveWidget)children.get(waveIndex);
+			w.setMuted(muted);
 			w.setWave(wave);
 		}
 	}

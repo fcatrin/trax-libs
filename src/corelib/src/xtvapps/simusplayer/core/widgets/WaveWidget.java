@@ -13,6 +13,7 @@ public class WaveWidget extends Widget {
 
 	int wave[];
 	private Color waveLinesColor;
+	boolean muted;
 	
 	public WaveWidget(NativeWindow window) {
 		super(window);
@@ -23,7 +24,12 @@ public class WaveWidget extends Widget {
 		this.wave = wave;
 		invalidate();
 	}
-	
+
+	public void setMuted(boolean muted) {
+		this.muted = muted;
+		invalidate();
+	}
+
 	public void setWaveLinesColor(Color waveLinesColor) {
 		this.waveLinesColor = waveLinesColor;
 	}
@@ -44,11 +50,18 @@ public class WaveWidget extends Widget {
 		
 		float steps = (float)wave.length / bounds.width;
 		
-		for(int x=0; x<bounds.width && px < bounds.width; x++) {
-			float sample = wave[(int)(x * steps)] / 65536f;
-			int h = (int)(bounds.height * sample);
-			canvas.drawFilledRect(px, py - h, LcdChar.pixel_size, h);
-			px += LcdChar.pixel_size + LcdChar.pixel_spacing;
+		if (muted) {
+			for(int x=0; x<bounds.width && px < bounds.width; x++) {
+				px += LcdChar.pixel_size + LcdChar.pixel_spacing;
+			}
+		} else {
+			for(int x=0; x<bounds.width && px < bounds.width; x++) {
+				float sample = wave[(int)(x * steps)] / 65536f;
+				int h = (int)(bounds.height * sample);
+				canvas.drawFilledRect(px, py - h, LcdChar.pixel_size, h);
+				px += LcdChar.pixel_size + LcdChar.pixel_spacing;
+			}
+			
 		}
 	}
 
