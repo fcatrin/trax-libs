@@ -19,6 +19,14 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
 
 /*
  * Class:     xtvapps_simusplayer_core_GMEPlayer
+ * Method:    gmeSetTempo
+ * Signature: (ID)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSetTempo
+  (JNIEnv *, jclass, jint, jdouble);
+
+/*
+ * Class:     xtvapps_simusplayer_core_GMEPlayer
  * Method:    gmeFillBuffer
  * Signature: (I[B)I
  */

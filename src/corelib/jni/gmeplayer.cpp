@@ -68,12 +68,22 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
 			gme_set_fade(emu, info->play_length - 3000);
 		}
 
+		gme_set_tempo(emu, 1.0f);
+
 		LOGD("Track %i started for %s\n", track, path);
 	}
 
 	env->ReleaseStringUTFChars(sPath, path);
 
 	return result ? -1 : handle;
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSetTempo
+  (JNIEnv *env, jclass clazz, jint handle, jdouble tempo){
+	Music_Emu* emu = get_emu(handle);
+	if (!emu) return;
+
+	gme_set_tempo(emu, tempo);
 }
 
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillBuffer

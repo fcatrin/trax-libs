@@ -6,13 +6,21 @@ import fts.core.Log;
 import xtvapps.simusplayer.core.audio.AudioRenderer;
 
 public class GMEPlayer extends MediaPlayer {
+	public enum TVNorm {PAL, NTSC};
+	
 	private static final String LOGTAG = GMEPlayer.class.getSimpleName();
 	private static final int TIME_RWND_FWD = 5000;
+	
+	private TVNorm tvNorm = TVNorm.NTSC;
 
 	int handle;
 	
 	public GMEPlayer(WaveDevice waveDevice) {
 		super(waveDevice);
+	}
+
+	public void setTvNorm(TVNorm tvNorm) {
+		this.tvNorm = tvNorm;
 	}
 
 	@Override
@@ -27,6 +35,10 @@ public class GMEPlayer extends MediaPlayer {
 		if (handle < 0) {
 			Log.d(LOGTAG, "Cannot open fie " + songFile);
 			return null;
+		}
+		
+		if (songFile.getName().endsWith(".sap")) {
+			gmeSetTempo(handle, tvNorm == TVNorm.PAL ? 1.0 : 1.08);
 		}
 		
 		return new AudioRenderer() {
@@ -78,6 +90,7 @@ public class GMEPlayer extends MediaPlayer {
 	}
 	
 	private static native int  gmeOpen(String path, int track, int freq, float depth, boolean accurate);
+	private static native void gmeSetTempo(int handle, double tempo);
 	private static native int  gmeFillBuffer(int handle, byte[] buffer);
 	private static native void gmeClose(int handle);
 	private static native void gmeSeek(int handle, long position);
