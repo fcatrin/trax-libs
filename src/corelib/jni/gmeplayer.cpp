@@ -9,7 +9,7 @@ extern "C" {
 	#define  LOG_TAG    "gmeplayer"
 	#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #else
-	#define  LOGD(...) printf(__VA_ARGS__)
+	#define  LOGD(...) printf("[gmeplayer] "); printf(__VA_ARGS__); fflush(stdout);
 #endif
 
 #include "xmp.h"
@@ -35,11 +35,15 @@ static Music_Emu* get_emu(int handle) {
 	return handles[handle];
 }
 
+static void handle_error(const char *str) {
+	// if (str != NULL) LOGD("Error %s\n", str);
+}
+
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
   (JNIEnv *env, jclass clazz, jstring sPath, jint track, jint sample_rate, jfloat depth, jboolean accurate) {
 	int handle = find_free_handle();
 	if (handle < 0) {
-		LOGD("No more free handles");
+		LOGD("No more free handles\n");
 		return -1;
 	}
 
@@ -48,15 +52,18 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
 	const char *result = gme_open_file(path, &handles[handle], sample_rate);
 
 	if (result) {
-		LOGD("Cannot open %s : %s", path, result);
+		LOGD("Cannot open %s : %s\n", path, result);
 	} else {
+		LOGD("Opened %s\n", path);
 		Music_Emu* emu = handles[handle];
-		gme_info_t* info = infos[handle];
 
-		gme_track_info(emu, &info, track);
+		handle_error(gme_track_info(emu, &infos[handle], track));
 
 		gme_set_stereo_depth(emu, depth);
 		gme_enable_accuracy(emu, accurate ? 1 : 0);
+
+		handle_error(gme_start_track(emu, track));
+		LOGD("Track %i started for %s\n", track, path);
 	}
 
 	env->ReleaseStringUTFChars(sPath, path);
@@ -72,7 +79,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillBuffer
 	jbyte* buffer = env->GetByteArrayElements(jBuffer, NULL);
 	jsize length = env->GetArrayLength(jBuffer);
 
-	gme_play(emu, length / 2, (short int *)buffer);
+	handle_error(gme_play(emu, length / 2, (short int *)buffer));
 
 	env->ReleaseByteArrayElements(jBuffer, buffer, 0);
 
@@ -96,7 +103,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSeek
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return;
 
-	gme_seek(emu, position);
+	handle_error(gme_seek(emu, position));
 }
 
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeTimeElapsed
