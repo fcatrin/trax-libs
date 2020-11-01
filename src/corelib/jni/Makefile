@@ -7,7 +7,7 @@ LDFLAGS = -shared
 LIBARCH =
 
 LIBPREFIX = lib
-LDFLAGS += -lstdc++ -lm 
+LDFLAGS += -lstdc++ -lm -lgme
 LDFLAGS += $(shell pkg-config --libs fluidsynth)
 
 LIBXMPDIR=libs/libxmp
@@ -50,6 +50,7 @@ OBJS += $(addprefix $(OBJDIR)/, \
    common.o \
 	modplayer.o \
 	fluidplayer.o \
+	gmeplayer.o \
 	)
 		
 $(OBJDIR)/%.o: %.c 

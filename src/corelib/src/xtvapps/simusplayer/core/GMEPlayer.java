@@ -23,14 +23,11 @@ public class GMEPlayer extends MediaPlayer {
 
 	@Override
 	public AudioRenderer onPrepare(File songFile) {
-		handle = gmeOpen(songFile.getAbsolutePath(), waveDevice.getFreq());
+		handle = gmeOpen(songFile.getAbsolutePath(), 0, waveDevice.getFreq(), 0.2f, true);
 		if (handle < 0) {
 			Log.d(LOGTAG, "Cannot open fie " + songFile);
 			return null;
 		}
-		
-		gmeEnableAccuracy(handle, true);
-		gmeSetStereoDepth(handle, 0.2);
 		
 		return new AudioRenderer() {
 			
@@ -80,10 +77,8 @@ public class GMEPlayer extends MediaPlayer {
 		gmeSeek(handle, position);
 	}
 	
-	private static native int  gmeOpen(String path, int freq);
+	private static native int  gmeOpen(String path, int track, int freq, float depth, boolean accurate);
 	private static native int  gmeFillBuffer(int handle, byte[] buffer);
-	private static native void gmeSetStereoDepth(int handle, double depth);
-	private static native void gmeEnableAccuracy(int handle, boolean enabled);
 	private static native void gmeClose(int handle);
 	private static native void gmeSeek(int handle, long position);
 	private static native int  gmeTimeElapsed(int handle);
