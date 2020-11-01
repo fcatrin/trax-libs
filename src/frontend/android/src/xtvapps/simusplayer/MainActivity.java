@@ -149,7 +149,7 @@ public class MainActivity extends FtsActivity {
 		frames = 0;
 
 		for(int i=0; i<modInfo.tracks; i++) {
-			waveContainer.setWave(i, modPlayer.getWave(i));
+			waveContainer.setWave(i, modPlayer.getWave(i), false);
 		}
 		
 		FrameInfo frameInfo = modPlayer.getFrameInfo();
