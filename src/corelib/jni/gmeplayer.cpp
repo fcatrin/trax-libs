@@ -58,11 +58,16 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
 		Music_Emu* emu = handles[handle];
 
 		handle_error(gme_track_info(emu, &infos[handle], track));
+		gme_info_t* info = infos[handle];
 
 		gme_set_stereo_depth(emu, depth);
 		gme_enable_accuracy(emu, accurate ? 1 : 0);
 
 		handle_error(gme_start_track(emu, track));
+		if (info->length <= 0) {
+			gme_set_fade(emu, info->play_length - 3000);
+		}
+
 		LOGD("Track %i started for %s\n", track, path);
 	}
 
@@ -83,7 +88,9 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillBuffer
 
 	env->ReleaseByteArrayElements(jBuffer, buffer, 0);
 
-	return gme_track_ended(emu) ? -1 : length;
+	jboolean ended = gme_track_ended(emu) || gme_tell(emu) >= infos[handle]->play_length;
+
+	return ended ? -1 : length;
 }
 
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeClose
@@ -119,7 +126,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeTimeTotal
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return 0;
 
-	return infos[handle]->length;
+	return infos[handle]->play_length;
 }
 
 
