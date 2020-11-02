@@ -7,10 +7,13 @@ LDFLAGS = -shared
 LIBARCH =
 
 LIBPREFIX = lib
-LDFLAGS += -lstdc++ -lm -lgme
+LDFLAGS += -lstdc++ -lm
 LDFLAGS += $(shell pkg-config --libs fluidsynth)
 
-LIBXMPDIR=libs/libxmp
+LIBXMPDIR = libs/libxmp
+LIBGMEDIR = libs/game-music-emu
+LIBGMEDIR_BUILD = $(LIBGMEDIR)/build
+LIBGME = $(LIBGMEDIR_BUILD)/gme/libgme.a
 
 include libs/midiloader/Makefile
 include libs/timidity/src/Makefile
@@ -61,7 +64,7 @@ $(OBJDIR)/%.o: %.cpp
 
 all : prepare $(LINK_TARGET)
 
-$(LINK_TARGET) : $(CORE) $(OBJS)
+$(LINK_TARGET) : $(CORE) $(OBJS) $(LIBGME)
 	$(LD) -o $@ $^ $(LDFLAGS) 
 
 prepare :
@@ -71,4 +74,9 @@ prepare :
 clean :
 	@find $(OBJDIR) -name "*.o" -exec rm {} \; 2>/dev/null
 	@find $(LIBXMPDIR) -name "*.o" -exec rm {} \; 2>/dev/null
+	@rm -rf $(LIBGMEDIR_BUILD) 2>/dev/null || true
 	@rm $(LINK_TARGET) 2>/dev/null || true
+
+$(LIBGME) :
+	@mkdir -p $(LIBGMEDIR)/build
+	cd $(LIBGMEDIR)/build && cmake ../ -DBUILD_SHARED_LIBS=OFF && make
