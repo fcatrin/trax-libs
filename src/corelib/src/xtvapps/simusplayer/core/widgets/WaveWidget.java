@@ -48,7 +48,8 @@ public class WaveWidget extends Widget {
 		int px = 0;
 		int py = bounds.height / 2;
 		
-		float steps = (float)wave.length / bounds.width;
+		float points = (bounds.width + LcdChar.pixel_size + LcdChar.pixel_spacing) / (LcdChar.pixel_size + LcdChar.pixel_spacing);
+		float steps = points > wave.length ? (float)wave.length / points : 1;
 		
 		if (muted) {
 			for(int x=0; x<bounds.width && px < bounds.width; x++) {
