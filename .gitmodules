@@ -1,0 +1,3 @@
+[submodule "src/corelib/jni/libs/game-music-emu"]
+	path = src/corelib/jni/libs/game-music-emu
+	url = https://github.com/fcatrin/game-music-emu.git
