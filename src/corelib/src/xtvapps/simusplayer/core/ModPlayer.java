@@ -9,6 +9,7 @@ import xtvapps.simusplayer.core.audio.AudioRenderer;
 public class ModPlayer extends MediaPlayer {
 	private static final String LOGTAG = ModPlayer.class.getSimpleName();
 	private static final int SLEEP_TIME = 10;
+	private static final int MAX_CHANNELS = 24;
 
 	static {
 		System.loadLibrary("simusplayer-corelib");
@@ -19,7 +20,7 @@ public class ModPlayer extends MediaPlayer {
 	
 	private ModPlayerListener modPlayerListener;
 	
-	boolean mutedChannels[] = new boolean[255];
+	boolean mutedChannels[] = new boolean[MAX_CHANNELS];
 	
 	public ModPlayer(WaveDevice waveDevice) {
 		super(waveDevice);
@@ -64,7 +65,7 @@ public class ModPlayer extends MediaPlayer {
 	    if (modPlayerListener!=null) modPlayerListener.onEnd();
 	}
 
-	private int wave[][] = new int[24][128];
+	private int wave[][] = new int[MAX_CHANNELS][128];
 	
 	public int[] getWave(int channel) {
 		int[] w = wave[channel];

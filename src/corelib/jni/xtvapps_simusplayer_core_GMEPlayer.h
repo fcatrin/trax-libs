@@ -35,6 +35,22 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillBuffer
 
 /*
  * Class:     xtvapps_simusplayer_core_GMEPlayer
+ * Method:    gmeFillWave
+ * Signature: (II[I)V
+ */
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillWave
+  (JNIEnv *, jclass, jint, jint, jintArray);
+
+/*
+ * Class:     xtvapps_simusplayer_core_GMEPlayer
+ * Method:    gmeGetWavesCount
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetWavesCount
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_GMEPlayer
  * Method:    gmeClose
  * Signature: (I)V
  */

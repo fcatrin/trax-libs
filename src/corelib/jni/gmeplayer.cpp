@@ -65,7 +65,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
 
 		handle_error(gme_start_track(emu, track));
 		if (info->length <= 0) {
-			gme_set_fade(emu, info->play_length - 3000);
+			gme_set_fade(emu, info->play_length - 3000, 3000);
 		}
 
 		gme_set_tempo(emu, 1.0f);
@@ -101,6 +101,27 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillBuffer
 	jboolean ended = gme_track_ended(emu) || gme_tell(emu) >= infos[handle]->play_length;
 
 	return ended ? -1 : length;
+}
+
+JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillWave
+  (JNIEnv *env, jclass clazz, jint handle, jint channel, jintArray jSamples) {
+	Music_Emu* emu = get_emu(handle);
+	if (!emu) return;
+
+	jint* samples = env->GetIntArrayElements(jSamples, NULL);
+	jsize length = env->GetArrayLength(jSamples);
+
+	gme_get_wave(channel, samples, length);
+
+	env->ReleaseIntArrayElements(jSamples, samples, 0);
+}
+
+JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetWavesCount
+  (JNIEnv *env, jclass clazz, jint handle) {
+	Music_Emu* emu = get_emu(handle);
+	if (!emu) return 0;
+
+	return gme_get_waves_count();
 }
 
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeClose

@@ -22,7 +22,7 @@ include $(LIBXMPDIR)/src/loaders/Makefile
 
 CFLAGS += -Imidi/
 CFLAGS += -DHAVE_MKSTEMP -DHAVE_FNMATCH -DLIBXMP_CORE_PLAYER -DHAVE_ROUND \
-		  -I$(LIBXMPDIR)/include/libxmp-lite -I$(LIBXMPDIR)/src -I$(LIBXMPDIR)/include
+		  -I$(LIBXMPDIR)/include/libxmp-lite -I$(LIBXMPDIR)/src -I$(LIBXMPDIR)/include -I$(LIBGMEDIR)
 
 UNAME_S := $(shell uname -s)
 UNAME_M := $(shell uname -m)

@@ -11,8 +11,13 @@ public class GMEPlayer extends MediaPlayer {
 	private static final String LOGTAG = GMEPlayer.class.getSimpleName();
 	private static final int TIME_RWND_FWD = 5000;
 	
+	private static final int MAX_CHANNELS = 24;
+	boolean mutedChannels[] = new boolean[MAX_CHANNELS];
+
 	private TVNorm tvNorm = TVNorm.NTSC;
 
+	GMEPlayerListener gmePlayerListener;
+	
 	int handle;
 	
 	public GMEPlayer(WaveDevice waveDevice) {
@@ -21,6 +26,10 @@ public class GMEPlayer extends MediaPlayer {
 
 	public void setTvNorm(TVNorm tvNorm) {
 		this.tvNorm = tvNorm;
+	}
+
+	public void setGmePlayerListener(GMEPlayerListener gmePlayerListener) {
+		this.gmePlayerListener = gmePlayerListener;
 	}
 
 	@Override
@@ -41,6 +50,12 @@ public class GMEPlayer extends MediaPlayer {
 			gmeSetTempo(handle, tvNorm == TVNorm.PAL ? 1.0 : 1.08);
 		}
 		
+		for(int i=0; i<gmeGetWavesCount(i); i++) {
+			// gmeMuteChannel(i, mutedChannels[i]);
+		}
+		
+		if (gmePlayerListener!=null) gmePlayerListener.onStart();
+		
 		return new AudioRenderer() {
 			
 			@Override
@@ -55,6 +70,8 @@ public class GMEPlayer extends MediaPlayer {
 	public void onFinish() {
 		gmeClose(handle);
 		handle = -1;
+		
+		if (gmePlayerListener!=null) gmePlayerListener.onEnd();
 	}
 
 	@Override
@@ -89,11 +106,48 @@ public class GMEPlayer extends MediaPlayer {
 		gmeSeek(handle, position);
 	}
 	
+	public void fillWave(int channel, int[] wave) {
+		gmeFillWave(handle, channel, wave);
+	}
+	
+	public int getWavesCount() {
+		return gmeGetWavesCount(handle);
+	}
+	
+	private int wave[][] = new int[24][128];
+	
+	public int[] getWave(int channel) {
+		int[] w = wave[channel];
+		gmeFillWave(handle, channel, w);
+		return w;
+	}
+	
+	public void toggleChannel(int channel) {
+		boolean mute = !mutedChannels[channel];
+		muteChannel(channel, mute);
+	}
+
+	public void muteChannel(int channel, boolean mute) {
+		// gmeMuteChannel(channel, mute);
+		mutedChannels[channel] = mute;
+	}
+
+	public boolean[] getWaveStatus() {
+		return mutedChannels;
+	}
+	
 	private static native int  gmeOpen(String path, int track, int freq, float depth, boolean accurate);
 	private static native void gmeSetTempo(int handle, double tempo);
 	private static native int  gmeFillBuffer(int handle, byte[] buffer);
+	private static native void gmeFillWave(int handle, int channel, int[] wave);
+	private static native int  gmeGetWavesCount(int handle);
 	private static native void gmeClose(int handle);
 	private static native void gmeSeek(int handle, long position);
 	private static native int  gmeTimeElapsed(int handle);
 	private static native int  gmeTimeTotal(int handle);
+	
+	public interface GMEPlayerListener {
+		public void onStart();
+		public void onEnd();
+	}
 }
