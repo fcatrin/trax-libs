@@ -10,6 +10,7 @@ import fts.core.Widget;
 import fts.core.NativeWindow;
 import fts.events.OnClickListener;
 import fts.graphics.Color;
+import fts.graphics.ColorListSelector;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 
@@ -56,8 +57,8 @@ public class WaveContainer extends Container {
 		this.waveBackground = waveBackground;
 	}
 
-	public void setWaveLinesColor(Color waveLinesColor) {
-		this.waveLinesColor = waveLinesColor;
+	public void setWaveLinesColor(ColorListSelector waveLinesColor) {
+		this.waveLinesColor = waveLinesColor.getSelectedItem();
 	}
 
 	public void setSpacing(int spacing) {

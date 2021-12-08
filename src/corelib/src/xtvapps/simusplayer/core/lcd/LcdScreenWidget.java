@@ -2,6 +2,7 @@ package xtvapps.simusplayer.core.lcd;
 
 import fts.core.NativeWindow;
 import fts.graphics.Color;
+import fts.graphics.ColorListSelector;
 import fts.widgets.LinearContainer;
 
 public class LcdScreenWidget extends LinearContainer {
@@ -10,12 +11,12 @@ public class LcdScreenWidget extends LinearContainer {
 		super(w);
 	}
 
-	public void setOnColor(Color color) {
-		LcdChar.setOnColor(color);
+	public void setOnColor(ColorListSelector color) {
+		LcdChar.setOnColor(color.getSelectedItem());
 	}
 	
-	public void setOffColor(Color color) {
-		LcdChar.setOffColor(color);
+	public void setOffColor(ColorListSelector color) {
+		LcdChar.setOffColor(color.getSelectedItem());
 	}
 	
 	public void setPixelSize(int size) {
