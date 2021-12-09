@@ -146,6 +146,8 @@ public class GMEPlayer extends MediaPlayer {
 	private static native int  gmeTimeElapsed(int handle);
 	private static native int  gmeTimeTotal(int handle);
 	
+	public static native String[] gmeGetMetadata(String path);
+	
 	public interface GMEPlayerListener {
 		public void onStart();
 		public void onEnd();

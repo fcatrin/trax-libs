@@ -78,6 +78,48 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
 	return result ? -1 : handle;
 }
 
+JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetMetadata
+  (JNIEnv *env, jclass clazz, jstring sPath) {
+
+	Music_Emu *handle;
+	gme_info_t *info;
+
+	int open_sample_rate = 44100;
+	int open_track = 0;
+
+	jobjectArray result = NULL;
+
+	const char* path = (char *)env->GetStringUTFChars(sPath, 0);
+
+	const char *open_error = gme_open_file(path, &handle, open_sample_rate);
+
+	if (open_error) {
+		LOGD("Cannot open %s : %s\n", path, open_error);
+	} else {
+		LOGD("Opened %s\n", path);
+
+		static char *metadata[5];
+
+		handle_error(gme_track_info(handle, &info, open_track));
+
+		metadata[0] = strdup(info->system);
+		metadata[1] = strdup(info->game);
+		metadata[2] = strdup(info->song);
+		metadata[3] = strdup(info->author);
+		metadata[4] = strdup(info->copyright);
+
+	    jclass jStringClasss = env->FindClass("java/lang/String");
+		result = env->NewObjectArray(5, jStringClasss, NULL);
+		for(int i=0; i<5; i++) {
+			jobject value = env->NewStringUTF(metadata[i]);
+			env->SetObjectArrayElement(result, i, value);
+		}
+	}
+
+	env->ReleaseStringUTFChars(sPath, path);
+	return result;
+}
+
 JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSetTempo
   (JNIEnv *env, jclass clazz, jint handle, jdouble tempo){
 	Music_Emu* emu = get_emu(handle);

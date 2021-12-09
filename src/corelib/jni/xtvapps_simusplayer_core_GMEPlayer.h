@@ -9,6 +9,8 @@ extern "C" {
 #endif
 #undef xtvapps_simusplayer_core_GMEPlayer_TIME_RWND_FWD
 #define xtvapps_simusplayer_core_GMEPlayer_TIME_RWND_FWD 5000L
+#undef xtvapps_simusplayer_core_GMEPlayer_MAX_CHANNELS
+#define xtvapps_simusplayer_core_GMEPlayer_MAX_CHANNELS 24L
 /*
  * Class:     xtvapps_simusplayer_core_GMEPlayer
  * Method:    gmeOpen
@@ -80,6 +82,14 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeTimeElapsed
  */
 JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeTimeTotal
   (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     xtvapps_simusplayer_core_GMEPlayer
+ * Method:    gmeGetMetadata
+ * Signature: (Ljava/lang/String;)[Ljava/lang/String;
+ */
+JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetMetadata
+  (JNIEnv *, jclass, jstring);
 
 #ifdef __cplusplus
 }
