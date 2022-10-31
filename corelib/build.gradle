@@ -30,3 +30,7 @@ task jniBuild(type:Exec) {
 }
 
 processResources.dependsOn jniBuild
+
+dependencies {
+    implementation ('fts:core:1.0.0') {changing = true}
+}
