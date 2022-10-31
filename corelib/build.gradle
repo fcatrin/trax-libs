@@ -22,3 +22,11 @@ afterEvaluate {
     }
 }
 
+task install(dependsOn: publishToMavenLocal)
+
+task jniBuild(type:Exec) {
+    workingDir 'src/main/jni'
+    commandLine 'make'
+}
+
+processResources.dependsOn jniBuild

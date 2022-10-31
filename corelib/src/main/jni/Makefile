@@ -41,9 +41,10 @@ ifeq ($(UNAME_S),Linux)
 	ifneq ($(filter %86,$(UNAME_M)),)
 	endif
 endif
- 
-OBJDIR = ../obj
-LIBSDIR = ../libs
+
+BUILD_DIR=../../../build/jni
+OBJDIR = $(BUILD_DIR)/obj
+LIBSDIR = $(BUILD_DIR)/libs
 
 LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)simusplayer-corelib.$(LIBEXT)
  
