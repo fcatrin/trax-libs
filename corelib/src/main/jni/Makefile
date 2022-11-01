@@ -15,7 +15,7 @@ LIBGMEDIR = libs/game-music-emu
 LIBGMEDIR_BUILD = $(LIBGMEDIR)/build
 LIBGME = $(LIBGMEDIR_BUILD)/gme/libgme.a
 
-include libs/midiloader/Makefile
+# include libs/midiloader/Makefile
 include libs/timidity/src/Makefile
 include $(LIBXMPDIR)/src/Makefile
 include $(LIBXMPDIR)/src/loaders/Makefile
