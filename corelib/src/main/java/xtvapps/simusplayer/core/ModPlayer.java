@@ -9,7 +9,7 @@ import xtvapps.simusplayer.core.audio.AudioRenderer;
 public class ModPlayer extends MediaPlayer {
 	private static final String LOGTAG = ModPlayer.class.getSimpleName();
 	private static final int SLEEP_TIME = 10;
-	private static final int MAX_CHANNELS = 24;
+	private static final int MAX_CHANNELS = 64;
 
 	static {
 		System.loadLibrary("simusplayer-corelib");
