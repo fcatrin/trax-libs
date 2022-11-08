@@ -55,6 +55,8 @@ public abstract class MediaPlayer {
 					}
 					audioRenderThread.setAudioRenderer(null);
 					onFinish();
+				} else {
+					onFinish();
 				}
 				isPlaying = false;
 				isStopped = true;
