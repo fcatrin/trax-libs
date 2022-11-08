@@ -36,6 +36,7 @@ public class AudioPlayerThread extends Thread{
 		AudioBuffer buffer = null;
 		do {
 			synchronized (audioRenderThread) {
+				buffer = null;
 				if (audioRenderThread!=null && !isPaused) {
 					buffer = audioRenderThread.getNextBuffer(); 
 				}
@@ -57,9 +58,8 @@ public class AudioPlayerThread extends Thread{
 	public void shutdown() {
 		isPlaying = false;
 	}
-	
-	public void pause() {
-		isPaused = true;
-	}
 
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
+	}
 }
