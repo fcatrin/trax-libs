@@ -38,7 +38,9 @@ public class ModPlayer extends MediaPlayer {
 
 	@Override
 	public AudioRenderer onPrepare(File songFile) {
-		xmpInit(songFile.getAbsolutePath(), waveDevice.getFreq());
+		boolean successOnInit = xmpInit(songFile.getAbsolutePath(), waveDevice.getFreq());
+		Log.d(LOGTAG, "successOnInit " + successOnInit);
+		if (!successOnInit) return null;
 
 		loadModInfo(songFile);
 

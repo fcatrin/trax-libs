@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/midiloader/fileutils.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
                 <item name="simusplayer-libs" type="f1a62948:ProjectNode" />
                 <item name="corelib" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -77,7 +76,7 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.simusplayer-libs:corelib [publishToMavenLocal]">
     <configuration name="simusplayer-libs:corelib [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -99,8 +98,30 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="simusplayer-libs:corelib [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/corelib" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="publishToMavenLocal" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.simusplayer-libs:corelib [publishToMavenLocal]" />
         <item itemvalue="Gradle.simusplayer-libs:corelib [build]" />
       </list>
     </recent_temporary>
@@ -128,7 +149,42 @@
       <option name="project" value="LOCAL" />
       <updated>1667265219764</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fixes build of static xmp library from corelibs">
+      <created>1667919691684</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667919691684</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Support pause on AudioRenderThread">
+      <created>1667919756039</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667919756039</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Ignore jni built from CLI">
+      <created>1667919831274</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1667919831274</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Support mods with more than 24 channels">
+      <created>1667941266890</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1667941266890</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Make location of mod library relative to Android.mk file">
+      <created>1667941298939</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1667941298939</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -145,6 +201,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Files added by idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="Files added by idea" />
+    <MESSAGE value="Fixes build of static xmp library from corelibs" />
+    <MESSAGE value="Support pause on AudioRenderThread" />
+    <MESSAGE value="Ignore jni built from CLI" />
+    <MESSAGE value="Support mods with more than 24 channels" />
+    <MESSAGE value="Make location of mod library relative to Android.mk file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make location of mod library relative to Android.mk file" />
   </component>
 </project>
