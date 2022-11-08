@@ -1,6 +1,6 @@
 CORELIB_LOCAL_PATH := $(call my-dir)
 
-include libs/libxmp/jni/Android.mk
+include $(CORELIB_LOCAL_PATH)/libs/libxmp/jni/Android.mk
 
 include $(CLEAR_VARS)
 
