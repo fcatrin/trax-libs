@@ -1,21 +1,17 @@
-# include $(call all-subdir-makefiles)
+CORELIB_LOCAL_PATH := $(call my-dir)
 
-LOCAL_PATH := $(call my-dir)
-
-#include $(CLEAR_VARS)
-
-#LOCAL_MODULE := xmp
-#LOCAL_SRC_FILES := $(SIMUSPLAYER_PATH)/../obj/local/$(TARGET_ARCH_ABI)/libxmp.a
-#include $(PREBUILT_STATIC_LIBRARY)
-
+include libs/libxmp/jni/Android.mk
 
 include $(CLEAR_VARS)
 
+LOCAL_PATH := $(CORELIB_LOCAL_PATH)
+include $(CLEAR_VARS)
+
 LOCAL_MODULE    := simusplayer-corelib
-LOCAL_SRC_FILES := modplayer.cpp
+LOCAL_SRC_FILES := $(LOCAL_PATH)/modplayer.cpp
 LOCAL_STATIC_LIBRARIES := xmp
 
-LOCAL_CFLAGS += -g -Wall -fPIC -I. -I$(SIMUSPLAYER_PATH)/libxmp/include
+LOCAL_CFLAGS += -g -Wall -fPIC -I. -I$(LOCAL_PATH)/libs/libxmp/include
 LOCAL_LDFLAGS += -llog
 
 ifeq ($(TARGET_ARCH),x86)
