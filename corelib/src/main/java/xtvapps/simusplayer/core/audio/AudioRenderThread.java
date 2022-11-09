@@ -13,7 +13,7 @@ import xtvapps.simusplayer.core.audio.AudioBuffer.Format;
 import xtvapps.simusplayer.core.audio.AudioBuffer.Status;
 
 public class AudioRenderThread extends Thread {
-	private static final String LOGTAG = AudioRenderer.class.getSimpleName();
+	private static final String LOGTAG = AudioRenderThread.class.getSimpleName();
 	
 	private AudioBuffer audioBuffers[];
 	private long lastTime = 0;
@@ -68,10 +68,10 @@ public class AudioRenderThread extends Thread {
 	
 	public void renderBuffer() {
 		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
-		while (audioBuffer.getStatus() != Status.Free) {
+		while (audioBuffer.getStatus() != Status.Free && running) {
 			Utils.sleep(1);
 		}
-		
+
 		synchronized (audioRendererLock) {
 			if (audioRenderer!=null && !isPaused) {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
@@ -80,7 +80,7 @@ public class AudioRenderThread extends Thread {
 				Utils.sleep(10);
 			}
 		}
-		
+
 		audioBuffer.render();
 		if (debugEnabled) debugWrite(fosDebugPre, audioBuffer.samplesOut);
 		if (audioProcessor != null) {
@@ -88,9 +88,9 @@ public class AudioRenderThread extends Thread {
 			if (debugEnabled) debugWrite(fosDebugPost, audioBuffer.samplesOut);
 		}
 		audioBuffer.setStatus(Status.Filled);
-		
+
 		currentBufferIndex = ++currentBufferIndex % audioBuffers.length;
-		
+
 		pushProcessedWave(audioBuffer);
 	}
 	
