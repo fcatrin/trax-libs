@@ -127,7 +127,11 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
 		memset(waveBuffer, 0, resultSize * sizeof(jint));
 	} else {
 		jsize arraySize = resultSize < WAVE_SIZE ? resultSize : WAVE_SIZE;
-		memcpy(waveBuffer, channel_info->wave, arraySize * sizeof(jint));
+		int pos = channel_info->wave_pos;
+		for(int i=0; i<arraySize; i++) {
+		    waveBuffer[i] = channel_info->wave[pos++];
+		    pos = pos & (WAVE_SIZE-1);
+		}
 	}
 
 	env->ReleaseIntArrayElements(wave, waveBuffer, 0);

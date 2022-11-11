@@ -1890,6 +1890,7 @@ void xmp_get_frame_info(xmp_context opaque, struct xmp_frame_info *info)
 			for(int vi=0; vi < p->virt.virt_channels && vi < p->virt.maxvoc; vi++) {
 				if (p->virt.voice_array[vi].chn == i) {
 					ci->wave = p->virt.voice_array[vi].wave;
+					ci->wave_pos = p->virt.voice_array[vi].wave_pos;
 					break;
 				}
 			}
