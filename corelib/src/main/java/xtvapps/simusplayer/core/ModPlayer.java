@@ -70,6 +70,8 @@ public class ModPlayer extends MediaPlayer {
 	private int wave[][] = new int[MAX_CHANNELS][128];
 	
 	public int[] getWave(int channel) {
+		if (!isPrepared) return null;
+
 		int[] w = wave[channel];
 		xmpFillWave(w, channel);
 		return w;

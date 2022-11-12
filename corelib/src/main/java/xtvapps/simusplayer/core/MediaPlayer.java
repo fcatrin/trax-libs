@@ -14,6 +14,7 @@ public abstract class MediaPlayer {
 	protected boolean isStopped = true;
 	protected boolean isPaused = false;
 	protected boolean hasEnded = false;
+	protected boolean isPrepared = false;
 
 	private int timeTotal;
 	private int timeElapsed;
@@ -21,7 +22,7 @@ public abstract class MediaPlayer {
 	private AudioRenderThread audioRenderThread;
 	private AudioPlayerThread audioPlayerThread;
 	private SimpleCallback onEndedCallback;
-	
+
 	public MediaPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
 		onInit();
@@ -42,17 +43,20 @@ public abstract class MediaPlayer {
 		this.file = file;
 		this.audioRenderThread = audioRenderThread;
 		this.audioPlayerThread = audioPlayerThread;
+		isPrepared = false;
 		
 		Thread controllerThread = new Thread("MediaPlayerControllerThread") {
 			@Override
 			public void run() {
 				AudioRenderer audioRenderer = onPrepare(file);
 				if (audioRenderer != null) {
+					isPrepared = true;
 					audioRenderThread.setAudioRenderer(audioRenderer);
 					while (isPlaying && !hasEnded) {
 						audioRenderThread.setPaused(isPaused);
 						CoreUtils.shortSleep();
 					}
+					isPrepared = false;
 					audioRenderThread.setAudioRenderer(null);
 					onFinish();
 				} else {
@@ -74,7 +78,7 @@ public abstract class MediaPlayer {
 	public boolean isPaused() {
 		return isPlaying && isPaused;
 	}
-	
+
 	public void setPause(boolean pause) {
 		isPaused = pause;
 	}

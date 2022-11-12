@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/MediaPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,7 +185,42 @@
       <option name="project" value="LOCAL" />
       <updated>1667941298939</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Avoid crashes when mod cannot be opened">
+      <created>1667942595400</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1667942595400</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Finish mediaplayer if onPrepare failed">
+      <created>1667943017186</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667943017186</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fix crash when looking for wave">
+      <created>1668013988413</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668013988413</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fix lock when shutting down AudioRenderThread">
+      <created>1668027993353</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1668027993353</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixes continuous reading of wave data">
+      <created>1668201511053</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1668201511053</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -206,6 +242,22 @@
     <MESSAGE value="Ignore jni built from CLI" />
     <MESSAGE value="Support mods with more than 24 channels" />
     <MESSAGE value="Make location of mod library relative to Android.mk file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make location of mod library relative to Android.mk file" />
+    <MESSAGE value="Avoid crashes when mod cannot be opened" />
+    <MESSAGE value="Finish mediaplayer if onPrepare failed" />
+    <MESSAGE value="Fix crash when looking for wave" />
+    <MESSAGE value="Fix lock when shutting down AudioRenderThread" />
+    <MESSAGE value="Fixes continuous reading of wave data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes continuous reading of wave data" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioRenderThread.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
