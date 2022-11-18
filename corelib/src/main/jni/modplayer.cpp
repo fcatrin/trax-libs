@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 #include "xmp.h"
-#include "xtvapps_simusplayer_core_ModPlayer.h"
+#include "xtvapps_trax_core_ModPlayer.h"
 
 #define WAVE_SIZE 128
 
@@ -21,7 +21,7 @@ xmp_context ctx;
 struct xmp_frame_info frameInfo;
 struct xmp_module_info modInfo;
 
-JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpInit
+JNIEXPORT jboolean JNICALL Java_xtvapps_trax_core_ModPlayer_xmpInit
   (JNIEnv *env, jobject thiz, jstring sPath, jint freq) {
 	int ret;
 
@@ -47,7 +47,7 @@ JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpInit
 	return true;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpRelease
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpRelease
   (JNIEnv *env, jobject thiz) {
 	xmp_end_player(ctx);
 	xmp_release_module(ctx);
@@ -56,7 +56,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpRelease
 	ctx = NULL;
 }
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillBuffer
+JNIEXPORT jint JNICALL Java_xtvapps_trax_core_ModPlayer_xmpFillBuffer
   (JNIEnv *env, jobject thiz, jbyteArray jBuffer, jint loop) {
 	jbyte* buffer = env->GetByteArrayElements(jBuffer, NULL);
 	jsize length = env->GetArrayLength(jBuffer);
@@ -68,7 +68,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillBuffer
 	return result;
 }
 
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleNameFromPath
+JNIEXPORT jstring JNICALL Java_xtvapps_trax_core_ModPlayer_xmpGetModuleNameFromPath
   (JNIEnv *env, jclass thiz, jstring sPath) {
 	static struct xmp_module_info modInfo;
 
@@ -94,14 +94,14 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleNa
 	return name;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSetVolume
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpSetVolume
   (JNIEnv *env, jobject thiz, jint vol) {
 	if (ctx == NULL) return;
 
 	xmp_set_player(ctx, XMP_PLAYER_VOLUME, vol);
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpFillWave
   (JNIEnv *env, jobject thiz, jintArray wave, jint channel) {
 
 	if (ctx == NULL) return;
@@ -137,17 +137,17 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpFillWave
 	env->ReleaseIntArrayElements(wave, waveBuffer, 0);
 }
 
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleName
+JNIEXPORT jstring JNICALL Java_xtvapps_trax_core_ModPlayer_xmpGetModuleName
   (JNIEnv *env, jobject thiz) {
 	return env->NewStringUTF(modInfo.mod->name);
 }
 
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleFormat
+JNIEXPORT jstring JNICALL Java_xtvapps_trax_core_ModPlayer_xmpGetModuleFormat
   (JNIEnv *env, jobject thiz) {
 	return env->NewStringUTF(modInfo.mod->type);
 }
 
-JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModuleInfo
+JNIEXPORT jintArray JNICALL Java_xtvapps_trax_core_ModPlayer_xmpGetModuleInfo
   (JNIEnv *env, jobject thiz) {
 
 	xmp_module *mod = modInfo.mod;
@@ -164,7 +164,7 @@ JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetModule
 	return result;
 }
 
-JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetSampleName
+JNIEXPORT jstring JNICALL Java_xtvapps_trax_core_ModPlayer_xmpGetSampleName
   (JNIEnv *env, jobject thiz, jint sampleIndex) {
 	xmp_get_module_info(ctx, &modInfo);
 
@@ -174,7 +174,7 @@ JNIEXPORT jstring JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetSampleNa
 	return env->NewStringUTF(sampleName);
 }
 
-JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetPlayingInfo
+JNIEXPORT jintArray JNICALL Java_xtvapps_trax_core_ModPlayer_xmpGetPlayingInfo
   (JNIEnv *env, jobject thiz) {
 	static struct xmp_frame_info frame_info;
 	xmp_get_frame_info(ctx, &frame_info);
@@ -194,7 +194,7 @@ JNIEXPORT jintArray JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpGetPlayin
 	return result;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpMuteChannel
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpMuteChannel
   (JNIEnv *env, jobject thiz, jint channel, jboolean mute) {
 
 	if (channel < 0 || channel >= modInfo.mod->chn) return;
@@ -202,17 +202,17 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpMuteChannel
 	xmp_channel_mute(ctx, channel, mute);
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpForward
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpForward
   (JNIEnv *env, jobject thiz){
 	if (ctx) xmp_next_position(ctx);
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpRewind
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpRewind
   (JNIEnv *env, jobject thiz) {
 	if (ctx) xmp_prev_position(ctx);
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_ModPlayer_xmpSeek
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpSeek
   (JNIEnv *env, jobject thiz, jint pattern) {
 	if (ctx) xmp_set_position(ctx, pattern);
 }

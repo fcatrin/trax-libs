@@ -46,7 +46,7 @@ BUILD_DIR=../../../build/jni
 OBJDIR = $(BUILD_DIR)/obj
 LIBSDIR = $(BUILD_DIR)/libs
 
-LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)simusplayer-corelib.$(LIBEXT)
+LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)trax-corelib.$(LIBEXT)
  
 CFLAGS_ONLY = -std=gnu99
   

@@ -5,40 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_FluidPlayer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_GMEPlayer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_GMEPlayer_GMEPlayerListener.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_GMEPlayer_TVNorm.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer_FrameInfo.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer_ModInfo.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer_ModPlayerListener.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/build-fts.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/build-jni.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/build.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/CoreUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/CoreUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/FluidMidiThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidMidiThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/FluidPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/FluidSequencer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidSequencer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/GMEPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/WaveDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/WaveDevice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioBuffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioPlayerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioRenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/lcd/LcdChar.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdChar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/lcd/LcdScreenWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdScreenWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/lcd/LcdSegmentWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdSegmentWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/widgets/KeyboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/KeyboardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/widgets/WaveContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/WaveContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/widgets/WaveWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/WaveWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/InvalidFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/InvalidFormatException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiSequencer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSequencer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiSong.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiTrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiTrack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/SimpleStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/SimpleStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/Android.mk" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/Android.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/fluidplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/fluidplayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/gmeplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/gmeplayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_FluidPlayer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_GMEPlayer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_GMEPlayer_GMEPlayerListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_GMEPlayer_TVNorm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer_FrameInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer_ModInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer_ModPlayerListener.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -316,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668221718900</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Rename from simusplayer to trax">
+      <created>1668783463636</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1668783463636</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -344,7 +340,8 @@
     <MESSAGE value="Fix lock when shutting down AudioRenderThread" />
     <MESSAGE value="Fixes continuous reading of wave data" />
     <MESSAGE value="Make sure the player is prepared when calling fillWave" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make sure the player is prepared when calling fillWave" />
+    <MESSAGE value="Rename from simusplayer to trax" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename from simusplayer to trax" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

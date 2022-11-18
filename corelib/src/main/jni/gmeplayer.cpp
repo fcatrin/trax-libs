@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 #include "xmp.h"
-#include "xtvapps_simusplayer_core_GMEPlayer.h"
+#include "xtvapps_trax_core_GMEPlayer.h"
 
 #include "gme/gme.h"
 
@@ -39,7 +39,7 @@ static void handle_error(const char *str) {
 	// if (str != NULL) LOGD("Error %s\n", str);
 }
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
+JNIEXPORT jint JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeOpen
   (JNIEnv *env, jclass clazz, jstring sPath, jint track, jint sample_rate, jfloat depth, jboolean accurate) {
 	int handle = find_free_handle();
 	if (handle < 0) {
@@ -78,7 +78,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeOpen
 	return result ? -1 : handle;
 }
 
-JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetMetadata
+JNIEXPORT jobjectArray JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeGetMetadata
   (JNIEnv *env, jclass clazz, jstring sPath) {
 
 	Music_Emu *handle;
@@ -120,7 +120,7 @@ JNIEXPORT jobjectArray JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetMet
 	return result;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSetTempo
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeSetTempo
   (JNIEnv *env, jclass clazz, jint handle, jdouble tempo){
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return;
@@ -128,7 +128,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSetTempo
 	gme_set_tempo(emu, tempo);
 }
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillBuffer
+JNIEXPORT jint JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeFillBuffer
   (JNIEnv *env, jclass clazz, jint handle, jbyteArray jBuffer) {
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return -1;
@@ -145,7 +145,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillBuffer
 	return ended ? -1 : length;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillWave
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeFillWave
   (JNIEnv *env, jclass clazz, jint handle, jint channel, jintArray jSamples) {
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return;
@@ -158,7 +158,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeFillWave
 	env->ReleaseIntArrayElements(jSamples, samples, 0);
 }
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetWavesCount
+JNIEXPORT jint JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeGetWavesCount
   (JNIEnv *env, jclass clazz, jint handle) {
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return 0;
@@ -166,7 +166,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeGetWavesCount
 	return gme_get_waves_count();
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeClose
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeClose
   (JNIEnv *env, jclass clazz, jint handle){
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return;
@@ -178,7 +178,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeClose
 	infos[handle] = NULL;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSeek
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeSeek
   (JNIEnv *env, jclass clazz, jint handle, jlong position){
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return;
@@ -186,7 +186,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeSeek
 	handle_error(gme_seek(emu, position));
 }
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeTimeElapsed
+JNIEXPORT jint JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeTimeElapsed
   (JNIEnv *env, jclass clazz, jint handle){
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return 0;
@@ -194,7 +194,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeTimeElapsed
 	return gme_tell(emu);
 }
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_GMEPlayer_gmeTimeTotal
+JNIEXPORT jint JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeTimeTotal
   (JNIEnv *env, jclass clazz, jint handle){
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return 0;

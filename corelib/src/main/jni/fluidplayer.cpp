@@ -12,12 +12,12 @@ extern "C" {
 
 #include <fluidsynth.h>
 #include "common.h"
-#include "xtvapps_simusplayer_core_FluidPlayer.h"
+#include "xtvapps_trax_core_FluidPlayer.h"
 
 static fluid_settings_t*     settings;
 static fluid_synth_t*        synth;
 
-JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidInit
+JNIEXPORT jboolean JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidInit
   (JNIEnv *env, jobject thiz, jint sample_rate) {
 
 	settings = new_fluid_settings();
@@ -29,7 +29,7 @@ JNIEXPORT jboolean JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidInit
 	return true;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidRelease
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidRelease
   (JNIEnv *env, jobject thiz) {
 	if (settings == NULL) return;
 
@@ -40,7 +40,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidRelease
 	settings = NULL;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidLoadSoundFontFile
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidLoadSoundFontFile
   (JNIEnv *env, jobject thiz, jstring sPath) {
 	if (synth == NULL) return;
 
@@ -52,7 +52,7 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidLoadSoundF
 }
 
 
-JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidFillBuffer
+JNIEXPORT jint JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidFillBuffer
   (JNIEnv *env, jobject thiz, jbyteArray jBuffer) {
 	jbyte* buffer = env->GetByteArrayElements(jBuffer, NULL);
 	jsize length = env->GetArrayLength(jBuffer);
@@ -66,7 +66,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidFillBuffer
 	return 0;
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventNote
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidSendEventNote
 (JNIEnv *env, jclass clazz, jint type, jint channel, jint note, jint velocity) {
 	switch(type) {
 	case NOTEON:
@@ -78,12 +78,12 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventN
 	}
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventController
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidSendEventController
   (JNIEnv *env, jclass clazz, jint channel, jint param, jint value) {
 	fluid_synth_cc(synth, channel, param, value);
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventChange
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidSendEventChange
   (JNIEnv *env, jclass clazz, jint type, jint channel, jint value) {
 	switch(type) {
 	case PGMCHANGE:
@@ -95,12 +95,12 @@ JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventC
 	}
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventPitchBend
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidSendEventPitchBend
   (JNIEnv *env, jclass clazz, jint channel, jint value) {
 	fluid_synth_pitch_bend(synth, channel, value + 8192);
 }
 
-JNIEXPORT void JNICALL Java_xtvapps_simusplayer_core_FluidPlayer_fluidSendEventSysex
+JNIEXPORT void JNICALL Java_xtvapps_trax_core_FluidPlayer_fluidSendEventSysex
   (JNIEnv *env, jclass clazz, jintArray jsysex) {
 
 }

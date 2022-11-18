@@ -7,7 +7,7 @@ include $(CLEAR_VARS)
 LOCAL_PATH := $(CORELIB_LOCAL_PATH)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := simusplayer-corelib
+LOCAL_MODULE    := trax-corelib
 LOCAL_SRC_FILES := $(LOCAL_PATH)/modplayer.cpp
 LOCAL_STATIC_LIBRARIES := xmp
 
