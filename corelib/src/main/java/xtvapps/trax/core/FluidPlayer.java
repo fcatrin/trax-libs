@@ -10,7 +10,7 @@ public class FluidPlayer extends MediaPlayer {
 	private File soundFontFile;
 
 	static {
-		System.loadLibrary("simusplayer-corelib");
+		System.loadLibrary("trax-corelib");
 	}
 	private FluidMidiThread midiThread;
 

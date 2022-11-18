@@ -12,7 +12,7 @@ public class ModPlayer extends MediaPlayer {
 	private static final int MAX_CHANNELS = 64;
 
 	static {
-		System.loadLibrary("simusplayer-corelib");
+		System.loadLibrary("trax-corelib");
 	}
 
 	private ModInfo modInfo = new ModInfo();

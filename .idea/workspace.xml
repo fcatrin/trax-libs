@@ -5,29 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_FluidPlayer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_GMEPlayer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_GMEPlayer_GMEPlayerListener.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_GMEPlayer_TVNorm.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer_FrameInfo.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer_ModInfo.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_trax_core_ModPlayer_ModPlayerListener.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/Android.mk" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/Android.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/fluidplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/fluidplayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/gmeplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/gmeplayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_FluidPlayer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_GMEPlayer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_GMEPlayer_GMEPlayerListener.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_GMEPlayer_TVNorm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer_FrameInfo.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer_ModInfo.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/xtvapps_simusplayer_core_ModPlayer_ModPlayerListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,11 +91,11 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Gradle.simusplayer-libs:corelib [publishToMavenLocal]">
-    <configuration name="simusplayer-libs:corelib [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.trax-libs:corelib [publishToMavenLocal]">
+    <configuration name="trax-libs [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/corelib" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -133,31 +113,10 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="simusplayer-libs:corelib [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="trax-libs:corelib [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/corelib" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="publishToMavenLocal" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="trax-libs [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -196,11 +155,35 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="trax-libs:corelib [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/corelib" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="publishToMavenLocal" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
+      <item itemvalue="Gradle.trax-libs [build]" />
+      <item itemvalue="Gradle.trax-libs:corelib [build]" />
+      <item itemvalue="Gradle.trax-libs:corelib [clean]" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.simusplayer-libs:corelib [publishToMavenLocal]" />
+        <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
         <item itemvalue="Gradle.trax-libs [build]" />
-        <item itemvalue="Gradle.simusplayer-libs:corelib [build]" />
         <item itemvalue="Gradle.trax-libs:corelib [clean]" />
       </list>
     </recent_temporary>
@@ -312,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668783463636</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Update JNI code to TraX name">
+      <created>1668783780983</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1668783780984</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,7 +331,8 @@
     <MESSAGE value="Fixes continuous reading of wave data" />
     <MESSAGE value="Make sure the player is prepared when calling fillWave" />
     <MESSAGE value="Rename from simusplayer to trax" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename from simusplayer to trax" />
+    <MESSAGE value="Update JNI code to TraX name" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update JNI code to TraX name" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
