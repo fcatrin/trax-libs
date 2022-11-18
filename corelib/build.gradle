@@ -14,7 +14,7 @@ afterEvaluate {
             mavenJava(MavenPublication) {
                 from components.java
 
-                groupId = 'simusplayer'
+                groupId = 'trax'
                 artifactId = 'core'
                 version = '1.0.1'
             }

@@ -6,8 +6,39 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/MediaPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/build-fts.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/build-jni.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/build.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/CoreUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/CoreUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/FluidMidiThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidMidiThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/FluidPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/FluidSequencer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidSequencer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/GMEPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/WaveDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/WaveDevice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioPlayerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioRenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/lcd/LcdChar.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdChar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/lcd/LcdScreenWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdScreenWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/lcd/LcdSegmentWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdSegmentWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/widgets/KeyboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/KeyboardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/widgets/WaveContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/WaveContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/widgets/WaveWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/WaveWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/InvalidFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/InvalidFormatException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiSequencer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSequencer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiSong.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/MidiTrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiTrack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/midi/SimpleStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/SimpleStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,27 +56,37 @@
         <task path="$PROJECT_DIR$/corelib">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="simusplayer-libs" type="f1a62948:ProjectNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="simusplayer-libs" type="f1a62948:ProjectNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
                 <item name="corelib" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="simusplayer-libs" type="f1a62948:ProjectNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
                 <item name="corelib" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="simusplayer-libs" type="f1a62948:ProjectNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="corelib" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
                 <item name="corelib" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="publishing" type="c8890929:TasksNode$1" />
@@ -76,6 +117,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Gradle.simusplayer-libs:corelib [publishToMavenLocal]">
     <configuration name="simusplayer-libs:corelib [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -120,10 +165,54 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="trax-libs [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="trax-libs:corelib [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/corelib" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.simusplayer-libs:corelib [publishToMavenLocal]" />
+        <item itemvalue="Gradle.trax-libs [build]" />
         <item itemvalue="Gradle.simusplayer-libs:corelib [build]" />
+        <item itemvalue="Gradle.trax-libs:corelib [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -220,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668201511053</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Make sure the player is prepared when calling fillWave">
+      <created>1668221718900</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1668221718900</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,13 +343,14 @@
     <MESSAGE value="Fix crash when looking for wave" />
     <MESSAGE value="Fix lock when shutting down AudioRenderThread" />
     <MESSAGE value="Fixes continuous reading of wave data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes continuous reading of wave data" />
+    <MESSAGE value="Make sure the player is prepared when calling fillWave" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make sure the player is prepared when calling fillWave" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/corelib/src/main/java/xtvapps/simusplayer/core/audio/AudioRenderThread.java</url>
+          <url>file://$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java</url>
           <line>162</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>

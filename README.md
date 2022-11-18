@@ -1,2 +1,3 @@
-# simusplayer
-Simple Music player
+# trax-libs
+Core libraries for Trax
+Formerly known as Simple Music player / SiMusPlayer

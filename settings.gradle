@@ -7,5 +7,5 @@ dependencyResolutionManagement {
         mavenLocal()
     }
 }
-rootProject.name = "simusplayer-libs"
+rootProject.name = "trax-libs"
 include ':corelib'
