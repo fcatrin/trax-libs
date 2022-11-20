@@ -35,6 +35,8 @@ JNIEXPORT jboolean JNICALL Java_xtvapps_trax_core_ModPlayer_xmpInit
 	LOGD("loading module %s", path);
 	if (ret != 0) {
 		LOGD("cannot load module %s err:%d", path, ret);
+		xmp_free_context(ctx);
+		ctx = NULL;
 		return false;
 	}
 
@@ -49,10 +51,12 @@ JNIEXPORT jboolean JNICALL Java_xtvapps_trax_core_ModPlayer_xmpInit
 
 JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpRelease
   (JNIEnv *env, jobject thiz) {
-	xmp_end_player(ctx);
-	xmp_release_module(ctx);
-	xmp_free_context(ctx);
 
+    if (ctx == NULL) return;
+
+    xmp_end_player(ctx);
+    xmp_release_module(ctx);
+    xmp_free_context(ctx);
 	ctx = NULL;
 }
 
