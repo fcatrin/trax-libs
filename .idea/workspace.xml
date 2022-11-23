@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/libxmp/src/mixer.h" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libxmp/src/mixer.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -292,7 +290,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668916894954</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Use 256 samples per wave">
+      <created>1669177644186</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1669177644186</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -324,7 +329,8 @@
     <MESSAGE value="Update JNI code to TraX name" />
     <MESSAGE value="Rename to TraX complete" />
     <MESSAGE value="Release ctx as soon as the module failed to load" />
-    <option name="LAST_COMMIT_MESSAGE" value="Release ctx as soon as the module failed to load" />
+    <MESSAGE value="Use 256 samples per wave" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use 256 samples per wave" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

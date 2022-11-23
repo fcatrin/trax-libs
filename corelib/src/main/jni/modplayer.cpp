@@ -132,8 +132,10 @@ JNIEXPORT void JNICALL Java_xtvapps_trax_core_ModPlayer_xmpFillWave
 	} else {
 		jsize arraySize = resultSize < WAVE_SIZE ? resultSize : WAVE_SIZE;
 		int pos = channel_info->wave_pos;
+		float volume = channel_info->volume / 16.0f;
+		if (volume > 1) volume = 1;
 		for(int i=0; i<arraySize; i++) {
-		    waveBuffer[i] = channel_info->wave[pos++];
+		    waveBuffer[i] = channel_info->wave[pos++] * volume;
 		    pos = pos & (WAVE_SIZE-1);
 		}
 	}
