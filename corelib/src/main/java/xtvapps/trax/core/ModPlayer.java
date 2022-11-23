@@ -67,7 +67,7 @@ public class ModPlayer extends MediaPlayer {
 	    if (modPlayerListener!=null) modPlayerListener.onEnd();
 	}
 
-	private int wave[][] = new int[MAX_CHANNELS][128];
+	private int wave[][] = new int[MAX_CHANNELS][256];
 	
 	public int[] getWave(int channel) {
 		if (!isPrepared) return null;

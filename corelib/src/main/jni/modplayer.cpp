@@ -15,7 +15,7 @@ extern "C" {
 #include "xmp.h"
 #include "xtvapps_trax_core_ModPlayer.h"
 
-#define WAVE_SIZE 128
+#define WAVE_SIZE 256
 
 xmp_context ctx;
 struct xmp_frame_info frameInfo;
