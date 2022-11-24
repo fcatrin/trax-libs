@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/modplayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +34,24 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="trax-libs" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="corelib" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="corelib" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="corelib" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -65,7 +84,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Gradle.trax-libs:corelib [publishToMavenLocal]">
+  <component name="RunManager" selected="Gradle.trax-libs:corelib [publishToMavenLocal] (1)">
     <configuration name="trax-libs [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -129,6 +148,27 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="trax-libs:corelib [publishToMavenLocal] (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/corelib" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="publishToMavenLocal" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="trax-libs:corelib [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -153,9 +193,12 @@
       <item itemvalue="Gradle.trax-libs [build]" />
       <item itemvalue="Gradle.trax-libs:corelib [build]" />
       <item itemvalue="Gradle.trax-libs:corelib [clean]" />
+      <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal] (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal] (1)" />
+        <item itemvalue="Gradle.trax-libs:corelib [build]" />
         <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
         <item itemvalue="Gradle.trax-libs [build]" />
         <item itemvalue="Gradle.trax-libs:corelib [clean]" />
@@ -310,7 +353,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Files added by idea" />
