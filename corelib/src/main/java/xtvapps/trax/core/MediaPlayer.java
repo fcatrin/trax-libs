@@ -9,6 +9,10 @@ import xtvapps.trax.core.audio.AudioRenderThread;
 import xtvapps.trax.core.audio.AudioRenderer;
 
 public abstract class MediaPlayer {
+	static {
+		System.loadLibrary("trax-corelib");
+	}
+
 	protected WaveDevice waveDevice;
 	protected boolean isPlaying = false;
 	protected boolean isStopped = true;

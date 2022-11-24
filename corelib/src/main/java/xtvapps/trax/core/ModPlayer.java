@@ -11,10 +11,6 @@ public class ModPlayer extends MediaPlayer {
 	private static final int SLEEP_TIME = 10;
 	private static final int MAX_CHANNELS = 64;
 
-	static {
-		System.loadLibrary("trax-corelib");
-	}
-
 	private ModInfo modInfo = new ModInfo();
 	private FrameInfo frameInfo = new FrameInfo();
 	

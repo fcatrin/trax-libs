@@ -9,9 +9,6 @@ public class FluidPlayer extends MediaPlayer {
 	private static final String LOGTAG = FluidPlayer.class.getSimpleName();
 	private File soundFontFile;
 
-	static {
-		System.loadLibrary("trax-corelib");
-	}
 	private FluidMidiThread midiThread;
 
 	public FluidPlayer(WaveDevice waveDevice) {
