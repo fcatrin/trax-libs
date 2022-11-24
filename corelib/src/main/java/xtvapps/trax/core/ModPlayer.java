@@ -2,7 +2,7 @@ package xtvapps.trax.core;
 
 import java.io.File;
 
-import fts.core.Log;
+import fts.ui.Log;
 import fts.core.Utils;
 import xtvapps.trax.core.audio.AudioRenderer;
 

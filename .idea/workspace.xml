@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/KeyboardView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,17 +38,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="trax-libs" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="trax-libs" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="trax-libs" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -97,28 +88,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Gradle.trax-libs [publishToMavenLocal]">
-    <configuration name="trax-libs [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.trax-libs:corelib [publishToMavenLocal] (1)">
     <configuration name="trax-libs [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -152,6 +122,27 @@
         <option name="taskNames">
           <list>
             <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="trax-libs:corelib [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/corelib" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -203,18 +194,18 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
-      <item itemvalue="Gradle.trax-libs [build]" />
       <item itemvalue="Gradle.trax-libs:corelib [build]" />
       <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal] (1)" />
       <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
+      <item itemvalue="Gradle.trax-libs:corelib [clean]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
         <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal] (1)" />
+        <item itemvalue="Gradle.trax-libs:corelib [clean]" />
+        <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
         <item itemvalue="Gradle.trax-libs:corelib [build]" />
         <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
-        <item itemvalue="Gradle.trax-libs [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -374,7 +365,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669324512694</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Remove application specific class">
+      <created>1669325975064</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1669325975064</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Load native library from MediaPlayer">
+      <created>1669325996387</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1669325996387</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -409,7 +414,9 @@
     <MESSAGE value="Consider wave mixing volume" />
     <MESSAGE value="LCD Widgets are not part of the core anymore" />
     <MESSAGE value="Rename CoreUtils to TraXCoreUtils" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename CoreUtils to TraXCoreUtils" />
+    <MESSAGE value="Remove application specific class" />
+    <MESSAGE value="Load native library from MediaPlayer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Load native library from MediaPlayer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

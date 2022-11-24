@@ -33,4 +33,5 @@ processResources.dependsOn jniBuild
 
 dependencies {
     implementation ('fts:core:1.0.3') {changing = true}
+    implementation ('fts:ui:1.0.0') {changing = true}
 }

@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import fts.core.Log;
+import fts.ui.Log;
 import xtvapps.trax.midi.MidiEvent.EventType;
 
 public class MidiSong {
