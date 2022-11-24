@@ -95,7 +95,7 @@ public class ModPlayer extends MediaPlayer {
 		modInfo.modName = xmpGetModuleName();
 		modInfo.modFormat = xmpGetModuleFormat();
 		
-		if (Utils.isEmptyString(modInfo.modName)) modInfo.modName = CoreUtils.nameNoExt(modFile);
+		if (Utils.isEmptyString(modInfo.modName)) modInfo.modName = TraXCoreUtils.nameNoExt(modFile);
 
 		int[] modInfoData = xmpGetModuleInfo();
 		modInfo.tracks = modInfoData[0];

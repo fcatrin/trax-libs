@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 
 import fts.core.Utils;
-import xtvapps.trax.core.CoreUtils;
+import xtvapps.trax.core.TraXCoreUtils;
 import xtvapps.trax.core.audio.AudioBuffer.Format;
 import xtvapps.trax.core.audio.AudioBuffer.Status;
 
@@ -36,7 +36,7 @@ public class AudioRenderThread extends Thread {
 		this.resolution = resolution;
 
 		int requestedBufferSize = freq / resolution;
-		int bufferSize = CoreUtils.findNextPowerOfTwo(requestedBufferSize); 
+		int bufferSize = TraXCoreUtils.findNextPowerOfTwo(requestedBufferSize);
 		
 		audioBuffers = new AudioBuffer[buffers];
 		for(int i=0; i<buffers; i++) {
@@ -131,7 +131,7 @@ public class AudioRenderThread extends Thread {
 	
 	private void debugWrite(OutputStream os, short samples[]) {
 		try {
-			os.write(CoreUtils.toByteArray(samples));
+			os.write(TraXCoreUtils.toByteArray(samples));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

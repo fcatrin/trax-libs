@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdChar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdScreenWidget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/lcd/LcdSegmentWidget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/WaveContainer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/widgets/WaveWidget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/CoreUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/TraXCoreUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidMidiThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/FluidMidiThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -361,7 +362,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669231799148</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="LCD Widgets are not part of the core anymore">
+      <created>1669319709318</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1669319709318</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -394,7 +402,8 @@
     <MESSAGE value="Release ctx as soon as the module failed to load" />
     <MESSAGE value="Use 256 samples per wave" />
     <MESSAGE value="Consider wave mixing volume" />
-    <option name="LAST_COMMIT_MESSAGE" value="Consider wave mixing volume" />
+    <MESSAGE value="LCD Widgets are not part of the core anymore" />
+    <option name="LAST_COMMIT_MESSAGE" value="LCD Widgets are not part of the core anymore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

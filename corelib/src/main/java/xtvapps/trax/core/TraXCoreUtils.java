@@ -9,13 +9,13 @@ import java.nio.ByteBuffer;
 
 import fts.core.Utils;
 
-public class CoreUtils {
+public class TraXCoreUtils {
 	private static final int BUF_SIZE = 0x10000;
 	private static final int SHORT_SLEEP_TIME = 10;
 	
 	public static final int MSEC = 1000;
 	
-	private CoreUtils(){}
+	private TraXCoreUtils(){}
 	
 	public static byte[] loadBytes(File f) throws IOException {
 		InputStream is = new FileInputStream(f);

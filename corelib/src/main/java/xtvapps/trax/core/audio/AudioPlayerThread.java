@@ -1,7 +1,7 @@
 package xtvapps.trax.core.audio;
 
 import fts.core.Log;
-import xtvapps.trax.core.CoreUtils;
+import xtvapps.trax.core.TraXCoreUtils;
 import xtvapps.trax.core.WaveDevice;
 import xtvapps.trax.core.audio.AudioBuffer.Status;
 
@@ -46,7 +46,7 @@ public class AudioPlayerThread extends Thread{
 				waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
 				buffer.setStatus(Status.Free);
 			} else {
-				CoreUtils.shortSleep();
+				TraXCoreUtils.shortSleep();
 			}
 		} while (isPlaying);
 		

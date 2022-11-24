@@ -13,7 +13,7 @@ public class FluidMidiThread extends Thread {
 	private MidiSong   song;
 
 	public FluidMidiThread(String path) throws IOException {
-		byte[] songData = CoreUtils.loadBytes(new File(path));
+		byte[] songData = TraXCoreUtils.loadBytes(new File(path));
 		song = MidiSong.load(new SimpleStream(songData));
 		for(MidiTrack track : song.getTracks()) {
 			System.out.println(track.getName());
