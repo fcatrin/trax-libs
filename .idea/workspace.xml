@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +49,13 @@
                 <item name="trax-libs" type="f1a62948:ProjectNode" />
                 <item name="corelib" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="corelib" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
             </expand>
@@ -86,7 +89,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Gradle.trax-libs:corelib [publishToMavenLocal] (1)">
+  <component name="RunManager" selected="Gradle.trax-libs:corelib [publishToMavenLocal]">
     <configuration name="trax-libs [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -199,11 +202,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal] (1)" />
-        <item itemvalue="Gradle.trax-libs:corelib [clean]" />
-        <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
-        <item itemvalue="Gradle.trax-libs:corelib [build]" />
         <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
+        <item itemvalue="Gradle.trax-libs:corelib [build]" />
+        <item itemvalue="Gradle.trax-libs:corelib [clean]" />
+        <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal] (1)" />
+        <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
       </list>
     </recent_temporary>
   </component>
@@ -384,7 +387,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669332039197</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Use new Log in core">
+      <created>1669345508815</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1669345508815</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -422,7 +432,8 @@
     <MESSAGE value="Remove application specific class" />
     <MESSAGE value="Load native library from MediaPlayer" />
     <MESSAGE value="Use new fts-ui module" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use new fts-ui module" />
+    <MESSAGE value="Use new Log in core" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use new Log in core" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
