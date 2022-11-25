@@ -2,7 +2,7 @@ package xtvapps.trax.core;
 
 import java.io.File;
 
-import fts.ui.Log;
+import fts.core.Log;
 import xtvapps.trax.core.audio.AudioRenderer;
 
 public class GMEPlayer extends MediaPlayer {

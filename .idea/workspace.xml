@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiSong.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -379,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669325996387</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Use new fts-ui module">
+      <created>1669332039197</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1669332039197</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -416,7 +421,8 @@
     <MESSAGE value="Rename CoreUtils to TraXCoreUtils" />
     <MESSAGE value="Remove application specific class" />
     <MESSAGE value="Load native library from MediaPlayer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Load native library from MediaPlayer" />
+    <MESSAGE value="Use new fts-ui module" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use new fts-ui module" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

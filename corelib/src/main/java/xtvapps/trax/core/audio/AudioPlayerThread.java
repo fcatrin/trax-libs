@@ -1,6 +1,6 @@
 package xtvapps.trax.core.audio;
 
-import fts.ui.Log;
+import fts.core.Log;
 import xtvapps.trax.core.TraXCoreUtils;
 import xtvapps.trax.core.WaveDevice;
 import xtvapps.trax.core.audio.AudioBuffer.Status;
