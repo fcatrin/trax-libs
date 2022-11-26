@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import xtvapps.trax.midi.MidiEvent.EventType;
 
 public class MidiPlayer {
@@ -45,7 +45,7 @@ public class MidiPlayer {
 		playing = true;
 		while (playing) {
 			if (isPaused) {
-				Utils.sleep(10);
+				CoreUtils.sleep(10);
 				t0 = System.currentTimeMillis();
 				continue;
 			}
@@ -76,7 +76,7 @@ public class MidiPlayer {
 			// wait if the event is still in the future
 			long waitTicks = minTick - (ticksElapsed + ticks);
 			if (waitTicks > 0) {
-				Utils.sleep(waitTicks / 2);
+				CoreUtils.sleep(waitTicks / 2);
 				continue;
 			}
 			

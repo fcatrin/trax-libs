@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import xtvapps.trax.core.TraXCoreUtils;
 import xtvapps.trax.core.audio.AudioBuffer.Format;
 import xtvapps.trax.core.audio.AudioBuffer.Status;
@@ -61,14 +61,14 @@ public class AudioRenderThread extends Thread {
 		if (waitmsec<=0) {
 			renderBuffer();
 		} else if (waitmsec > resolution / 2) {
-			Utils.sleep(resolution / 2);
+			CoreUtils.sleep(resolution / 2);
 		}
 	}
 	
 	public void renderBuffer() {
 		AudioBuffer audioBuffer = audioBuffers[currentBufferIndex];
 		while (audioBuffer.getStatus() != Status.Free && running) {
-			Utils.sleep(1);
+			CoreUtils.sleep(1);
 		}
 
 		synchronized (audioRendererLock) {
@@ -76,7 +76,7 @@ public class AudioRenderThread extends Thread {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
 			} else {
 				Arrays.fill(audioBuffer.samplesIn, (byte)0);
-				Utils.sleep(10);
+				CoreUtils.sleep(10);
 			}
 		}
 

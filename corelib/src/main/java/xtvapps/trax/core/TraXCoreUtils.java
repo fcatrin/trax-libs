@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 
 public class TraXCoreUtils {
 	private static final int BUF_SIZE = 0x10000;
@@ -39,7 +39,7 @@ public class TraXCoreUtils {
 	}
 	
 	public static void shortSleep() {
-		Utils.sleep(SHORT_SLEEP_TIME);
+		CoreUtils.sleep(SHORT_SLEEP_TIME);
 	}
 
 	public static byte[] toByteArray(short input[]) {

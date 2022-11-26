@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/TraXCoreUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/TraXCoreUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/midi/MidiPlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +41,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="publishing" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
                 <item name="corelib" type="2d1252cf:ModuleNode" />
               </path>
               <path>
@@ -50,13 +66,6 @@
                 <item name="corelib" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="trax-libs" type="f1a62948:ProjectNode" />
-                <item name="corelib" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -89,7 +98,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Gradle.trax-libs:corelib [publishToMavenLocal]">
+  <component name="RunManager" selected="Gradle.trax-libs [publishToMavenLocal]">
     <configuration name="trax-libs [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -202,11 +211,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
+        <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
         <item itemvalue="Gradle.trax-libs:corelib [build]" />
         <item itemvalue="Gradle.trax-libs:corelib [clean]" />
+        <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal]" />
         <item itemvalue="Gradle.trax-libs:corelib [publishToMavenLocal] (1)" />
-        <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
       </list>
     </recent_temporary>
   </component>
@@ -394,7 +403,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669345508815</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Add workspace changes">
+      <created>1669406627492</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1669406627492</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -433,7 +449,8 @@
     <MESSAGE value="Load native library from MediaPlayer" />
     <MESSAGE value="Use new fts-ui module" />
     <MESSAGE value="Use new Log in core" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use new Log in core" />
+    <MESSAGE value="Add workspace changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add workspace changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

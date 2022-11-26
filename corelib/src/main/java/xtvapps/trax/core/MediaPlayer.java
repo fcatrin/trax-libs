@@ -3,16 +3,12 @@ package xtvapps.trax.core;
 import java.io.File;
 
 import fts.core.SimpleCallback;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import xtvapps.trax.core.audio.AudioPlayerThread;
 import xtvapps.trax.core.audio.AudioRenderThread;
 import xtvapps.trax.core.audio.AudioRenderer;
 
 public abstract class MediaPlayer {
-	static {
-		System.loadLibrary("trax-corelib");
-	}
-
 	protected WaveDevice waveDevice;
 	protected boolean isPlaying = false;
 	protected boolean isStopped = true;
@@ -26,6 +22,10 @@ public abstract class MediaPlayer {
 	private AudioRenderThread audioRenderThread;
 	private AudioPlayerThread audioPlayerThread;
 	private SimpleCallback onEndedCallback;
+
+	static {
+		System.loadLibrary("trax-corelib");
+	}
 
 	public MediaPlayer(WaveDevice waveDevice) {
 		this.waveDevice = waveDevice;
@@ -92,9 +92,9 @@ public abstract class MediaPlayer {
 	}
 	
 	public void waitForStop() {
-		Utils.sleep(500);
+		CoreUtils.sleep(500);
 		while (!isStopped) {
-			Utils.sleep(100);
+			CoreUtils.sleep(100);
 		}
 	}
 	

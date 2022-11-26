@@ -3,7 +3,7 @@ package xtvapps.trax.core;
 import java.io.File;
 
 import fts.core.Log;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import xtvapps.trax.core.audio.AudioRenderer;
 
 public class ModPlayer extends MediaPlayer {
@@ -91,7 +91,7 @@ public class ModPlayer extends MediaPlayer {
 		modInfo.modName = xmpGetModuleName();
 		modInfo.modFormat = xmpGetModuleFormat();
 		
-		if (Utils.isEmptyString(modInfo.modName)) modInfo.modName = TraXCoreUtils.nameNoExt(modFile);
+		if (CoreUtils.isEmptyString(modInfo.modName)) modInfo.modName = TraXCoreUtils.nameNoExt(modFile);
 
 		int[] modInfoData = xmpGetModuleInfo();
 		modInfo.tracks = modInfoData[0];
