@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/TraXCoreUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/TraXCoreUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioRenderThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -419,7 +421,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669473802191</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Update workspace info">
+      <created>1669481279385</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1669481279385</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -434,7 +443,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixes build of static xmp library from corelibs" />
     <MESSAGE value="Support pause on AudioRenderThread" />
     <MESSAGE value="Ignore jni built from CLI" />
     <MESSAGE value="Support mods with more than 24 channels" />
@@ -459,7 +467,8 @@
     <MESSAGE value="Use new Log in core" />
     <MESSAGE value="Add workspace changes" />
     <MESSAGE value="Replace Utils with CoreUtils from FTS" />
-    <option name="LAST_COMMIT_MESSAGE" value="Replace Utils with CoreUtils from FTS" />
+    <MESSAGE value="Update workspace info" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workspace info" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

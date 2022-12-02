@@ -76,7 +76,7 @@ public class AudioRenderThread extends Thread {
 				audioRenderer.fillBuffer(audioBuffer.samplesIn);
 			} else {
 				Arrays.fill(audioBuffer.samplesIn, (byte)0);
-				CoreUtils.sleep(10);
+				TraXCoreUtils.shortSleep();
 			}
 		}
 
