@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/TraXCoreUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/TraXCoreUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/audio/AudioPlayerThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -436,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670006702986</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Fixes sleep time that caused sound to be cut when connected by bluetooth">
+      <created>1670183838042</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1670183838042</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -451,7 +456,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ignore jni built from CLI" />
     <MESSAGE value="Support mods with more than 24 channels" />
     <MESSAGE value="Make location of mod library relative to Android.mk file" />
     <MESSAGE value="Avoid crashes when mod cannot be opened" />
@@ -476,7 +480,8 @@
     <MESSAGE value="Replace Utils with CoreUtils from FTS" />
     <MESSAGE value="Update workspace info" />
     <MESSAGE value="Use longer sleep times in paused mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use longer sleep times in paused mode" />
+    <MESSAGE value="Fixes sleep time that caused sound to be cut when connected by bluetooth" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes sleep time that caused sound to be cut when connected by bluetooth" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

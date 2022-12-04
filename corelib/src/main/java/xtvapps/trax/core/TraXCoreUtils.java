@@ -11,7 +11,7 @@ import fts.core.CoreUtils;
 
 public class TraXCoreUtils {
 	private static final int BUF_SIZE = 0x10000;
-	private static final int SHORT_SLEEP_TIME = 500;
+	private static final int SHORT_SLEEP_TIME = 50;
 	private static final int SHORTEST_SLEEP_TIME = 10;
 	
 	public static final int MSEC = 1000;
