@@ -12,6 +12,7 @@ import fts.core.CoreUtils;
 public class TraXCoreUtils {
 	private static final int BUF_SIZE = 0x10000;
 	private static final int SHORT_SLEEP_TIME = 500;
+	private static final int SHORTEST_SLEEP_TIME = 10;
 	
 	public static final int MSEC = 1000;
 	
@@ -40,6 +41,10 @@ public class TraXCoreUtils {
 	
 	public static void shortSleep() {
 		CoreUtils.sleep(SHORT_SLEEP_TIME);
+	}
+
+	public static void shortestSleep() {
+		CoreUtils.sleep(SHORTEST_SLEEP_TIME);
 	}
 
 	public static byte[] toByteArray(short input[]) {

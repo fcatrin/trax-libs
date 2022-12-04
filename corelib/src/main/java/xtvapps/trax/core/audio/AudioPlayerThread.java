@@ -46,7 +46,7 @@ public class AudioPlayerThread extends Thread{
 				waveDevice.write(buffer.samplesOut, buffer.samplesOut.length);
 				buffer.setStatus(Status.Free);
 			} else {
-				TraXCoreUtils.shortSleep();
+				TraXCoreUtils.shortestSleep();
 			}
 		} while (isPlaying);
 		

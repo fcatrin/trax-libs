@@ -58,7 +58,7 @@ public abstract class MediaPlayer {
 					audioRenderThread.setAudioRenderer(audioRenderer);
 					while (isPlaying && !hasEnded) {
 						audioRenderThread.setPaused(isPaused);
-						TraXCoreUtils.shortSleep();
+						TraXCoreUtils.shortestSleep();
 					}
 					isPrepared = false;
 					audioRenderThread.setAudioRenderer(null);
