@@ -16,8 +16,6 @@ public class GMEPlayer extends MediaPlayer {
 
 	private TVNorm tvNorm = TVNorm.NTSC;
 
-	GMEPlayerListener gmePlayerListener;
-	
 	int handle;
 	
 	public GMEPlayer(WaveDevice waveDevice) {
@@ -26,10 +24,6 @@ public class GMEPlayer extends MediaPlayer {
 
 	public void setTvNorm(TVNorm tvNorm) {
 		this.tvNorm = tvNorm;
-	}
-
-	public void setGmePlayerListener(GMEPlayerListener gmePlayerListener) {
-		this.gmePlayerListener = gmePlayerListener;
 	}
 
 	@Override
@@ -54,8 +48,6 @@ public class GMEPlayer extends MediaPlayer {
 			// gmeMuteChannel(i, mutedChannels[i]);
 		}
 		
-		if (gmePlayerListener!=null) gmePlayerListener.onStart();
-		
 		return new AudioRenderer() {
 			
 			@Override
@@ -70,8 +62,6 @@ public class GMEPlayer extends MediaPlayer {
 	public void onFinish() {
 		gmeClose(handle);
 		handle = -1;
-		
-		if (gmePlayerListener!=null) gmePlayerListener.onEnd();
 	}
 
 	@Override
@@ -147,9 +137,5 @@ public class GMEPlayer extends MediaPlayer {
 	private static native int  gmeTimeTotal(int handle);
 	
 	public static native String[] gmeGetMetadata(String path);
-	
-	public interface GMEPlayerListener {
-		public void onStart();
-		public void onEnd();
-	}
+
 }

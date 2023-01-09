@@ -14,18 +14,12 @@ public class ModPlayer extends MediaPlayer {
 	private ModInfo modInfo = new ModInfo();
 	private FrameInfo frameInfo = new FrameInfo();
 	
-	private ModPlayerListener modPlayerListener;
-	
 	boolean mutedChannels[] = new boolean[MAX_CHANNELS];
 	
 	public ModPlayer(WaveDevice waveDevice) {
 		super(waveDevice);
 	}
-	
-	public void setModPlayerListener(ModPlayerListener modPlayerListener) {
-		this.modPlayerListener = modPlayerListener;
-	}
-	
+
 	@Override
 	public void onInit() {}
 
@@ -44,8 +38,6 @@ public class ModPlayer extends MediaPlayer {
 			xmpMuteChannel(i, mutedChannels[i]);
 		}
 		
-		if (modPlayerListener!=null) modPlayerListener.onStart();
-
 		return new AudioRenderer() {
 			
 			@Override
@@ -60,7 +52,6 @@ public class ModPlayer extends MediaPlayer {
 	@Override
 	public void onFinish() {
 	    xmpRelease();
-	    if (modPlayerListener!=null) modPlayerListener.onEnd();
 	}
 
 	private int wave[][] = new int[MAX_CHANNELS][256];
@@ -182,11 +173,6 @@ public class ModPlayer extends MediaPlayer {
 		public int totalTime;
 		public int virtChannels;
 		public int virtUsed;
-	}
-	
-	public interface ModPlayerListener {
-		public void onStart();
-		public void onEnd();
 	}
 
 }

@@ -21,7 +21,7 @@ public abstract class MediaPlayer {
 	private File file;
 	private AudioRenderThread audioRenderThread;
 	private AudioPlayerThread audioPlayerThread;
-	private SimpleCallback onEndedCallback;
+	private MediaPlayerListener mediaPlayerListener;
 
 	static {
 		System.loadLibrary("trax-corelib");
@@ -31,9 +31,9 @@ public abstract class MediaPlayer {
 		this.waveDevice = waveDevice;
 		onInit();
 	}
-	
-	public void setOnEndedCallback(SimpleCallback onEndedCallback) {
-		this.onEndedCallback = onEndedCallback;
+
+	public void setMediaPlayerListener(MediaPlayerListener mediaPlayerListener) {
+		this.mediaPlayerListener = mediaPlayerListener;
 	}
 	
 	public void restart() {
@@ -55,6 +55,7 @@ public abstract class MediaPlayer {
 				AudioRenderer audioRenderer = onPrepare(file);
 				if (audioRenderer != null) {
 					isPrepared = true;
+					if (mediaPlayerListener!=null) mediaPlayerListener.onStart();
 					audioRenderThread.setAudioRenderer(audioRenderer);
 					while (isPlaying && !hasEnded) {
 						audioRenderThread.setPaused(isPaused);
@@ -68,7 +69,7 @@ public abstract class MediaPlayer {
 				}
 				isPlaying = false;
 				isStopped = true;
-				if (hasEnded && onEndedCallback!=null) onEndedCallback.onResult();
+				if (mediaPlayerListener!=null) mediaPlayerListener.onEnd();
 			}
 		};
 		
@@ -110,6 +111,7 @@ public abstract class MediaPlayer {
 
 	public void setTimeTotal(int timeTotal) {
 		this.timeTotal = timeTotal;
+		updateProgress();
 	}
 
 	public int getTimeElapsed() {
@@ -118,6 +120,11 @@ public abstract class MediaPlayer {
 
 	public void setTimeElapsed(int timeElapsed) {
 		this.timeElapsed = timeElapsed;
+		updateProgress();
+	}
+
+	private void updateProgress() {
+		if (mediaPlayerListener != null) mediaPlayerListener.onProgress(getTimeElapsed(), getTimeTotal());
 	}
 
 	public int[][] getNotes() {
