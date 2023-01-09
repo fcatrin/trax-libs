@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayerListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/GMEPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/MediaPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/java/xtvapps/trax/core/ModPlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -465,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673232626280</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Use new generic MediaPlayerListener">
+      <created>1673234780868</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1673234780868</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -480,7 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Avoid crashes when mod cannot be opened" />
     <MESSAGE value="Finish mediaplayer if onPrepare failed" />
     <MESSAGE value="Fix crash when looking for wave" />
     <MESSAGE value="Fix lock when shutting down AudioRenderThread" />
@@ -505,7 +507,8 @@
     <MESSAGE value="Fixes sleep time that caused sound to be cut when connected by bluetooth" />
     <MESSAGE value="Sleep time was causing additional delay when changing songs" />
     <MESSAGE value="There is dependency on fts-ui anymore" />
-    <option name="LAST_COMMIT_MESSAGE" value="There is dependency on fts-ui anymore" />
+    <MESSAGE value="Use new generic MediaPlayerListener" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use new generic MediaPlayerListener" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
