@@ -139,4 +139,7 @@ public abstract class MediaPlayer {
 	public abstract void onFinish();
 	public abstract void doForward();
 	public abstract void doRewind();
+	public abstract int getWavesCount();
+	public abstract int[] getWave(int channel);
+	public abstract void muteChannel(int channel, boolean mute);
 }

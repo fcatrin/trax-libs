@@ -101,5 +101,19 @@ public class FluidPlayer extends MediaPlayer {
 	public int[][] getNotes() {
 		return midiThread!=null ? midiThread.getNotes() : null;
 	}
-	
+
+	@Override
+	public int getWavesCount() {
+		return 2;
+	}
+
+	@Override
+	public int[] getWave(int channel) {
+		return null;
+	}
+
+	@Override
+	public void muteChannel(int channel, boolean mute) {
+
+	}
 }

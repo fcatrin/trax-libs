@@ -55,7 +55,8 @@ public class ModPlayer extends MediaPlayer {
 	}
 
 	private int wave[][] = new int[MAX_CHANNELS][256];
-	
+
+	@Override
 	public int[] getWave(int channel) {
 		if (!isPrepared) return null;
 
@@ -69,6 +70,7 @@ public class ModPlayer extends MediaPlayer {
 		muteChannel(channel, mute);
 	}
 
+	@Override
 	public void muteChannel(int channel, boolean mute) {
 		xmpMuteChannel(channel, mute);
 		mutedChannels[channel] = mute;
@@ -127,6 +129,12 @@ public class ModPlayer extends MediaPlayer {
 	
 	public FrameInfo getFrameInfo() {
 		return frameInfo;
+	}
+
+	@Override
+	public int getWavesCount() {
+		if (modInfo!=null) return modInfo.tracks;
+		return 0;
 	}
 
 	@Override
