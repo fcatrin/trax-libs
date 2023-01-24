@@ -20,7 +20,7 @@ typedef blip_long blip_time_t;
 typedef short blip_sample_t;
 enum { blip_sample_max = 32767 };
 
-#define MAX_WAVE_SIZE 128
+#define MAX_WAVE_SIZE 256
 #define MAX_WAVES 20
 
 struct wave_buffer {

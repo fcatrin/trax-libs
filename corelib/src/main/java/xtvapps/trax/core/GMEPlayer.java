@@ -104,7 +104,7 @@ public class GMEPlayer extends MediaPlayer {
 		return gmeGetWavesCount(handle);
 	}
 	
-	private int wave[][] = new int[24][128];
+	private int wave[][] = new int[24][256];
 	
 	public int[] getWave(int channel) {
 		int[] w = wave[channel];
