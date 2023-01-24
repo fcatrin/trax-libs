@@ -13,4 +13,4 @@ LOCAL_CPPFLAGS := -Wall -W -Wextra -std=c++11 -O2 -DBLARGG_BUILD_DLL \
 LOCAL_SANITIZE := undefined
 LOCAL_CPP_FEATURES := exceptions
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)

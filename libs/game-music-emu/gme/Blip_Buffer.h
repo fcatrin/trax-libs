@@ -359,8 +359,6 @@ inline void Blip_Synth<quality,range>::offset_resampled( blip_resampled_time_t t
 	blip_long* BLIP_RESTRICT buf = blip_buf->buffer_ + (time >> BLIP_BUFFER_ACCURACY);
 	int phase = (int) (time >> (BLIP_BUFFER_ACCURACY - BLIP_PHASE_BITS) & (blip_res - 1));
 
-	struct wave_buffer *wave_buffer = &wave_buffers[wave_index];
-
 #if BLIP_BUFFER_FAST
 	blip_long left = buf [0] + delta;
 	
@@ -385,7 +383,9 @@ inline void Blip_Synth<quality,range>::offset_resampled( blip_resampled_time_t t
 			defined (__x86_64__) || defined (__ia64__) || defined (__i386__)
 	
 	// straight forward implementation resulted in better code on GCC for x86
-	
+
+	struct wave_buffer *wave_buffer = &wave_buffers[wave_index];
+
 	blip_long sample = 0;
 	int wave_pos = 0;
 
@@ -428,7 +428,9 @@ inline void Blip_Synth<quality,range>::offset_resampled( blip_resampled_time_t t
 	#else
 	
 	// for RISC processors, help compiler by reading ahead of writes
-	
+
+	(void)wave_index; // avoid unused warning for now
+
 	#define BLIP_FWD( i ) {\
 		blip_long t0 =                       i0 * delta + buf [fwd     + i];\
 		blip_long t1 = imp [blip_res * (i + 1)] * delta + buf [fwd + 1 + i];\
@@ -459,7 +461,7 @@ inline void Blip_Synth<quality,range>::offset_resampled( blip_resampled_time_t t
 		if ( quality > 12 ) BLIP_REV( 6 )
 		if ( quality > 8  ) BLIP_REV( 4 )
 		BLIP_REV( 2 )
-		
+
 		blip_long t0 =   i0 * delta + buf [rev    ];
 		blip_long t1 = *imp * delta + buf [rev + 1];
 		buf [rev    ] = t0;
