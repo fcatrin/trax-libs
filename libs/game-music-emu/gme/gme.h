@@ -131,7 +131,6 @@ struct BLARGG_EXPORT gme_info_t
 	const char *s7,*s8,*s9,*s10,*s11,*s12,*s13,*s14,*s15; /* reserved */
 };
 
-BLARGG_EXPORT int  gme_get_waves_count();
 BLARGG_EXPORT void gme_get_wave(int wave, int samples[], int length);
 
 /******** Advanced playback ********/

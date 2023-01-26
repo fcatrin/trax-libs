@@ -23,6 +23,8 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
 #include "blargg_source.h"
 
+void gme_clear_waves();
+
 gme_type_t const* gme_type_list()
 {
 	static gme_type_t const gme_type_list_ [] = {
@@ -215,6 +217,7 @@ int gme_autoload_playback_limit( Music_Emu *const emu )
 // Used to implement gme_new_emu and gme_new_emu_multi_channel
 Music_Emu* gme_internal_new_emu_( gme_type_t type, int rate, bool multi_channel )
 {
+    gme_clear_waves();
 	if ( type )
 	{
 		if ( rate == gme_info_only )
@@ -366,10 +369,6 @@ void gme_free_info( gme_info_t* info )
 	delete STATIC_CAST(gme_info_t_*,info);
 }
 
-int  gme_get_waves_count() {
-	return 4;
-}
-
 #include <stdio.h>
 
 void gme_get_wave(int wave, int samples[], int length) {
@@ -384,6 +383,12 @@ void gme_get_wave(int wave, int samples[], int length) {
 		fflush(stdout);
 	}*/
 	memcpy(samples, wave_buffer->wave, length * sizeof(int));
+}
+
+void gme_clear_waves() {
+    for(int i=0; i<MAX_WAVES; i++) {
+        memset(&wave_buffers[i], 0, sizeof(struct wave_buffer));
+    }
 }
 
 

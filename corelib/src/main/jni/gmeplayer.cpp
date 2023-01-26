@@ -162,8 +162,7 @@ JNIEXPORT jint JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeGetWavesCount
   (JNIEnv *env, jclass clazz, jint handle) {
 	Music_Emu* emu = get_emu(handle);
 	if (!emu) return 0;
-
-	return gme_get_waves_count();
+	return gme_voice_count(emu);
 }
 
 JNIEXPORT void JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeClose
