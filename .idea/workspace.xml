@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/Android.mk" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/Android.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/game-music-emu/Android.mk" beforeDir="false" afterPath="$PROJECT_DIR$/libs/game-music-emu/Android.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/gmeplayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/gmeplayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corelib/src/main/jni/libs/game-music-emu/gme/Blip_Buffer.h" beforeDir="false" afterPath="$PROJECT_DIR$/corelib/src/main/jni/libs/game-music-emu/gme/Blip_Buffer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libs/game-music-emu/gme/Blip_Buffer.h" beforeDir="false" afterPath="$PROJECT_DIR$/libs/game-music-emu/gme/Blip_Buffer.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +35,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="trax-libs" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="trax-libs" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />

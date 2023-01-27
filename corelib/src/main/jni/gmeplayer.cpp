@@ -153,6 +153,9 @@ JNIEXPORT void JNICALL Java_xtvapps_trax_core_GMEPlayer_gmeFillWave
 	jint* samples = env->GetIntArrayElements(jSamples, NULL);
 	jsize length = env->GetArrayLength(jSamples);
 
+    // this is not working
+    // waves are calculated and mixed before converting them to samples
+    // there is no clear way to get the samples before the mix
 	gme_get_wave(channel, samples, length);
 
 	env->ReleaseIntArrayElements(jSamples, samples, 0);

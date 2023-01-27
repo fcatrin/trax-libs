@@ -359,6 +359,13 @@ inline void Blip_Synth<quality,range>::offset_resampled( blip_resampled_time_t t
 	blip_long* BLIP_RESTRICT buf = blip_buf->buffer_ + (time >> BLIP_BUFFER_ACCURACY);
 	int phase = (int) (time >> (BLIP_BUFFER_ACCURACY - BLIP_PHASE_BITS) & (blip_res - 1));
 
+
+	// wave extraction is not working
+	// waves are calculated and mixed before converting them to samples
+	// there is no clear way to get the samples before the mix
+
+	(void)wave_index;
+
 #if BLIP_BUFFER_FAST
 	blip_long left = buf [0] + delta;
 	
@@ -384,21 +391,11 @@ inline void Blip_Synth<quality,range>::offset_resampled( blip_resampled_time_t t
 	
 	// straight forward implementation resulted in better code on GCC for x86
 
-	struct wave_buffer *wave_buffer = &wave_buffers[wave_index];
-
 	blip_long sample = 0;
-	int wave_pos = 0;
 
 	#define ADD_IMP( out, in ) { \
 		sample = (blip_long) imp [blip_res * (in)] * delta; \
 		buf [out] += sample; \
-		wave_pos = wave_buffer->pos; \
-		if ((out) & 1) { \
-	    	wave_buffer->wave[wave_pos] += sample >> 12; \
-	    	wave_buffer->pos = (++wave_pos) % MAX_WAVE_SIZE; \
-		} else { \
-			wave_buffer->wave[wave_pos] = sample >> 12; \
-		} \
 	}
 	
 	#define BLIP_FWD( i ) {\
