@@ -105,20 +105,20 @@ public abstract class MediaPlayer {
 		onRelease();
 	}
 
-	public int getTimeTotal() {
+	final public int getTimeTotal() {
 		return timeTotal;
 	}
 
-	public void setTimeTotal(int timeTotal) {
+	final public void setTimeTotal(int timeTotal) {
 		this.timeTotal = timeTotal;
 		updateProgress();
 	}
 
-	public int getTimeElapsed() {
+	final public int getTimeElapsed() {
 		return timeElapsed;
 	}
 
-	public void setTimeElapsed(int timeElapsed) {
+	final public void setTimeElapsed(int timeElapsed) {
 		this.timeElapsed = timeElapsed;
 		updateProgress();
 	}
