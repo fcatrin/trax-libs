@@ -54,6 +54,8 @@ public class GMEPlayer extends MediaPlayer {
 			public void fillBuffer(byte[] buffer) {
 				int result = gmeFillBuffer(handle, buffer);
 				hasEnded = result < 0;
+				setTimeTotal(gmeTimeTotal(handle));
+				setTimeElapsed(gmeTimeElapsed(handle));
 			}
 		};
 	}
@@ -79,16 +81,6 @@ public class GMEPlayer extends MediaPlayer {
 		long position = msec + delta;
 
 		gmeSeek(handle, position);
-	}
-
-	@Override
-	public int getTimeTotal() {
-		return gmeTimeTotal(handle);
-	}
-
-	@Override
-	public int getTimeElapsed() {
-		return gmeTimeElapsed(handle);
 	}
 
 	@Override
