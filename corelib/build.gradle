@@ -4,8 +4,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 afterEvaluate {
@@ -32,5 +32,5 @@ task jniBuild(type:Exec) {
 processResources.dependsOn jniBuild
 
 dependencies {
-    implementation ('fts:core:1.0.3') {changing = true}
+    implementation ('fts:core:1.0.4') {changing = true}
 }
