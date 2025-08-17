@@ -22,6 +22,7 @@ public abstract class MediaPlayer {
 	private AudioRenderThread audioRenderThread;
 	private AudioPlayerThread audioPlayerThread;
 	private MediaPlayerListener mediaPlayerListener;
+	private SimpleCallback onEndedCallback;
 
 	static {
 		System.loadLibrary("trax-corelib");
@@ -35,7 +36,11 @@ public abstract class MediaPlayer {
 	public void setMediaPlayerListener(MediaPlayerListener mediaPlayerListener) {
 		this.mediaPlayerListener = mediaPlayerListener;
 	}
-	
+
+	public void setOnEndedCallback(SimpleCallback onEndedCallback) {
+		this.onEndedCallback = onEndedCallback;
+	}
+
 	public void restart() {
 		play(file, audioRenderThread, audioPlayerThread);
 	}
@@ -70,6 +75,7 @@ public abstract class MediaPlayer {
 				isPlaying = false;
 				isStopped = true;
 				if (mediaPlayerListener!=null) mediaPlayerListener.onEnd();
+				if (onEndedCallback!= null && hasEnded) onEndedCallback.onResult();
 			}
 		};
 		
