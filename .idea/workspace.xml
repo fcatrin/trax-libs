@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="Update gradle to 8.12">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="57fb2d1a-7fa0-4469-b29a-fd8057c0d5d5" name="Changes" comment="Remove JCentral">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,12 +98,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Upgrade Gradle wrapper.executor": "Run",
+    "Gradle.trax-libs [clean].executor": "Run",
     "Gradle.trax-libs [publishToMavenLocal].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
@@ -114,7 +113,29 @@
     "last_opened_file_path": "/home/fcatrin/git-as/trax-libs"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.trax-libs [publishToMavenLocal]">
+    <configuration name="trax-libs [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="trax-libs [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -140,6 +161,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.trax-libs [publishToMavenLocal]" />
+        <item itemvalue="Gradle.trax-libs [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -420,7 +442,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784269227536</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Remove JCentral">
+      <option name="closed" value="true" />
+      <created>1784269731927</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1784269731927</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -435,7 +465,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Rename from simusplayer to trax" />
     <MESSAGE value="Update JNI code to TraX name" />
     <MESSAGE value="Rename to TraX complete" />
     <MESSAGE value="Release ctx as soon as the module failed to load" />
@@ -460,7 +489,8 @@
     <MESSAGE value="Disable wave extraction for Game Music Emu player" />
     <MESSAGE value="Restore onEndCallback (used by TraX for Linux)" />
     <MESSAGE value="Update gradle to 8.12" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update gradle to 8.12" />
+    <MESSAGE value="Remove JCentral" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove JCentral" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
